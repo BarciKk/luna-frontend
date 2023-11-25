@@ -1,7 +1,9 @@
-import { FormComponent } from "./components/Authorization/FormComponent";
-
 function App() {
-  return <FormComponent />;
+  return (
+    <>
+      <h1>Hello world</h1>
+    </>
+  );
 }
 
 export default App;
