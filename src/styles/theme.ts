@@ -16,11 +16,11 @@ export const theme = createTheme({
     mainColors,
   },
   breakpoints: {
-    xs: "0px",
-    sm: "576px",
-    md: "768px",
-    lg: "992px",
-    xl: "1200px",
+    xs: "30em",
+    sm: "48em",
+    md: "64em",
+    lg: "74em",
+    xl: "90em",
   },
   spacing: {
     xs: "8px",
@@ -29,7 +29,4 @@ export const theme = createTheme({
     lg: "32px",
     xl: "40px",
   },
-  headings: {},
 });
-
-//!You should think how your application gonna look like figma and around that build some kinda ui(colors,fonts,all ..)
