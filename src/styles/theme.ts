@@ -1,7 +1,14 @@
 import { fontColors, headingColors, mainColors } from "./colors";
-import { createTheme } from "@mantine/core";
+import { Anchor, createTheme } from "@mantine/core";
 
 export const theme = createTheme({
+  components: {
+    Anchor: Anchor.extend({
+      defaultProps: {
+        underline: "never",
+      },
+    }),
+  },
   fontFamily: "Lora', serif",
   fontSizes: {
     xs: "0.5rem",
