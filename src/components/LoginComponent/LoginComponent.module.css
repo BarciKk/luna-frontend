@@ -1,0 +1,24 @@
+.button {
+  &:hover {
+    background-color: #efa700 !important;
+    transition: 0.5s;
+  }
+  @media (min-width: 1024px) {
+    width: 60% !important;
+  }
+}
+.box {
+  @media (min-width: 1024px) {
+    margin-left: auto;
+    margin-right: 8px;
+    padding-bottom: 5em;
+    border-radius: 4px;
+  }
+}
+.input {
+  border-bottom: 1px solid grey;
+}
+.link {
+  text-decoration: "none";
+  margin-left: auto;
+}
