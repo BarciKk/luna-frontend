@@ -5,9 +5,11 @@
 }
 .SimpleGrid {
   @media (max-width: 1024px) {
-    margin-left: 5em;
-  }
-  @media (max-width: 480px) {
     margin-left: 3em;
+  }
+}
+.Stack {
+  @media (max-width: 480px) {
+    padding-top: 0px !important;
   }
 }
