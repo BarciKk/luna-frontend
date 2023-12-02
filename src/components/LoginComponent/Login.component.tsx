@@ -13,6 +13,7 @@ import {
 import classes from "./LoginComponent.module.css";
 import { FaLock, FaUser } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { HiArrowRightCircle } from "react-icons/hi2";
 
 export const Login = () => {
   return (
@@ -65,9 +66,13 @@ export const Login = () => {
             mt="md"
             size="md"
             w="80%"
+            my="auto"
             type="submit"
             bg="headingColors.2"
             className={classes.button}
+            rightSection={
+              <HiArrowRightCircle size="1.25em" style={{ marginTop: "2px" }} />
+            }
           >
             Login
           </Button>
