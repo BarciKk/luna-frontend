@@ -12,6 +12,7 @@ import { FaLock, FaUser } from "react-icons/fa6";
 import { MdAlternateEmail } from "react-icons/md";
 import { MdRepeat } from "react-icons/md";
 import { Link } from "react-router-dom";
+
 export const Register = () => {
   return (
     <Stack align="center" h="100%" gap="sm">

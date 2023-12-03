@@ -6,7 +6,6 @@ import {
   TextInput,
   PasswordInput,
   Title,
-  Anchor,
   SimpleGrid,
   Group,
 } from "@mantine/core";
@@ -53,10 +52,11 @@ export const Login = () => {
                 leftSection={<FaLock />}
               />
               <Group ml="auto">
-                <Link to="/accounts/password/reset">
-                  <Anchor c="headingColors.0" fz="sm">
-                    Forgot password?
-                  </Anchor>
+                <Link
+                  to="/accounts/password/reset"
+                  style={{ color: "#efa700", fontSize: ".75em" }}
+                >
+                  Forgot password?
                 </Link>
               </Group>
             </Stack>
@@ -78,10 +78,8 @@ export const Login = () => {
             </Button>
             <Title order={6} c="fontColors.4" ta="center" mt="md">
               You don't have account?{" "}
-              <Link to="/accounts/register">
-                <Anchor className={classes.Anchor} c="headingColors.0">
-                  Register right there!
-                </Anchor>
+              <Link to="/accounts/register" style={{ color: "#efa700" }}>
+                Register right there!
               </Link>
             </Title>
           </Stack>
