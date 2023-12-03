@@ -38,51 +38,54 @@ export const Login = () => {
           maw={200}
           pb="xl"
         />
-        <Stack align="center">
-          {/*this is form but im not wrapping this for now cuz getting error"*/}
-          <Stack w="90%" gap="sm">
-            <TextInput
-              className={classes.input}
-              type="email"
-              placeholder=" Username or e-mail"
-              leftSection={<FaUser />}
-            />
-            <PasswordInput
-              className={classes.input}
-              placeholder=" Password"
-              leftSection={<FaLock />}
-            />
-            <Group ml="auto">
-              <Link to="/accounts/password/reset">
-                <Anchor c="headingColors.0" fz="sm">
-                  Forgot password?
+        <form>
+          <Stack align="center">
+            <Stack w="90%" gap="sm">
+              <TextInput
+                className={classes.input}
+                type="email"
+                placeholder=" Username or e-mail"
+                leftSection={<FaUser />}
+              />
+              <PasswordInput
+                className={classes.input}
+                placeholder=" Password"
+                leftSection={<FaLock />}
+              />
+              <Group ml="auto">
+                <Link to="/accounts/password/reset">
+                  <Anchor c="headingColors.0" fz="sm">
+                    Forgot password?
+                  </Anchor>
+                </Link>
+              </Group>
+            </Stack>
+            <Button
+              mt="md"
+              size="md"
+              w="80%"
+              type="submit"
+              bg="headingColors.2"
+              className={classes.button}
+              rightSection={
+                <HiArrowRightCircle
+                  size="1.25em"
+                  style={{ marginTop: "2px" }}
+                />
+              }
+            >
+              Login
+            </Button>
+            <Title order={6} c="fontColors.4" ta="center" mt="md">
+              You don't have account?{" "}
+              <Link to="/accounts/register">
+                <Anchor className={classes.Anchor} c="headingColors.0">
+                  Register right there!
                 </Anchor>
               </Link>
-            </Group>
+            </Title>
           </Stack>
-          <Button
-            mt="md"
-            size="md"
-            w="80%"
-            my="auto"
-            type="submit"
-            bg="headingColors.2"
-            className={classes.button}
-            rightSection={
-              <HiArrowRightCircle size="1.25em" style={{ marginTop: "2px" }} />
-            }
-          >
-            Login
-          </Button>
-          <Title order={6} c="fontColors.4" ta="center" mt="md">
-            You don't have account?{" "}
-            <Link to="/accounts/register">
-              <Anchor className={classes.Anchor} c="headingColors.0">
-                Register right there!
-              </Anchor>
-            </Link>
-          </Title>
-        </Stack>
+        </form>
       </Box>
     </SimpleGrid>
   );
