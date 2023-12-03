@@ -42,7 +42,6 @@ export const Login = () => {
           {/*this is form but im not wrapping this for now cuz getting error"*/}
           <Stack w="90%" gap="sm">
             <TextInput
-              variant="unstyled"
               className={classes.input}
               type="email"
               placeholder=" Username or e-mail"
@@ -50,7 +49,6 @@ export const Login = () => {
             />
             <PasswordInput
               className={classes.input}
-              variant="unstyled"
               placeholder=" Password"
               leftSection={<FaLock />}
             />

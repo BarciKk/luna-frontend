@@ -1,0 +1,27 @@
+.input {
+  border-bottom: 1px solid grey;
+}
+.stack {
+  @media (max-width: 1280px) {
+    width: 80% !important;
+  }
+}
+.text {
+  &:hover {
+    text-decoration: underline;
+  }
+  @media (max-width: 480px) {
+    margin-left: 0 !important;
+  }
+}
+.simpleGrid {
+  @media (max-width: 480px) {
+    margin: 0 auto !important;
+    gap: 10px;
+  }
+}
+.button {
+  @media (max-width: 480px) {
+    width: 100% !important;
+  }
+}
