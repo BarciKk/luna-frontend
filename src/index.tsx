@@ -6,12 +6,16 @@ import "@mantine/notifications/styles.css";
 import "../src/style.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { Page404 } from "./pages/Page404/Page404";
-import { Login } from "./components/LoginComponent/Login.component";
-import { AuthLayout } from "./components/AuthLayout/Layout.component";
-import { Register } from "./components/RegisterComponent/Register.component";
-import { ResetPassword } from "./components/ResetPasswordComponent/ResetPassword.component";
+import { Login } from "./modules/LoginComponent/Login.component";
+import { AuthLayout } from "./modules/AuthLayout/Layout.component";
+import { Register } from "./modules/RegisterComponent/Register.component";
+import { ResetPassword } from "./modules/ResetPasswordComponent/ResetPassword.component";
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -35,10 +39,12 @@ const router = createBrowserRouter([
 ]);
 
 root.render(
-  <MantineProvider theme={theme}>
-    <React.StrictMode>
-      <Notifications />
-      <RouterProvider router={router} />
-    </React.StrictMode>
-  </MantineProvider>
+  <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <MantineProvider theme={theme}>
+        <Notifications />
+        <RouterProvider router={router} />
+      </MantineProvider>
+    </QueryClientProvider>
+  </React.StrictMode>
 );

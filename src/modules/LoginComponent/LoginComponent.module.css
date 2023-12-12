@@ -15,9 +15,7 @@
     border-radius: 4px;
   }
 }
-.input {
-  border-bottom: 1px solid grey;
-}
+
 .link {
   text-decoration: "none";
   margin-left: auto;

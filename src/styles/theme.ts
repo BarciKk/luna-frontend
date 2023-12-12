@@ -1,21 +1,11 @@
 import { fontColors, headingColors, mainColors } from "./colors";
-import { Anchor, PasswordInput, TextInput, createTheme } from "@mantine/core";
+import { Anchor, createTheme } from "@mantine/core";
 
 export const theme = createTheme({
   components: {
     Anchor: Anchor.extend({
       defaultProps: {
         underline: "never",
-      },
-    }),
-    TextInput: TextInput.extend({
-      defaultProps: {
-        variant: "unstyled",
-      },
-    }),
-    PasswordInput: PasswordInput.extend({
-      defaultProps: {
-        variant: "unstyled",
       },
     }),
   },

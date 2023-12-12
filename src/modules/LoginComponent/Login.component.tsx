@@ -13,13 +13,29 @@ import classes from "./LoginComponent.module.css";
 import { FaLock, FaUser } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { HiArrowRightCircle } from "react-icons/hi2";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { loginValues } from "./types";
 
 export const Login = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<loginValues>();
+
+  const onSubmit: SubmitHandler<loginValues> = (data) => {
+    setTimeout(() => {
+      console.log(data);
+    }, 1000);
+    reset();
+  };
+
   return (
     <SimpleGrid cols={{ base: 1, md: 2 }} p="xs" mt="lg">
       <Image
-        radius="sm"
         my="auto"
+        radius="sm"
         alt="guy showing activities"
         visibleFrom="md"
         src="/assets/images/activity_tracker.png"
@@ -37,16 +53,30 @@ export const Login = () => {
           maw={200}
           pb="xl"
         />
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Stack align="center">
             <Stack w="90%" gap="sm">
               <TextInput
+                ta="center"
+                error={errors.email?.message}
                 className={classes.input}
-                type="email"
+                {...register("email", {
+                  required: "Login  cannot be empty",
+                })}
+                type=""
                 placeholder=" Username or e-mail"
                 leftSection={<FaUser />}
               />
               <PasswordInput
+                {...register("password", {
+                  required: "Password cannot be empty!",
+                  minLength: {
+                    value: 8,
+                    message: "Password length must be at least 8 characters.",
+                  },
+                })}
+                ta="center"
+                error={errors.password?.message}
                 className={classes.input}
                 placeholder=" Password"
                 leftSection={<FaLock />}
@@ -76,6 +106,7 @@ export const Login = () => {
             >
               Login
             </Button>
+
             <Title order={6} c="fontColors.4" ta="center" mt="md">
               You don't have account?{" "}
               <Link to="/accounts/register" style={{ color: "#efa700" }}>
