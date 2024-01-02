@@ -1,4 +1,4 @@
-import { fontColors, headingColors, mainColors } from "./colors";
+import { fontColors, headingColors } from "./colors";
 import { Anchor, createTheme } from "@mantine/core";
 
 export const theme = createTheme({
@@ -20,7 +20,6 @@ export const theme = createTheme({
   colors: {
     fontColors,
     headingColors,
-    mainColors,
   },
   breakpoints: {
     xs: "30em",

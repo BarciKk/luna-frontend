@@ -25,17 +25,7 @@ const headingColors: MantineColorsTuple = [
   "#ffebbc",
   "#fff2d5",
 ];
-const mainColors: MantineColorsTuple = [
-  "#074641",
-  "#0B7375",
-  "#0E95A4",
-  "#11B1D4",
-  "#2ABAEF",
-  "#58BDF3",
-  "#87C7F7",
-  "#B7D8FB",
-  "#E7F0FE",
-  "#FFFFFF",
-];
 
-export { fontColors, headingColors, mainColors };
+const errorColor = "#ff3333";
+
+export { fontColors, headingColors, errorColor };

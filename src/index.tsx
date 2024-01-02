@@ -13,6 +13,7 @@ import { ResetPassword } from "./modules/ResetPasswordComponent/ResetPassword.co
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { Dashboard } from "./pages/Dashboard/Dashboard.page";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,7 @@ const router = createBrowserRouter([
     element: <AuthLayout children={<ResetPassword />} />,
     errorElement: <Page404 />,
   },
+  { path: "/dashboard", element: <Dashboard /> },
 ]);
 
 root.render(

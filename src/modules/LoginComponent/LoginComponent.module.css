@@ -20,3 +20,6 @@
   text-decoration: "none";
   margin-left: auto;
 }
+.input > p {
+  font-size: 12px;
+}

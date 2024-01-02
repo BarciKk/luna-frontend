@@ -1,6 +1,7 @@
 import {
   Box,
   Image,
+  Text,
   Stack,
   Button,
   TextInput,
@@ -8,15 +9,24 @@ import {
   Title,
   SimpleGrid,
   Group,
+  Loader,
 } from "@mantine/core";
 import classes from "./LoginComponent.module.css";
 import { FaLock, FaUser } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { HiArrowRightCircle } from "react-icons/hi2";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { loginValues } from "./types";
+import { loginResponse, loginValues } from "./login.component.types";
+import { useMutation } from "react-query";
+import { login } from "../../api/auth";
+import { AxiosError } from "axios";
+import { cookieKeys } from "../../enums/Auth/cookiesKeys";
+import { errorColor } from "../../styles/colors";
+import Cookies from "universal-cookie";
 
 export const Login = () => {
+  const cookies = new Cookies(null, { path: "/" });
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -24,13 +34,35 @@ export const Login = () => {
     formState: { errors },
   } = useForm<loginValues>();
 
-  const onSubmit: SubmitHandler<loginValues> = (data) => {
-    setTimeout(() => {
-      console.log(data);
-    }, 1000);
-    reset();
-  };
+  const { mutate, isLoading, isError } = useMutation(
+    (values: loginValues) => login(values),
+    {
+      onSuccess: (response) => {
+        const {
+          data: { accessToken, user },
+        } = response;
 
+        if (accessToken && user) {
+          cookies.set(cookieKeys.user, user);
+          cookies.set(cookieKeys.jwt, accessToken, { maxAge: 3600 });
+          navigate("/dashboard");
+        }
+      },
+
+      onError: (error: AxiosError<loginResponse>) => {
+        console.error("err", error);
+      },
+    }
+  );
+
+  const onSubmit: SubmitHandler<loginValues> = async (data) => {
+    try {
+      mutate(data);
+      reset();
+    } catch (err) {
+      console.error("error", err);
+    }
+  };
   return (
     <SimpleGrid cols={{ base: 1, md: 2 }} p="xs" mt="lg">
       <Image
@@ -58,23 +90,24 @@ export const Login = () => {
             <Stack w="90%" gap="sm">
               <TextInput
                 ta="center"
-                error={errors.email?.message}
                 className={classes.input}
-                {...register("email", {
-                  required: "Login  cannot be empty",
+                {...register("username", {
+                  required: "Login input cannot be empty",
                 })}
-                type=""
-                placeholder=" Username or e-mail"
+                type="text"
+                error={errors.username?.message}
+                placeholder=" Username "
                 leftSection={<FaUser />}
               />
               <PasswordInput
                 {...register("password", {
-                  required: "Password cannot be empty!",
+                  required: "Password input cannot be empty",
                   minLength: {
-                    value: 8,
-                    message: "Password length must be at least 8 characters.",
+                    value: 6,
+                    message: "Password length must be at least 6 characters.",
                   },
                 })}
+                //make error's message bigger
                 ta="center"
                 error={errors.password?.message}
                 className={classes.input}
@@ -90,6 +123,9 @@ export const Login = () => {
                 </Link>
               </Group>
             </Stack>
+            <Text fz="sm" ta="center" c={errorColor}>
+              {isError ? "Login or password are incorrect!" : ""}
+            </Text>
             <Button
               mt="md"
               size="md"
@@ -97,14 +133,17 @@ export const Login = () => {
               type="submit"
               bg="headingColors.2"
               className={classes.button}
+              disabled={isLoading}
               rightSection={
-                <HiArrowRightCircle
-                  size="1.25em"
-                  style={{ marginTop: "2px" }}
-                />
+                !isLoading ? (
+                  <HiArrowRightCircle
+                    size="1.25em"
+                    style={{ marginTop: "2px" }}
+                  />
+                ) : null
               }
             >
-              Login
+              {isLoading ? <Loader color="white" /> : "Login"}
             </Button>
 
             <Title order={6} c="fontColors.4" ta="center" mt="md">
@@ -119,3 +158,6 @@ export const Login = () => {
     </SimpleGrid>
   );
 };
+//better error handling
+//work around the routes break into authorized and unauthorized
+//clear routes take it to separe file idk
