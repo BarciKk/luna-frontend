@@ -11,18 +11,18 @@ import {
   Group,
   Loader,
 } from "@mantine/core";
-import { FaLock, FaUser } from 'react-icons/fa6';
-import { Link, useNavigate } from 'react-router-dom';
-import { HiArrowRightCircle } from 'react-icons/hi2';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { FaLock, FaUser } from "react-icons/fa6";
+import { Link, useNavigate } from "react-router-dom";
+import { HiArrowRightCircle } from "react-icons/hi2";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { AxiosError } from "axios";
 import Cookies from "universal-cookie";
 import { loginResponse, loginValues } from "./login.component.types";
-import { login } from '../../api/auth';
+import { login } from "../../api/auth";
 import { cookieKeys } from "../../enums/Auth/cookiesKeys.enums";
 import { errorColor } from "../../styles/colors";
-import classes from './LoginComponent.module.css';
+import classes from "./LoginComponent.module.css";
 import { UnauthorizedRoutes } from "../../enums/Auth/routes.enums";
 
 export const Login = () => {
@@ -32,6 +32,7 @@ export const Login = () => {
     register,
     handleSubmit,
     reset,
+
     formState: { errors },
   } = useForm<loginValues>();
 
@@ -53,7 +54,7 @@ export const Login = () => {
       onError: (error: AxiosError<loginResponse>) => {
         console.error("err", error);
       },
-    },
+    }
   );
 
   const onSubmit: SubmitHandler<loginValues> = async (data) => {
@@ -163,6 +164,7 @@ export const Login = () => {
 };
 //! better error handling
 //! install and configure eslint config
+//! start with testing
 
 // Test user for login
 // username: testUser321
