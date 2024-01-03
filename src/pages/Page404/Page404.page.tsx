@@ -7,9 +7,9 @@ import {
   Button,
   Text,
 } from "@mantine/core";
-import classes from "./Page404.module.css";
-import { Link } from "react-router-dom";
-import { FaArrowRightLong } from "react-icons/fa6";
+import { Link } from 'react-router-dom';
+import { FaArrowRightLong } from 'react-icons/fa6';
+import classes from './Page404.module.css';
 
 export const Page404 = () => (
   <Stack h="100dvh" align="center" pt="8em" className={classes.Stack}>

@@ -11,18 +11,18 @@ import {
   Group,
   Loader,
 } from "@mantine/core";
-import classes from "./LoginComponent.module.css";
-import { FaLock, FaUser } from "react-icons/fa6";
-import { Link, useNavigate } from "react-router-dom";
-import { HiArrowRightCircle } from "react-icons/hi2";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { loginResponse, loginValues } from "./login.component.types";
+import { FaLock, FaUser } from 'react-icons/fa6';
+import { Link, useNavigate } from 'react-router-dom';
+import { HiArrowRightCircle } from 'react-icons/hi2';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation } from "react-query";
-import { login } from "../../api/auth";
 import { AxiosError } from "axios";
+import Cookies from "universal-cookie";
+import { loginResponse, loginValues } from "./login.component.types";
+import { login } from '../../api/auth';
 import { cookieKeys } from "../../enums/Auth/cookiesKeys.enums";
 import { errorColor } from "../../styles/colors";
-import Cookies from "universal-cookie";
+import classes from './LoginComponent.module.css';
 import { UnauthorizedRoutes } from "../../enums/Auth/routes.enums";
 
 export const Login = () => {
@@ -53,7 +53,7 @@ export const Login = () => {
       onError: (error: AxiosError<loginResponse>) => {
         console.error("err", error);
       },
-    }
+    },
   );
 
   const onSubmit: SubmitHandler<loginValues> = async (data) => {
@@ -161,6 +161,9 @@ export const Login = () => {
     </SimpleGrid>
   );
 };
-//better error handling
-//work around the routes break into authorized and unauthorized
-//clear routes take it to separe file idk
+//! better error handling
+//! install and configure eslint config
+
+// Test user for login
+// username: testUser321
+// password: testtest1

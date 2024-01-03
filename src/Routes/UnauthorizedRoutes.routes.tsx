@@ -23,5 +23,5 @@ export const UnauthorizedRoutesContent = () => (
     <Route path={UnauthorizedRoutes.termsAndConditions} element={<Page404 />} />
     <Route path="*" element={<Page404 />} />
   </Routes>
-  //page 404 for now untill im gonna update the terms line (23)
+  // page 404 for now untill im gonna update the terms line (23)
 );

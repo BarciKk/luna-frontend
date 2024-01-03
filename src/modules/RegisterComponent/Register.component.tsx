@@ -7,15 +7,13 @@ import {
   Text,
   TextInput,
 } from "@mantine/core";
-import classes from "./RegisterComponent.module.css";
-import { FaLock, FaUser } from "react-icons/fa6";
-import { MdAlternateEmail } from "react-icons/md";
-import { MdRepeat } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { FaLock, FaUser } from 'react-icons/fa6';
+import { MdAlternateEmail, MdRepeat } from "react-icons/md";
+import { Link } from 'react-router-dom';
+import classes from './RegisterComponent.module.css';
 import { UnauthorizedRoutes } from "../../enums/Auth/routes.enums";
 
-export const Register = () => {
-  return (
+export const Register = () => (
     <Stack align="center" h="100%" gap="sm">
       <Image
         mt="xs"
@@ -52,11 +50,11 @@ export const Register = () => {
           leftSection={<MdRepeat size="1.25em" />}
         />
         <Text ta="center" fz="sm" mt="sm" c="fontColors.1">
-          {" "}
-          By signing up, you agree to our{" "}
+          {' '}
+          By signing up, you agree to our{' '}
           <Link
             to={UnauthorizedRoutes.termsAndConditions}
-            style={{ color: "#efa700" }}
+            style={{ color: '#efa700' }}
           >
             Terms & Conditions
           </Link>
@@ -70,7 +68,7 @@ export const Register = () => {
           <Link
             to={UnauthorizedRoutes.login}
             style={{
-              color: "#1f1f1f",
+              color: '#1f1f1f',
             }}
           >
             <Text
@@ -97,5 +95,4 @@ export const Register = () => {
         </SimpleGrid>
       </Stack>
     </Stack>
-  );
-};
+);

@@ -1,5 +1,5 @@
-import { fontColors, headingColors } from "./colors";
-import { Anchor, createTheme } from "@mantine/core";
+import { Anchor, createTheme } from '@mantine/core';
+import { fontColors, headingColors } from './colors';
 
 export const theme = createTheme({
   components: {

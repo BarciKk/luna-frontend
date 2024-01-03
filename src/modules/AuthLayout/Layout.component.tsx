@@ -1,10 +1,9 @@
 import { FC } from "react";
-import classes from "./Layout.module.css";
-import { Box, Paper, Stack } from "@mantine/core";
+import { Box, Paper, Stack } from '@mantine/core';
+import classes from './Layout.module.css';
 import { AuthLayoutProps } from "./layoutComponent.types";
 
-export const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
-  return (
+export const AuthLayout: FC<AuthLayoutProps> = ({ children }) => (
     <Box className={classes.box}>
       <Stack h="100%" className={classes.stack} justify="center" align="center">
         <Paper
@@ -19,5 +18,4 @@ export const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
         </Paper>
       </Stack>
     </Box>
-  );
-};
+);
