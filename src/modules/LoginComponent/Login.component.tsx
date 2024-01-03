@@ -20,9 +20,10 @@ import { loginResponse, loginValues } from "./login.component.types";
 import { useMutation } from "react-query";
 import { login } from "../../api/auth";
 import { AxiosError } from "axios";
-import { cookieKeys } from "../../enums/Auth/cookiesKeys";
+import { cookieKeys } from "../../enums/Auth/cookiesKeys.enums";
 import { errorColor } from "../../styles/colors";
 import Cookies from "universal-cookie";
+import { AuthorizedRoutes } from "../../enums/Auth/routes.enums";
 
 export const Login = () => {
   const cookies = new Cookies(null, { path: "/" });
@@ -107,7 +108,6 @@ export const Login = () => {
                     message: "Password length must be at least 6 characters.",
                   },
                 })}
-                //make error's message bigger
                 ta="center"
                 error={errors.password?.message}
                 className={classes.input}
@@ -116,7 +116,7 @@ export const Login = () => {
               />
               <Group ml="auto">
                 <Link
-                  to="/accounts/password/reset"
+                  to={AuthorizedRoutes.resetPassword}
                   style={{ color: "#efa700", fontSize: ".75em" }}
                 >
                   Forgot password?
@@ -148,7 +148,7 @@ export const Login = () => {
 
             <Title order={6} c="fontColors.4" ta="center" mt="md">
               You don't have account?{" "}
-              <Link to="/accounts/register" style={{ color: "#efa700" }}>
+              <Link to={AuthorizedRoutes.register} style={{ color: "#efa700" }}>
                 Register right there!
               </Link>
             </Title>

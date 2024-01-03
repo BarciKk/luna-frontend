@@ -12,6 +12,7 @@ import { FaLock, FaUser } from "react-icons/fa6";
 import { MdAlternateEmail } from "react-icons/md";
 import { MdRepeat } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { AuthorizedRoutes } from "../../enums/Auth/routes.enums";
 
 export const Register = () => {
   return (
@@ -53,7 +54,10 @@ export const Register = () => {
         <Text ta="center" fz="sm" mt="sm" c="fontColors.1">
           {" "}
           By signing up, you agree to our{" "}
-          <Link to="/TermsAndConditions" style={{ color: "#efa700" }}>
+          <Link
+            to={AuthorizedRoutes.termsAndConditions}
+            style={{ color: "#efa700" }}
+          >
             Terms & Conditions
           </Link>
         </Text>
@@ -64,7 +68,7 @@ export const Register = () => {
           className={classes.simpleGrid}
         >
           <Link
-            to="/"
+            to={AuthorizedRoutes.login}
             style={{
               color: "#1f1f1f",
             }}

@@ -5,7 +5,6 @@ import { theme } from "./styles/theme";
 import "@mantine/notifications/styles.css";
 import "../src/style.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { Page404 } from "./pages/Page404/Page404";
 import { Login } from "./modules/LoginComponent/Login.component";
 import { AuthLayout } from "./modules/AuthLayout/Layout.component";
 import { Register } from "./modules/RegisterComponent/Register.component";
@@ -14,6 +13,11 @@ import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Dashboard } from "./pages/Dashboard/Dashboard.page";
+import { Page404 } from "./pages/Page404/Page404.page";
+import {
+  AuthorizedRoutes,
+  UnauthorizedRoutes,
+} from "./enums/Auth/routes.enums";
 
 const queryClient = new QueryClient();
 
@@ -23,21 +27,21 @@ const root = ReactDOM.createRoot(
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: AuthorizedRoutes.login,
     element: <AuthLayout children={<Login />} />,
     errorElement: <Page404 />,
   },
   {
-    path: "/accounts/register",
+    path: AuthorizedRoutes.register,
     element: <AuthLayout children={<Register />} />,
     errorElement: <Page404 />,
   },
   {
-    path: "/accounts/password/reset",
+    path: AuthorizedRoutes.resetPassword,
     element: <AuthLayout children={<ResetPassword />} />,
     errorElement: <Page404 />,
   },
-  { path: "/dashboard", element: <Dashboard /> },
+  { path: UnauthorizedRoutes.dashboard, element: <Dashboard /> },
 ]);
 
 root.render(
