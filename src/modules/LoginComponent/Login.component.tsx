@@ -23,7 +23,7 @@ import { AxiosError } from "axios";
 import { cookieKeys } from "../../enums/Auth/cookiesKeys.enums";
 import { errorColor } from "../../styles/colors";
 import Cookies from "universal-cookie";
-import { AuthorizedRoutes } from "../../enums/Auth/routes.enums";
+import { UnauthorizedRoutes } from "../../enums/Auth/routes.enums";
 
 export const Login = () => {
   const cookies = new Cookies(null, { path: "/" });
@@ -116,7 +116,7 @@ export const Login = () => {
               />
               <Group ml="auto">
                 <Link
-                  to={AuthorizedRoutes.resetPassword}
+                  to={UnauthorizedRoutes.resetPassword}
                   style={{ color: "#efa700", fontSize: ".75em" }}
                 >
                   Forgot password?
@@ -148,7 +148,10 @@ export const Login = () => {
 
             <Title order={6} c="fontColors.4" ta="center" mt="md">
               You don't have account?{" "}
-              <Link to={AuthorizedRoutes.register} style={{ color: "#efa700" }}>
+              <Link
+                to={UnauthorizedRoutes.register}
+                style={{ color: "#efa700" }}
+              >
                 Register right there!
               </Link>
             </Title>

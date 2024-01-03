@@ -1,10 +1,10 @@
-enum AuthorizedRoutes {
+enum UnauthorizedRoutes {
   login = "/",
   register = "/accounts/register",
   resetPassword = "/accounts/password/reset",
   termsAndConditions = "/TermsAndConditions",
 }
-enum UnauthorizedRoutes {
+enum AuthorizedRoutes {
   dashboard = "/dashboard",
 }
 
