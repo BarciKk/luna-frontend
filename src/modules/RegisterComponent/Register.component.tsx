@@ -11,14 +11,14 @@ import { FaLock, FaUser } from "react-icons/fa6";
 import { MdAlternateEmail, MdRepeat } from "react-icons/md";
 import { Link } from "react-router-dom";
 import classes from "./RegisterComponent.module.css";
+import { registerCall } from "../../api/auth";
 import { UnauthorizedRoutes } from "../../enums/Auth/routes.enums";
 import { useForm } from "react-hook-form";
 import { RegisterValues } from "./register.component.types";
+import { useMutation } from "react-query";
 export const Register = () => {
   const {
     register,
-    reset,
-    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterValues>({
@@ -30,7 +30,13 @@ export const Register = () => {
     },
   });
 
-  const onSubmit = async (data: RegisterValues) => {};
+  const { mutate } = useMutation((values: RegisterValues) =>
+    registerCall(values)
+  );
+  const onSubmit = async (data: RegisterValues) => {
+    console.log(data);
+    mutate(data);
+  };
 
   return (
     <Stack align="center" h="100%" gap="sm">
@@ -48,7 +54,7 @@ export const Register = () => {
         together!
       </Text>
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-        <Stack gap="sm" className={classes.stack}>
+        <Stack gap="sm" className={classes.stack} ta="center">
           <TextInput
             {...register("email", {
               required: "You must enter the email",
@@ -74,6 +80,7 @@ export const Register = () => {
               required: "Password is required.",
             })}
             placeholder="Password"
+            error={errors.password?.message}
             name="password"
             className={classes.input}
             leftSection={<FaLock />}
@@ -82,6 +89,7 @@ export const Register = () => {
             {...register("repeatPassword", {
               required: "Password is required.",
             })}
+            error={errors.repeatPassword?.message}
             placeholder="Confirm the password"
             className={classes.input}
             name="repeatPassword"
@@ -126,6 +134,7 @@ export const Register = () => {
               ml="auto"
               w="70%"
               bg="headingColors.2"
+              onClick={handleSubmit(onSubmit)}
               className={classes.button}
             >
               Sign up
