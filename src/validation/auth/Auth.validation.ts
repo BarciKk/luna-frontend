@@ -10,12 +10,14 @@ const registerSchema = yup
     username: yup
       .string()
       .min(3, "Username must be at least 3 characters")
-      .required(),
+      .required()
+      .trim(),
     password: yup.string().required("Password is required"),
     repeatPassword: yup
       .string()
       .oneOf([yup.ref("password")], "Password are not the same ")
-      .required("You must confirm your password "),
+      .required("You must confirm your password ")
+      .trim(),
   })
   .required();
 
@@ -25,8 +27,9 @@ const loginSchema = yup
     username: yup
       .string()
       .min(3, "Username must be at least 3 characters")
+      .trim()
       .required(),
-    password: yup.string().required("Password is required"),
+    password: yup.string().required("Password is required").trim(),
   })
   .required();
 
