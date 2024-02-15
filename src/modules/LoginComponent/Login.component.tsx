@@ -23,15 +23,19 @@ import { cookieKeys } from "../../enums/Auth/cookiesKeys.enums";
 import { errorColor } from "../../styles/colors";
 import classes from "./LoginComponent.module.css";
 import { UnauthorizedRoutes } from "../../enums/Auth/routes.enums";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { CustomErrorMessage } from "../../components/ErrorMessage";
+import { loginSchema } from "../../validation/auth";
 export const Login = () => {
   const cookies = new Cookies(null, { path: "/" });
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
+
     reset,
     formState: { errors },
-  } = useForm<loginValues>();
+  } = useForm<loginValues>({ resolver: yupResolver(loginSchema) });
 
   const { mutate, isLoading, isError } = useMutation(
     (values: loginValues) => login(values),
@@ -48,7 +52,7 @@ export const Login = () => {
         }
       },
 
-      onError: (error) => {
+      onError: (error: Error) => {
         console.error("Login or password are incorrect " + error);
       },
     }
@@ -86,32 +90,26 @@ export const Login = () => {
         />
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack align="center">
-            <Stack w="90%" gap="sm">
+            <Stack w="90%" gap="sm" ta="center">
               <TextInput
                 ta="center"
                 className={classes.input}
-                {...register("username", {
-                  required: "Login input cannot be empty",
-                })}
+                {...register("username")}
                 type="text"
-                error={errors.username?.message}
+                error={!!errors.username}
                 placeholder=" Username "
                 leftSection={<FaUser />}
               />
+              <CustomErrorMessage message={errors.username?.message} />
               <PasswordInput
-                {...register("password", {
-                  required: "Password input cannot be empty",
-                  minLength: {
-                    value: 6,
-                    message: "Password length must be at least 6 characters.",
-                  },
-                })}
+                {...register("password")}
                 ta="center"
-                error={errors.password?.message}
+                error={!!errors.password}
                 className={classes.input}
                 placeholder=" Password"
                 leftSection={<FaLock />}
               />
+              <CustomErrorMessage message={errors.password?.message} />
               <Group ml="auto">
                 <Link
                   to={UnauthorizedRoutes.resetPassword}
@@ -163,8 +161,5 @@ export const Login = () => {
 //! start with testing
 
 // Test user for login
-// username: testUser321
-// password: testtest1
-
-//kamil.bartuzel@gmail.com
-//awdawdawdawd
+// username: Barcik
+// password: aa

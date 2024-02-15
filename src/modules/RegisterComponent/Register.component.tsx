@@ -14,29 +14,47 @@ import classes from "./RegisterComponent.module.css";
 import { registerCall } from "../../api/auth";
 import { UnauthorizedRoutes } from "../../enums/Auth/routes.enums";
 import { useForm } from "react-hook-form";
-import { RegisterValues } from "./register.component.types";
+import { ErrorInfo, RegisterValues } from "./register.component.types";
 import { useMutation } from "react-query";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMediaQuery } from "@mantine/hooks";
 import { CustomErrorMessage } from "../../components/ErrorMessage";
-import { registerSchema } from "../../validation/auth/register";
-
+import { useState } from "react";
+import { fontColors } from "../../styles/colors";
+import { registerSchema } from "../../validation/auth";
 export const Register = () => {
   const matches = useMediaQuery("(max-width: 520px)");
+  const [message, setMessage] = useState<string | null>(null);
+
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterValues>({
     resolver: yupResolver(registerSchema),
     criteriaMode: "all",
   });
-  const { mutate, isLoading } = useMutation((values: RegisterValues) =>
-    registerCall(values)
+
+  const { mutate, isLoading } = useMutation(
+    (values: RegisterValues) => registerCall(values),
+    {
+      onSuccess: () => {
+        setMessage("Registration complete now u can login into your account");
+        reset();
+      },
+
+      onError: (err: ErrorInfo) => {
+        if (err.response) {
+          setMessage(`${err.response.data.error}`);
+        }
+      },
+    }
   );
   const onSubmit = async (data: RegisterValues) => {
     try {
       mutate(data);
+      reset();
     } catch {
       throw new Error("Register failed");
     }
@@ -61,7 +79,13 @@ export const Register = () => {
         together!
       </Text>
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-        <Stack gap="sm" className={classes.stack} ta="center" mt="xs">
+        <Stack
+          gap="sm"
+          className={classes.stack}
+          ta="center"
+          mt="xs"
+          onClick={() => setMessage(null)}
+        >
           <TextInput
             {...register("email")}
             name="email"
@@ -108,6 +132,7 @@ export const Register = () => {
               Terms & Conditions
             </Link>
           </Text>
+          <CustomErrorMessage message={message} c={fontColors[0]} fz={14} />
           <SimpleGrid
             mt="sm"
             cols={{ base: 1, xs: 2 }}
@@ -149,3 +174,5 @@ export const Register = () => {
     </Stack>
   );
 };
+
+//NOTE: Handle messages && all the texts

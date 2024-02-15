@@ -8,5 +8,11 @@ type RegisterValues = {
 type RegisterResponse = {
   registerToken: string;
 };
-
-export type { RegisterValues, RegisterResponse };
+type ErrorInfo = {
+  response?: {
+    data: {
+      error: string;
+    };
+  };
+};
+export type { RegisterValues, RegisterResponse, ErrorInfo };
