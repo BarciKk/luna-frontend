@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import Cookies from 'universal-cookie';
-import { User } from '../modules/LoginComponent/login.component.types';
+import Cookies from "universal-cookie";
+import { User } from "../modules/LoginComponent/login.component.types";
 import { cookieKeys } from "../enums/Auth/cookiesKeys.enums";
 
 export const useUser = () => {

@@ -23,7 +23,6 @@ import { cookieKeys } from "../../enums/Auth/cookiesKeys.enums";
 import { errorColor } from "../../styles/colors";
 import classes from "./LoginComponent.module.css";
 import { UnauthorizedRoutes } from "../../enums/Auth/routes.enums";
-
 export const Login = () => {
   const cookies = new Cookies(null, { path: "/" });
   const navigate = useNavigate();
@@ -31,7 +30,6 @@ export const Login = () => {
     register,
     handleSubmit,
     reset,
-
     formState: { errors },
   } = useForm<loginValues>();
 
@@ -58,7 +56,7 @@ export const Login = () => {
 
   const onSubmit: SubmitHandler<loginValues> = async (data) => {
     try {
-      await mutate(data);
+      mutate(data);
       reset();
     } catch (err) {
       console.error("Login or password are incorrect " + err);

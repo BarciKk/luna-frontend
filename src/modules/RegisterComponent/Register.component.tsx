@@ -16,34 +16,41 @@ import { UnauthorizedRoutes } from "../../enums/Auth/routes.enums";
 import { useForm } from "react-hook-form";
 import { RegisterValues } from "./register.component.types";
 import { useMutation } from "react-query";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useMediaQuery } from "@mantine/hooks";
+import { CustomErrorMessage } from "../../components/ErrorMessage";
+import { registerSchema } from "../../validation/auth/register";
+
 export const Register = () => {
+  const matches = useMediaQuery("(max-width: 520px)");
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterValues>({
-    defaultValues: {
-      email: "",
-      username: "",
-      password: "",
-      repeatPassword: "",
-    },
+    resolver: yupResolver(registerSchema),
+    criteriaMode: "all",
   });
-
-  const { mutate } = useMutation((values: RegisterValues) =>
+  const { mutate, isLoading } = useMutation((values: RegisterValues) =>
     registerCall(values)
   );
   const onSubmit = async (data: RegisterValues) => {
-    console.log(data);
-    mutate(data);
+    try {
+      mutate(data);
+    } catch {
+      throw new Error("Register failed");
+    }
   };
 
   return (
-    <Stack align="center" h="100%" gap="sm">
+    <Stack align="center" h="100%" gap={0}>
       <Image
         mt="xs"
         radius="sm"
         alt="logo"
+        style={{
+          display: matches && !!errors.email ? "none" : "block",
+        }}
         src={null}
         fallbackSrc="https://placehold.co/600x400?text=Placeholder"
         maw={200}
@@ -54,47 +61,43 @@ export const Register = () => {
         together!
       </Text>
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-        <Stack gap="sm" className={classes.stack} ta="center">
+        <Stack gap="sm" className={classes.stack} ta="center" mt="xs">
           <TextInput
-            {...register("email", {
-              required: "You must enter the email",
-            })}
-            error={errors.email?.message}
+            {...register("email")}
             name="email"
             className={classes.input}
             placeholder="E-mail"
+            error={!!errors.email}
             leftSection={<MdAlternateEmail size="1.25em" />}
           />
+          <CustomErrorMessage message={errors.email?.message} />
           <TextInput
-            {...register("username", {
-              required: "Username is required.",
-            })}
-            error={errors.username?.message}
+            {...register("username")}
             placeholder="Username"
             name="username"
+            error={!!errors.username}
             className={classes.input}
             leftSection={<FaUser />}
           />
+          <CustomErrorMessage message={errors.username?.message} />
           <PasswordInput
-            {...register("password", {
-              required: "Password is required.",
-            })}
+            {...register("password")}
             placeholder="Password"
-            error={errors.password?.message}
             name="password"
+            error={!!errors.password}
             className={classes.input}
             leftSection={<FaLock />}
           />
+          <CustomErrorMessage message={errors.password?.message} />
           <PasswordInput
-            {...register("repeatPassword", {
-              required: "Password is required.",
-            })}
-            error={errors.repeatPassword?.message}
+            {...register("repeatPassword")}
             placeholder="Confirm the password"
             className={classes.input}
+            error={!!errors.repeatPassword}
             name="repeatPassword"
             leftSection={<MdRepeat size="1.25em" />}
           />
+          <CustomErrorMessage message={errors.repeatPassword?.message} />
           <Text ta="center" fz="sm" mt="sm" c="fontColors.1">
             {" "}
             By signing up, you agree to our{" "}
@@ -130,6 +133,7 @@ export const Register = () => {
             </Link>
             <Button
               size="md"
+              disabled={isLoading}
               mb="sm"
               ml="auto"
               w="70%"
