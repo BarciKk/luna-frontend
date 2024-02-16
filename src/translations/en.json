@@ -1,0 +1,36 @@
+{
+  "auth": {
+    "registerMessage": "Registration complete now u can login into your account",
+    "signUn": "Sign up",
+    "loginRedirectMessage": " Have an account? Login",
+    "firstPartOfTermsMessage": "By signing up, you agree to our ",
+    "terms": "Terms & Conditions",
+    "registerMotivationMessage": "Level up your fitness journey! Sign up now to track workouts, conquer challenges, and crush goals with your exercise crew. Let's sweat together!",
+    "firstPartOfRegisterMessage": "You don't have account? ",
+    "register": "Register right there!",
+    "login": "Login",
+    "forgotPassword": "Forgot password ?",
+    "page404Message": " WE COULDN'T FIND THE PAGE YOU'RE LOOKING FOR.",
+    "error404": "ERROR 404",
+    "page404ops": "Oops!",
+    "home": "Go home",
+    "placeholders": {
+      "email": "E-Mail",
+      "username": "Username",
+      "password": "Password",
+      "repeatPassword": "Confirm the password"
+    }
+  },
+
+  "errors": {
+    "incorrectLoginOrPassword": "Login or password are incorrect!"
+  },
+  "validations": {
+    "email": "Email is required",
+    "emailValidFormat": "Please enter a valid email address (e.g., example@example.com).",
+    "minUsernameLength": "Username must be at least 3 characters",
+    "password": "Password is required",
+    "passwordsAreNotEqual": "Password are not the same ",
+    "confirmPassword": "You must confirm your password "
+  }
+}

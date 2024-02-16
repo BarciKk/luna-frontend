@@ -10,24 +10,26 @@ import {
   SimpleGrid,
   Group,
   Loader,
-} from "@mantine/core";
-import { FaLock, FaUser } from "react-icons/fa6";
-import { Link, useNavigate } from "react-router-dom";
-import { HiArrowRightCircle } from "react-icons/hi2";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useMutation } from "react-query";
-import Cookies from "universal-cookie";
-import { loginValues } from "./login.component.types";
-import { login } from "../../api/auth";
-import { cookieKeys } from "../../enums/Auth/cookiesKeys.enums";
-import { errorColor } from "../../styles/colors";
-import classes from "./LoginComponent.module.css";
-import { UnauthorizedRoutes } from "../../enums/Auth/routes.enums";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { CustomErrorMessage } from "../../components/ErrorMessage";
-import { loginSchema } from "../../validation/auth";
+} from '@mantine/core';
+import { FaLock, FaUser } from 'react-icons/fa6';
+import { Link, useNavigate } from 'react-router-dom';
+import { HiArrowRightCircle } from 'react-icons/hi2';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useMutation } from 'react-query';
+import Cookies from 'universal-cookie';
+import { loginValues } from './login.component.types';
+import { login } from '../../api/auth';
+import { cookieKeys } from '../../enums/Auth/cookiesKeys.enums';
+import { errorColor } from '../../styles/colors';
+import classes from './LoginComponent.module.css';
+import { UnauthorizedRoutes } from '../../enums/Auth/routes.enums';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { CustomErrorMessage } from '../../components/ErrorMessage';
+import { loginSchema } from '../../validation/auth';
+import { useTranslation } from 'react-i18next';
 export const Login = () => {
-  const cookies = new Cookies(null, { path: "/" });
+  const cookies = new Cookies(null, { path: '/' });
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const {
     register,
@@ -48,14 +50,14 @@ export const Login = () => {
         if (accessToken && user) {
           cookies.set(cookieKeys.user, user);
           cookies.set(cookieKeys.jwt, accessToken, { maxAge: 3600 });
-          navigate("/dashboard");
+          navigate('/dashboard');
         }
       },
 
       onError: (error: Error) => {
-        console.error("Login or password are incorrect " + error);
+        console.error(t('errors.incorrectLoginOrPassword') + error);
       },
-    }
+    },
   );
 
   const onSubmit: SubmitHandler<loginValues> = async (data) => {
@@ -63,7 +65,7 @@ export const Login = () => {
       mutate(data);
       reset();
     } catch (err) {
-      console.error("Login or password are incorrect " + err);
+      console.error(t('errors.incorrectLoginOrPassword') + err);
     }
   };
   return (
@@ -94,33 +96,33 @@ export const Login = () => {
               <TextInput
                 ta="center"
                 className={classes.input}
-                {...register("username")}
+                {...register('username')}
                 type="text"
                 error={!!errors.username}
-                placeholder=" Username "
+                placeholder={t('auth.placeholders.username')}
                 leftSection={<FaUser />}
               />
               <CustomErrorMessage message={errors.username?.message} />
               <PasswordInput
-                {...register("password")}
+                {...register('password')}
                 ta="center"
                 error={!!errors.password}
                 className={classes.input}
-                placeholder=" Password"
+                placeholder={t('auth.placeholders.password')}
                 leftSection={<FaLock />}
               />
               <CustomErrorMessage message={errors.password?.message} />
               <Group ml="auto">
                 <Link
                   to={UnauthorizedRoutes.resetPassword}
-                  style={{ color: "#efa700", fontSize: ".75em" }}
+                  style={{ color: '#efa700', fontSize: '.75em' }}
                 >
-                  Forgot password?
+                  {t('auth.forgotPassword')}
                 </Link>
               </Group>
             </Stack>
             <Text fz="sm" ta="center" c={errorColor}>
-              {isError ? "Login or password are incorrect!" : ""}
+              {isError ? t('errors.incorrectLoginOrPassword') : ''}
             </Text>
             <Button
               mt="md"
@@ -134,21 +136,21 @@ export const Login = () => {
                 !isLoading ? (
                   <HiArrowRightCircle
                     size="1.25em"
-                    style={{ marginTop: "2px" }}
+                    style={{ marginTop: '2px' }}
                   />
                 ) : null
               }
             >
-              {isLoading ? <Loader color="white" /> : "Login"}
+              {isLoading ? <Loader color="white" /> : t('auth.login')}
             </Button>
 
             <Title order={6} c="fontColors.4" ta="center" mt="md">
-              You don't have account?{" "}
+              {t('auth.firstPartOfRegisterMessage')}
               <Link
                 to={UnauthorizedRoutes.register}
-                style={{ color: "#efa700" }}
+                style={{ color: '#efa700' }}
               >
-                Register right there!
+                {t('auth.register')}
               </Link>
             </Title>
           </Stack>
@@ -157,7 +159,6 @@ export const Login = () => {
     </SimpleGrid>
   );
 };
-//! install and configure eslint config
 //! start with testing
 
 // Test user for login

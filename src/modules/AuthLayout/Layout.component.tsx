@@ -1,7 +1,7 @@
-import { FC } from "react";
-import { Box, Paper, Stack } from "@mantine/core";
-import classes from "./Layout.module.css";
-import { AuthLayoutProps } from "./layoutComponent.types";
+import { FC } from 'react';
+import { Box, Paper, Stack } from '@mantine/core';
+import classes from './Layout.module.css';
+import { AuthLayoutProps } from './layoutComponent.types';
 
 export const AuthLayout: FC<AuthLayoutProps> = ({ children }) => (
   <Box className={classes.box}>

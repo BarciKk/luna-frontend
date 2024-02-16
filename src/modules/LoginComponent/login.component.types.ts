@@ -9,7 +9,7 @@ type User = {
   username: string;
   password: string;
 };
-
+//user shouldn't be here
 type loginResponse = {
   accessToken: string;
   user: User;

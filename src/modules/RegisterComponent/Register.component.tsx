@@ -6,26 +6,27 @@ import {
   Stack,
   Text,
   TextInput,
-} from "@mantine/core";
-import { FaLock, FaUser } from "react-icons/fa6";
-import { MdAlternateEmail, MdRepeat } from "react-icons/md";
-import { Link } from "react-router-dom";
-import classes from "./RegisterComponent.module.css";
-import { registerCall } from "../../api/auth";
-import { UnauthorizedRoutes } from "../../enums/Auth/routes.enums";
-import { useForm } from "react-hook-form";
-import { ErrorInfo, RegisterValues } from "./register.component.types";
-import { useMutation } from "react-query";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useMediaQuery } from "@mantine/hooks";
-import { CustomErrorMessage } from "../../components/ErrorMessage";
-import { useState } from "react";
-import { fontColors } from "../../styles/colors";
-import { registerSchema } from "../../validation/auth";
+} from '@mantine/core';
+import { FaLock, FaUser } from 'react-icons/fa6';
+import { MdAlternateEmail, MdRepeat } from 'react-icons/md';
+import { Link } from 'react-router-dom';
+import classes from './RegisterComponent.module.css';
+import { registerCall } from '../../api/auth';
+import { UnauthorizedRoutes } from '../../enums/Auth/routes.enums';
+import { useForm } from 'react-hook-form';
+import { ErrorInfo, RegisterValues } from './register.component.types';
+import { useMutation } from 'react-query';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useMediaQuery } from '@mantine/hooks';
+import { CustomErrorMessage } from '../../components/ErrorMessage';
+import { useState } from 'react';
+import { fontColors } from '../../styles/colors';
+import { registerSchema } from '../../validation/auth';
+import { useTranslationMessage } from '../../hooks';
 export const Register = () => {
-  const matches = useMediaQuery("(max-width: 520px)");
+  const matches = useMediaQuery('(max-width: 520px)');
   const [message, setMessage] = useState<string | null>(null);
-
+  const { t } = useTranslationMessage();
   const {
     register,
     reset,
@@ -33,14 +34,14 @@ export const Register = () => {
     formState: { errors },
   } = useForm<RegisterValues>({
     resolver: yupResolver(registerSchema),
-    criteriaMode: "all",
+    criteriaMode: 'all',
   });
 
   const { mutate, isLoading } = useMutation(
     (values: RegisterValues) => registerCall(values),
     {
       onSuccess: () => {
-        setMessage("Registration complete now u can login into your account");
+        setMessage(t('auth.registerMessage'));
         reset();
       },
 
@@ -49,14 +50,14 @@ export const Register = () => {
           setMessage(`${err.response.data.error}`);
         }
       },
-    }
+    },
   );
   const onSubmit = async (data: RegisterValues) => {
     try {
       mutate(data);
       reset();
     } catch {
-      throw new Error("Register failed");
+      throw new Error('Register failed');
     }
   };
 
@@ -67,16 +68,14 @@ export const Register = () => {
         radius="sm"
         alt="logo"
         style={{
-          display: matches && !!errors.email ? "none" : "block",
+          display: matches && !!errors.email ? 'none' : 'block',
         }}
         src={null}
         fallbackSrc="https://placehold.co/600x400?text=Placeholder"
         maw={200}
       />
       <Text w="60%" c="fontColors.1" fz="md" ta="center" lineClamp={3} m="sm">
-        Level up your fitness journey! Sign up now to track workouts, conquer
-        challenges, and crush goals with your exercise crew. Let's sweat
-        together!
+        {t('auth.registerMotivationMessage')}
       </Text>
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <Stack
@@ -87,17 +86,17 @@ export const Register = () => {
           onClick={() => setMessage(null)}
         >
           <TextInput
-            {...register("email")}
+            {...register('email')}
             name="email"
             className={classes.input}
-            placeholder="E-mail"
+            placeholder={t('auth.placeholders.email')}
             error={!!errors.email}
             leftSection={<MdAlternateEmail size="1.25em" />}
           />
           <CustomErrorMessage message={errors.email?.message} />
           <TextInput
-            {...register("username")}
-            placeholder="Username"
+            {...register('username')}
+            placeholder={t('auth.placeholders.username')}
             name="username"
             error={!!errors.username}
             className={classes.input}
@@ -105,8 +104,8 @@ export const Register = () => {
           />
           <CustomErrorMessage message={errors.username?.message} />
           <PasswordInput
-            {...register("password")}
-            placeholder="Password"
+            {...register('password')}
+            placeholder={t('auth.placeholders.password')}
             name="password"
             error={!!errors.password}
             className={classes.input}
@@ -114,8 +113,8 @@ export const Register = () => {
           />
           <CustomErrorMessage message={errors.password?.message} />
           <PasswordInput
-            {...register("repeatPassword")}
-            placeholder="Confirm the password"
+            {...register('repeatPassword')}
+            placeholder={t('auth.placeholders.repeatPassword')}
             className={classes.input}
             error={!!errors.repeatPassword}
             name="repeatPassword"
@@ -123,13 +122,12 @@ export const Register = () => {
           />
           <CustomErrorMessage message={errors.repeatPassword?.message} />
           <Text ta="center" fz="sm" mt="sm" c="fontColors.1">
-            {" "}
-            By signing up, you agree to our{" "}
+            {t('auth.firstPartOfTermsMessage')}
             <Link
               to={UnauthorizedRoutes.termsAndConditions}
-              style={{ color: "#efa700" }}
+              style={{ color: '#efa700' }}
             >
-              Terms & Conditions
+              {t('auth.terms')}
             </Link>
           </Text>
           <CustomErrorMessage message={message} c={fontColors[0]} fz={14} />
@@ -142,7 +140,7 @@ export const Register = () => {
             <Link
               to={UnauthorizedRoutes.login}
               style={{
-                color: "#1f1f1f",
+                color: '#1f1f1f',
               }}
             >
               <Text
@@ -153,7 +151,7 @@ export const Register = () => {
                 className={classes.text}
                 lineClamp={1}
               >
-                Have an account? Login
+                {t('auth.loginRedirectMessage')}
               </Text>
             </Link>
             <Button
@@ -166,7 +164,7 @@ export const Register = () => {
               onClick={handleSubmit(onSubmit)}
               className={classes.button}
             >
-              Sign up
+              {t('auth.signUn')}
             </Button>
           </SimpleGrid>
         </Stack>
@@ -174,5 +172,3 @@ export const Register = () => {
     </Stack>
   );
 };
-
-//NOTE: Handle messages && all the texts

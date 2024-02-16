@@ -15,11 +15,7 @@
     border-radius: 4px;
   }
 }
-
 .link {
-  text-decoration: "none";
+  text-decoration: 'none';
   margin-left: auto;
-}
-.input > p {
-  font-size: 12px;
 }

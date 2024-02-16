@@ -1,6 +1,6 @@
-import { Navigate, Route, Routes } from "react-router-dom";
-import { AuthorizedRoutes } from "../enums/Auth/routes.enums";
-import { Dashboard } from "../pages/Dashboard/Dashboard.page";
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { AuthorizedRoutes } from '../enums/Auth/routes.enums';
+import { Dashboard } from '../pages/Dashboard/Dashboard.page';
 
 export const AuthorizedAppContent = () => (
   <Routes>
