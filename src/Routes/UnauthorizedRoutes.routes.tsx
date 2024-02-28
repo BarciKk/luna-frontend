@@ -1,10 +1,15 @@
 import { Route, Routes } from 'react-router-dom';
 import { UnauthorizedRoutes } from '../enums/Auth/routes.enums';
-import { Login } from '../modules/LoginComponent/Login.component';
-import { Register } from '../modules/RegisterComponent/Register.component';
-import { ResetPassword } from '../modules/ResetPasswordComponent/ResetPassword.component';
+import { Login } from '../modules/Login/Login';
+import { Register } from '../modules/Register/Register';
+import { ResetPassword } from '../modules/ResetPassword/ResetPassword.module';
 import { AuthLayout } from '../modules/AuthLayout/Layout.component';
 import { Page404 } from '../pages/Page404/Page404.page';
+import {
+  EnterNewPassword,
+  EnterTheEmail,
+  EnterThePin,
+} from '../modules/ResetPassword';
 
 export const UnauthorizedRoutesContent = () => (
   <Routes>
@@ -24,6 +29,7 @@ export const UnauthorizedRoutesContent = () => (
         </AuthLayout>
       }
     />
+
     <Route
       path={UnauthorizedRoutes.resetPassword}
       element={
@@ -31,9 +37,20 @@ export const UnauthorizedRoutesContent = () => (
           <ResetPassword />
         </AuthLayout>
       }
-    />
+    >
+      <Route path="step1" element={<EnterTheEmail />} />
+      <Route path="step2" element={<EnterThePin />} />
+      <Route path="step3" element={<EnterNewPassword />} />
+    </Route>
     <Route path={UnauthorizedRoutes.termsAndConditions} element={<Page404 />} />
     <Route path="*" element={<Page404 />} />
+    <Route
+      path="/"
+      element={
+        <AuthLayout>
+          <Login />
+        </AuthLayout>
+      }
+    />
   </Routes>
-  // page 404 for now until im gonna update the terms line (23)
 );

@@ -1,13 +1,10 @@
-import axios from "axios";
-import {
-  loginResponse,
-  loginValues,
-} from "../../modules/LoginComponent/login.component.types";
+import axios from 'axios';
+import { loginResponse, loginValues } from '../../modules/Login/login.types';
 import {
   RegisterResponse,
   RegisterValues,
-} from "../../modules/RegisterComponent/register.component.types";
-import { BASE_URLs } from "../axios.config";
+} from '../../modules/Register/register.types';
+import { BASE_URLs } from '../axios.config';
 
 const login = (values: loginValues) =>
   axios.post<loginResponse>(`${BASE_URLs.auth}login`, values);

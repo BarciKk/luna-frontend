@@ -1,9 +1,8 @@
-import { useUser } from '../../hooks/useUser';
+import { useUser } from '../../hooks';
 
 export const Dashboard = () => {
   const { user, removeUser } = useUser();
 
-  console.log(user);
   return (
     <>
       {user?.username}

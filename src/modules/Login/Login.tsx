@@ -12,21 +12,22 @@ import {
   Loader,
 } from '@mantine/core';
 import { FaLock, FaUser } from 'react-icons/fa6';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { HiArrowRightCircle } from 'react-icons/hi2';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import Cookies from 'universal-cookie';
-import { loginValues } from './login.component.types';
+import { loginValues } from './login.types';
 import { login } from '../../api/auth';
 import { cookieKeys } from '../../enums/Auth/cookiesKeys.enums';
 import { errorColor } from '../../styles/colors';
-import classes from './LoginComponent.module.css';
+import classes from './/Login.module.css';
 import { UnauthorizedRoutes } from '../../enums/Auth/routes.enums';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { CustomErrorMessage } from '../../components/ErrorMessage';
 import { loginSchema } from '../../validation/auth';
 import { useTranslation } from 'react-i18next';
+import { Link } from '../../components/Link';
 export const Login = () => {
   const cookies = new Cookies(null, { path: '/' });
   const { t } = useTranslation();
@@ -38,7 +39,7 @@ export const Login = () => {
     reset,
     formState: { errors },
   } = useForm<loginValues>({ resolver: yupResolver(loginSchema) });
-
+  const currentStep = Number(localStorage.getItem('resetPasswordStep'));
   const { mutate, isLoading, isError } = useMutation(
     (values: loginValues) => login(values),
     {
@@ -114,11 +115,11 @@ export const Login = () => {
               <CustomErrorMessage message={errors.password?.message} />
               <Group ml="auto">
                 <Link
-                  to={UnauthorizedRoutes.resetPassword}
+                  variant="white"
                   style={{ color: '#efa700', fontSize: '.75em' }}
-                >
-                  {t('auth.forgotPassword')}
-                </Link>
+                  text={t('auth.forgotPassword')}
+                  to={`${UnauthorizedRoutes.resetPassword}/step${currentStep}`}
+                />
               </Group>
             </Stack>
             <Text fz="sm" ta="center" c={errorColor}>
@@ -147,11 +148,11 @@ export const Login = () => {
             <Title order={6} c="fontColors.4" ta="center" mt="md">
               {t('auth.firstPartOfRegisterMessage')}
               <Link
+                variant="white"
                 to={UnauthorizedRoutes.register}
                 style={{ color: '#efa700' }}
-              >
-                {t('auth.register')}
-              </Link>
+                text={t('auth.register')}
+              />
             </Title>
           </Stack>
         </form>

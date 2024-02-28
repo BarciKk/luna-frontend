@@ -10,11 +10,11 @@ import {
 import { FaLock, FaUser } from 'react-icons/fa6';
 import { MdAlternateEmail, MdRepeat } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import classes from './RegisterComponent.module.css';
+import classes from './Register.module.css';
 import { registerCall } from '../../api/auth';
 import { UnauthorizedRoutes } from '../../enums/Auth/routes.enums';
 import { useForm } from 'react-hook-form';
-import { ErrorInfo, RegisterValues } from './register.component.types';
+import { ErrorInfo, RegisterValues } from './register.types';
 import { useMutation } from 'react-query';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMediaQuery } from '@mantine/hooks';

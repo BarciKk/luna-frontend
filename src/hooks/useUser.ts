@@ -1,7 +1,8 @@
-import { useNavigate } from "react-router-dom";
-import Cookies from "universal-cookie";
-import { User } from "../modules/LoginComponent/login.component.types";
-import { cookieKeys } from "../enums/Auth/cookiesKeys.enums";
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'universal-cookie';
+import { User } from '../modules/Login/login.types';
+import { cookieKeys } from '../enums/Auth/cookiesKeys.enums';
+import { UnauthorizedRoutes } from '../enums/Auth/routes.enums';
 
 export const useUser = () => {
   const cookies = new Cookies();
@@ -11,7 +12,7 @@ export const useUser = () => {
   const removeUser = () => {
     cookies.remove(cookieKeys.user);
     cookies.remove(cookieKeys.jwt);
-    navigate("/");
+    navigate(`${UnauthorizedRoutes.login}`);
   };
 
   const setUserCookie = (userData: User) => {
