@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { FaArrowRightLong } from 'react-icons/fa6';
 import classes from './Page404.module.css';
 import { useTranslation } from 'react-i18next';
+import { UnauthorizedRoutes } from '../../enums/Auth/routes.enums';
 
 export const Page404 = () => {
   const { t } = useTranslation();
@@ -37,7 +38,7 @@ export const Page404 = () => {
             <Text miw={180} fz={32} fw="bolder">
               {t('auth.page404Message')}
             </Text>
-            <Link to="/">
+            <Link to={UnauthorizedRoutes.login}>
               <Button
                 mt="sm"
                 ml="50%"

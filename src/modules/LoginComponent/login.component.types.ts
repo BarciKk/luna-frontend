@@ -8,7 +8,12 @@ type User = {
   email: string;
   username: string;
   password: string;
+  avatar: string;
+  isActive: boolean;
+  bio: string;
+  createdAt: Date;
 };
+
 //user shouldn't be here
 type loginResponse = {
   accessToken: string;
