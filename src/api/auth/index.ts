@@ -12,4 +12,7 @@ const login = (values: loginValues) =>
 const registerCall = (values: RegisterValues) =>
   axios.post<RegisterResponse>(`${BASE_URLs.auth}register/`, values);
 
-export { login, registerCall };
+const resetPasswordToken = (email: string) =>
+  axios.post<string>(`${BASE_URLs.auth}reset-password`, { email });
+
+export { login, registerCall, resetPasswordToken };
