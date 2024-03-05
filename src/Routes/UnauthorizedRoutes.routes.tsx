@@ -38,9 +38,9 @@ export const UnauthorizedRoutesContent = () => (
         </AuthLayout>
       }
     >
-      <Route path="step1" element={<EnterTheEmail />} />
-      <Route path="step2" element={<EnterThePin />} />
-      <Route path="step3" element={<EnterNewPassword />} />
+      <Route path="Email" element={<EnterTheEmail />} />
+      <Route path="OTP" element={<EnterThePin />} />
+      <Route path="NewPassword" element={<EnterNewPassword />} />
     </Route>
     <Route path={UnauthorizedRoutes.termsAndConditions} element={<Page404 />} />
     <Route path="*" element={<Page404 />} />

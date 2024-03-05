@@ -39,7 +39,6 @@ export const Login = () => {
     reset,
     formState: { errors },
   } = useForm<loginValues>({ resolver: yupResolver(loginSchema) });
-  const currentStep = Number(localStorage.getItem('resetPasswordStep'));
   const { mutate, isLoading, isError } = useMutation(
     (values: loginValues) => login(values),
     {
@@ -118,7 +117,7 @@ export const Login = () => {
                   variant="white"
                   style={{ color: '#efa700', fontSize: '.75em' }}
                   text={t('auth.forgotPassword')}
-                  to={`${UnauthorizedRoutes.resetPassword}/step${currentStep}`}
+                  to={`${UnauthorizedRoutes.resetPassword}/Email`}
                 />
               </Group>
             </Stack>

@@ -13,7 +13,7 @@ export const EnterTheEmail = () => {
     (email: string) => resetPasswordToken(email),
     {
       onSuccess() {
-        navigate(`${UnauthorizedRoutes.resetPassword}/step2`);
+        navigate(`${UnauthorizedRoutes.resetPassword}/OTP`);
       },
     },
   );
