@@ -15,4 +15,7 @@ const registerCall = (values: RegisterValues) =>
 const resetPasswordToken = (email: string) =>
   axios.post<string>(`${BASE_URLs.auth}reset-password`, { email });
 
-export { login, registerCall, resetPasswordToken };
+const resetPasswordOTP = (otp: string) =>
+  axios.post<string>(`${BASE_URLs.auth}reset-password/otp`, { otp });
+
+export { login, registerCall, resetPasswordToken, resetPasswordOTP };

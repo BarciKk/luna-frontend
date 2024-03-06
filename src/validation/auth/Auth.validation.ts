@@ -44,4 +44,11 @@ const loginSchema = yup
   })
   .required();
 
-export { registerSchema, loginSchema };
+const resetPasswordEmailSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email(translateValidateMessage('emailValidFormat'))
+    .required(translateValidateMessage('email')),
+});
+
+export { registerSchema, loginSchema, resetPasswordEmailSchema };
