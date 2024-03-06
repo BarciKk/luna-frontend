@@ -2,12 +2,26 @@ import { Button, PinInput, Stack, Text, Title } from '@mantine/core';
 import { resetPasswordOTP } from '../../../api/auth';
 import { useMutation } from 'react-query';
 import { FC, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { UnauthorizedRoutes } from '../../../enums/Auth/routes.enums';
+import { CustomErrorMessage } from '../../../components/ErrorMessage';
+import { ErrorInfo } from '../../Register/register.types';
 
 export const EnterThePin: FC = () => {
   const [otp, setOtp] = useState<string>('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const isError = errorMessage !== '';
+  const navigate = useNavigate();
   const { mutate, isLoading } = useMutation(resetPasswordOTP, {
     onSuccess() {
-      alert('wow u did it looser');
+      navigate(`${UnauthorizedRoutes.resetPassword}/NewPassword`);
+    },
+    onError(error: ErrorInfo) {
+      if (error.response) {
+        setErrorMessage(
+          error.response.data.message || 'An unexpected error occurred.',
+        );
+      }
     },
   });
 
@@ -15,6 +29,7 @@ export const EnterThePin: FC = () => {
     mutate(otp);
   };
 
+  console.log(errorMessage);
   return (
     <Stack align="center" gap="xs">
       <Title>Email verification</Title>
@@ -26,9 +41,10 @@ export const EnterThePin: FC = () => {
         onChange={(value) => setOtp(value)}
         size="xl"
         mt="lg"
+        error={isError}
         type="number"
       />
-
+      <CustomErrorMessage message={errorMessage} />
       <Button
         mt="xl"
         w="50%"

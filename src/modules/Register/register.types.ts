@@ -11,6 +11,7 @@ type RegisterResponse = {
 type ErrorInfo = {
   response?: {
     data: {
+      message: string;
       error: string;
     };
   };

@@ -52,6 +52,7 @@ export const EnterTheEmail = () => {
           {...register('email')}
           placeholder="E-mail"
           w="60%"
+          error={!!errors.email}
           mx="auto"
           mt="lg"
           mb="sm"
