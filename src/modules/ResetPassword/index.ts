@@ -1,3 +1,3 @@
-export { EnterTheEmail } from './EmailVerification/EnterTheEmail.module';
-export { EnterNewPassword } from './PINVerification/EnterNewPassword.module';
-export { EnterThePin } from './NewPassword/EnterThePin';
+export { EnterTheEmail } from './EmailVerification/EmailVerification.module';
+export { EnterNewPassword } from './NewPassword/UpdatePassword.module';
+export { EnterThePin } from './PINVerification/OTPPinVerification.module';

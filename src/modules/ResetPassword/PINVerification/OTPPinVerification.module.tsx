@@ -5,10 +5,11 @@ import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UnauthorizedRoutes } from '../../../enums/Auth/routes.enums';
 import { CustomErrorMessage } from '../../../components/ErrorMessage';
-import { ErrorInfo } from '../../Register/register.types';
+import { ErrorInfo } from '../../../types/Shared.types';
 
 export const EnterThePin: FC = () => {
   const [otp, setOtp] = useState<string>('');
+  const isOTPEmpty = otp.trim() !== '';
   const [errorMessage, setErrorMessage] = useState('');
   const isError = errorMessage !== '';
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ export const EnterThePin: FC = () => {
   });
 
   const onSubmit = async () => {
-    mutate(otp);
+    if (isOTPEmpty) mutate(otp);
   };
 
   console.log(errorMessage);
@@ -48,6 +49,7 @@ export const EnterThePin: FC = () => {
       <Button
         mt="xl"
         w="50%"
+        disabled={!isOTPEmpty}
         onClick={onSubmit}
         loading={isLoading}
         type="submit"

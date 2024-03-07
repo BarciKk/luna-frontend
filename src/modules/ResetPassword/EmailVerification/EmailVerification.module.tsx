@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { resetPasswordEmailSchema } from '../../../validation/auth/Auth.validation';
 import { CustomErrorMessage } from '../../../components/ErrorMessage';
-import { ErrorInfo } from '../../Register/register.types';
+import { ErrorInfo } from '../../../types/Shared.types';
 
 type EmailVerification = {
   email: string;

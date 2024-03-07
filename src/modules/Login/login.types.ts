@@ -14,7 +14,7 @@ type User = {
   createdAt: Date;
 };
 
-//user shouldn't be here
+//user shouldn't be here but leave for now
 type loginResponse = {
   accessToken: string;
   user: User;

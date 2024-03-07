@@ -14,7 +14,7 @@ import classes from './Register.module.css';
 import { registerCall } from '../../api/auth';
 import { UnauthorizedRoutes } from '../../enums/Auth/routes.enums';
 import { useForm } from 'react-hook-form';
-import { ErrorInfo, RegisterValues } from './register.types';
+import { RegisterValues } from './register.types';
 import { useMutation } from 'react-query';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useMediaQuery } from '@mantine/hooks';
@@ -23,6 +23,7 @@ import { useState } from 'react';
 import { fontColors } from '../../styles/colors';
 import { registerSchema } from '../../validation/auth';
 import { useTranslationMessage } from '../../hooks';
+import { ErrorInfo } from '../../types/Shared.types';
 export const Register = () => {
   const matches = useMediaQuery('(max-width: 520px)');
   const [message, setMessage] = useState<string | null>(null);
