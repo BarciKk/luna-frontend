@@ -20,7 +20,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useMediaQuery } from '@mantine/hooks';
 import { CustomErrorMessage } from '../../components/ErrorMessage';
 import { useState } from 'react';
-import { fontColors } from '../../styles/colors';
+import { errorColor } from '../../styles/colors';
 import { registerSchema } from '../../validation/auth';
 import { useTranslationMessage } from '../../hooks';
 import { ErrorInfo } from '../../types/Shared.types';
@@ -75,7 +75,14 @@ export const Register = () => {
         fallbackSrc="https://placehold.co/600x400?text=Placeholder"
         maw={200}
       />
-      <Text w="60%" c="fontColors.1" fz="md" ta="center" lineClamp={3} m="sm">
+      <Text
+        w="60%"
+        c="darkerFontColors.1"
+        fz="md"
+        ta="center"
+        lineClamp={3}
+        m="sm"
+      >
         {t('auth.registerMotivationMessage')}
       </Text>
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
@@ -122,16 +129,16 @@ export const Register = () => {
             leftSection={<MdRepeat size="1.25em" />}
           />
           <CustomErrorMessage message={errors.repeatPassword?.message} />
-          <Text ta="center" fz="sm" mt="sm" c="fontColors.1">
+          <Text ta="center" fz="sm" mt="sm" c="darkerFontColors.1">
             {t('auth.firstPartOfTermsMessage')}
             <Link
               to={UnauthorizedRoutes.termsAndConditions}
-              style={{ color: '#efa700' }}
+              style={{ color: '#ffb300' }}
             >
               {t('auth.terms')}
             </Link>
           </Text>
-          <CustomErrorMessage message={message} c={fontColors[0]} fz={14} />
+          <CustomErrorMessage message={message} c={errorColor} fz={14} />
           <SimpleGrid
             mt="sm"
             cols={{ base: 1, xs: 2 }}
@@ -141,7 +148,7 @@ export const Register = () => {
             <Link
               to={UnauthorizedRoutes.login}
               style={{
-                color: '#1f1f1f',
+                color: 'darkerFontColors.1',
               }}
             >
               <Text
@@ -149,6 +156,7 @@ export const Register = () => {
                 mt="xs"
                 ml="lg"
                 fz="sm"
+                c="darkerFontColors.1"
                 className={classes.text}
                 lineClamp={1}
               >

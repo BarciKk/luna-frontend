@@ -1,4 +1,4 @@
-import { Box, Button, PasswordInput, Stack, Title } from '@mantine/core';
+import { Button, PasswordInput, Stack, Title } from '@mantine/core';
 import { useMutation } from 'react-query';
 import { updateUserPassword } from '../../../api/auth';
 import { useForm } from 'react-hook-form';
@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { ErrorInfo } from '../../../types/Shared.types';
 import { CustomErrorMessage } from '../../../components/ErrorMessage';
 import { UpdatePasswordType } from './UpdatePassword.types';
+import { successColor } from '../../../styles/colors';
 
 export const EnterNewPassword = () => {
   const [errorMessage, setErrorMessage] = useState('');
@@ -38,10 +39,12 @@ export const EnterNewPassword = () => {
     mutate(data);
   };
   return (
-    <Box>
-      <Title order={1}>Update your password</Title>
+    <Stack>
+      <Title c="darkerFontColors.1" order={1}>
+        Update your password
+      </Title>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack align="stretch" gap="sm">
+        <Stack align="stretch" gap="sm" mt="sm">
           <PasswordInput
             mx="auto"
             {...register('newPassword')}
@@ -63,16 +66,23 @@ export const EnterNewPassword = () => {
             message={errors.repeatNewPassword?.message || errorMessage}
           />
           {successMessage ? (
-            <CustomErrorMessage message={successMessage} c="green" />
+            <CustomErrorMessage message={successMessage} c={successColor} />
           ) : null}
-          <Button w="60%" mx="auto" type="submit" loading={isLoading}>
+          <Button
+            mt="md"
+            w="40%"
+            size="md"
+            bg="headingColors.1"
+            mx="auto"
+            type="submit"
+            loading={isLoading}
+          >
             Submit
           </Button>
         </Stack>
       </form>
-    </Box>
+    </Stack>
   );
 };
 
 //figure out why the FFFFFFFFFFFFFFFFFf success message is red? XD
-//Well next goal is learn something about the designs make it look somehowplz

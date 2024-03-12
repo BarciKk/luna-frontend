@@ -1,4 +1,4 @@
-import { Box, Input, Title, Text, Button } from '@mantine/core';
+import { Input, Title, Text, Button, Stack } from '@mantine/core';
 
 import { useMutation } from 'react-query';
 import { resetPasswordToken } from '../../../api/auth';
@@ -41,9 +41,9 @@ export const EnterTheEmail = () => {
   };
 
   return (
-    <Box>
-      <Title>Enter your email</Title>
-      <Text c="gray">
+    <Stack>
+      <Title c="darkerFontColors.1">Enter your email</Title>
+      <Text c="lightFontColors.4" fz="md" mb="md">
         We re going to send a code verification to this email
       </Text>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -54,14 +54,23 @@ export const EnterTheEmail = () => {
           w="60%"
           error={!!errors.email}
           mx="auto"
-          mt="lg"
-          mb="sm"
         />
-        <CustomErrorMessage message={errors.email?.message || errorMessage} />
-        <Button w="60%" mt="xl" type="submit" loading={isLoading}>
+        <CustomErrorMessage
+          message={errors.email?.message || errorMessage}
+          my="sm"
+        />
+        <Button
+          w="40%"
+          radius="sm"
+          type="submit"
+          loading={isLoading}
+          mt="xl"
+          size="md"
+          bg="headingColors.1"
+        >
           Send code
         </Button>
       </form>
-    </Box>
+    </Stack>
   );
 };

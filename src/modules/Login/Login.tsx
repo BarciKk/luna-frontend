@@ -9,7 +9,6 @@ import {
   Title,
   SimpleGrid,
   Group,
-  Loader,
 } from '@mantine/core';
 import { FaLock, FaUser } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
@@ -114,8 +113,9 @@ export const Login = () => {
               <Group ml="auto">
                 <Link
                   variant="white"
-                  style={{ color: '#efa700', fontSize: '.75em' }}
+                  fz="sm"
                   text={t('auth.forgotPassword')}
+                  c="headingColors.1"
                   to={`${UnauthorizedRoutes.resetPassword}/Email`}
                 />
               </Group>
@@ -128,6 +128,7 @@ export const Login = () => {
               size="md"
               w="80%"
               type="submit"
+              loading={isLoading}
               bg="headingColors.2"
               className={classes.button}
               disabled={isLoading}
@@ -140,15 +141,17 @@ export const Login = () => {
                 ) : null
               }
             >
-              {isLoading ? <Loader color="white" /> : t('auth.login')}
+              {t('auth.login')}
             </Button>
 
-            <Title order={6} c="fontColors.4" ta="center" mt="md">
+            <Title order={6} c="darkerFontColors.1" mt="md">
               {t('auth.firstPartOfRegisterMessage')}
               <Link
                 variant="white"
+                fz="0.875rem"
+                size="sm"
                 to={UnauthorizedRoutes.register}
-                style={{ color: '#efa700' }}
+                style={{ color: '#ffb300' }}
                 text={t('auth.register')}
               />
             </Title>

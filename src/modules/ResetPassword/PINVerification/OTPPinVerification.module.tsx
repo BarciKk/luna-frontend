@@ -11,6 +11,7 @@ export const EnterThePin: FC = () => {
   const [otp, setOtp] = useState<string>('');
   const isOTPEmpty = otp.trim() !== '';
   const [errorMessage, setErrorMessage] = useState('');
+
   const isError = errorMessage !== '';
   const navigate = useNavigate();
   const { mutate, isLoading } = useMutation(resetPasswordOTP, {
@@ -33,9 +34,10 @@ export const EnterThePin: FC = () => {
   console.log(errorMessage);
   return (
     <Stack align="center" gap="xs">
-      <Title>Email verification</Title>
-      <Text c="gray">We have sent an OTP code into your email</Text>
-      <Text c="gray">*PIN IS SINGLE USE*</Text>
+      <Title c="darkerFontColors.1">Email verification</Title>
+      <Text c="lightFontColors.4">
+        We have sent an OTP code into your email
+      </Text>
       <PinInput
         length={5}
         value={otp}
@@ -45,10 +47,12 @@ export const EnterThePin: FC = () => {
         error={isError}
         type="number"
       />
-      <CustomErrorMessage message={errorMessage} />
+      <CustomErrorMessage message={errorMessage} my="sm" />
       <Button
-        mt="xl"
-        w="50%"
+        mt="xs"
+        size="md"
+        bg={!isOTPEmpty ? 'lightFontColors.0' : 'headingColors.1'}
+        w="40%"
         disabled={!isOTPEmpty}
         onClick={onSubmit}
         loading={isLoading}
@@ -56,7 +60,9 @@ export const EnterThePin: FC = () => {
       >
         Verify Account
       </Button>
-      <Text>Didt receive the code? Resend OTP</Text>
+      <Text c="darkerFontColors.1" mt="xs">
+        Didnt receive the code? Resend OTP
+      </Text>
     </Stack>
   );
 };

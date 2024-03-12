@@ -1,7 +1,7 @@
-import { FC } from "react";
-import { Text } from "@mantine/core";
-import { errorColor } from "../../styles/colors";
-import { CustomErrorMessageProps } from "./error.message.types";
+import { FC } from 'react';
+import { Text } from '@mantine/core';
+import { errorColor } from '../../styles/colors';
+import { CustomErrorMessageProps } from './error.message.types';
 
 export const CustomErrorMessage: FC<CustomErrorMessageProps> = ({
   message,
