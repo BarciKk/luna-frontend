@@ -31,7 +31,6 @@ export const EnterThePin: FC = () => {
     if (isOTPEmpty) mutate(otp);
   };
 
-  console.log(errorMessage);
   return (
     <Stack align="center" gap="xs">
       <Title c="darkerFontColors.1">Email verification</Title>
@@ -61,7 +60,17 @@ export const EnterThePin: FC = () => {
         Verify Account
       </Button>
       <Text c="darkerFontColors.1" mt="xs">
-        Didnt receive the code? Resend OTP
+        Didnt receive the code?{' '}
+        <Button
+          mb="4"
+          p={0}
+          c="darkerFontColors.1"
+          fz="16  px"
+          fw="400"
+          variant="transparent"
+        >
+          Resend OTP
+        </Button>
       </Text>
     </Stack>
   );
