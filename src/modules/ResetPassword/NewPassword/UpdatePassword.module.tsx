@@ -77,7 +77,7 @@ export const EnterNewPassword = () => {
             type="submit"
             loading={isLoading}
           >
-            Submit
+            Update password
           </Button>
         </Stack>
       </form>

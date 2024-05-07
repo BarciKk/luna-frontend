@@ -7,8 +7,9 @@ import { UnauthorizedRoutes } from '../enums/Auth/routes.enums';
 export const useUser = () => {
   const cookies = new Cookies();
   const navigate = useNavigate();
-  const user: User | undefined = cookies.get(cookieKeys.user);
+  const user: User = cookies.get(cookieKeys.user);
 
+  console.log(user, 'uesr form hook');
   const removeUser = () => {
     cookies.remove(cookieKeys.user);
     cookies.remove(cookieKeys.jwt);

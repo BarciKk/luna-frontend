@@ -42,14 +42,15 @@ export const Login = () => {
     {
       onSuccess: (response) => {
         const {
-          data: { accessToken, user },
+          data: { jwt, user },
         } = response;
 
-        if (accessToken && user) {
+        if (jwt && user) {
+          cookies.set(cookieKeys.jwt, jwt, { maxAge: 3600 });
           cookies.set(cookieKeys.user, user);
-          cookies.set(cookieKeys.jwt, accessToken, { maxAge: 3600 });
           navigate('/dashboard');
         }
+        console.log(user, jwt);
       },
 
       onError: (error: Error) => {
