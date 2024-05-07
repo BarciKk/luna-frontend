@@ -1,10 +1,8 @@
 import { Input, Title, Text, Button, Stack } from '@mantine/core';
 
 import { useMutation } from 'react-query';
-import { resetPasswordToken } from '../../../api/auth';
+import { forgotPasswordToken } from '../../../api/auth';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { UnauthorizedRoutes } from '../../../enums/Auth/routes.enums';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { resetPasswordEmailSchema } from '../../../validation/auth/Auth.validation';
@@ -15,7 +13,6 @@ type EmailVerification = {
   email: string;
 };
 export const EnterTheEmail = () => {
-  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const {
@@ -25,9 +22,9 @@ export const EnterTheEmail = () => {
   } = useForm({
     resolver: yupResolver(resetPasswordEmailSchema),
   });
-  const { mutate, isLoading } = useMutation(resetPasswordToken, {
+  const { mutate, isLoading } = useMutation(forgotPasswordToken, {
     onSuccess() {
-      navigate(`${UnauthorizedRoutes.resetPassword}/OTP`);
+      alert('check ur email');
     },
     onError: (err: ErrorInfo) => {
       if (err.response) {
@@ -37,6 +34,7 @@ export const EnterTheEmail = () => {
   });
 
   const onSubmit = async (data: EmailVerification) => {
+    console.log(data.email);
     mutate(data.email);
   };
 

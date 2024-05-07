@@ -117,7 +117,7 @@ export const Login = () => {
                   fz="sm"
                   text={t('auth.forgotPassword')}
                   c="headingColors.1"
-                  to={`${UnauthorizedRoutes.resetPassword}/Email`}
+                  to={`${UnauthorizedRoutes.forgotPassword}`}
                 />
               </Group>
             </Stack>

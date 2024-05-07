@@ -1,4 +1,4 @@
 export enum cookieKeys {
-  user = "user",
-  jwt = "jwt",
+  user = 'user',
+  jwt = 'jwt',
 }

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { loginResponse, loginValues } from '../../modules/Login/login.types';
 import {
+  ForgotPasswordResponse,
   RegisterResponse,
   RegisterValues,
 } from '../../modules/Register/register.types';
@@ -14,8 +15,8 @@ const login = (values: loginValues) =>
 const registerCall = (values: RegisterValues) =>
   axios.post<RegisterResponse>(`${BASE_URLs.auth}register/`, values);
 
-const resetPasswordToken = (email: string) =>
-  axios.post<GenericResponseType>(`${BASE_URLs.auth}reset-password`, {
+const forgotPasswordToken = (email: string) =>
+  axios.post<ForgotPasswordResponse>(`${BASE_URLs.auth}forgot-password`, {
     email,
   });
 
@@ -32,7 +33,7 @@ const updateUserPassword = (values: UpdatePasswordType) =>
 export {
   login,
   registerCall,
-  resetPasswordToken,
+  forgotPasswordToken,
   resetPasswordOTP,
   updateUserPassword,
 };

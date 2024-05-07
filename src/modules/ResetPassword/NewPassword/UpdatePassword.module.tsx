@@ -9,8 +9,10 @@ import { ErrorInfo } from '../../../types/Shared.types';
 import { CustomErrorMessage } from '../../../components/ErrorMessage';
 import { UpdatePasswordType } from './UpdatePassword.types';
 import { successColor } from '../../../styles/colors';
+import { useParams } from 'react-router-dom';
 
 export const EnterNewPassword = () => {
+  const { token } = useParams();
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState(null);
   const {

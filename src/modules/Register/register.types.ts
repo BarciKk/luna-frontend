@@ -9,4 +9,8 @@ type RegisterResponse = {
   registerToken: string;
 };
 
-export type { RegisterValues, RegisterResponse };
+type ForgotPasswordResponse = {
+  forgotPassword: string;
+};
+
+export type { RegisterValues, RegisterResponse, ForgotPasswordResponse };

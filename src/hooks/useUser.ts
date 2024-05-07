@@ -9,7 +9,6 @@ export const useUser = () => {
   const navigate = useNavigate();
   const user: User = cookies.get(cookieKeys.user);
 
-  console.log(user, 'uesr form hook');
   const removeUser = () => {
     cookies.remove(cookieKeys.user);
     cookies.remove(cookieKeys.jwt);
