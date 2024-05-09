@@ -49,7 +49,12 @@ export const ForgotPassword = () => {
 
   return (
     <AuthWrapper>
-      <Container sx={{ display: 'flex', flexDirection: 'column', width: 500 }}>
+      <Container
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
         <Typography
           variant="h2"
           fontSize="24px"
@@ -71,6 +76,7 @@ export const ForgotPassword = () => {
               gap: theme.spacing(2),
               display: 'flex',
               flexDirection: 'column',
+              width: '500px',
             }}
           >
             <TextField

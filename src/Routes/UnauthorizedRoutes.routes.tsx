@@ -3,7 +3,7 @@ import { UnauthorizedRoutes } from '../enums/Auth/routes.enums';
 import { Login } from '../modules/Login/Login';
 import { Register } from '../modules/Register/Register';
 import { Page404 } from '../pages/Page404/Page404.page';
-import { EnterNewPassword, ForgotPassword } from '../modules/ResetPassword';
+import { ForgotPassword, ResetPassword } from '../modules/ResetPassword';
 
 export const UnauthorizedRoutesContent = () => (
   <Routes>
@@ -11,7 +11,7 @@ export const UnauthorizedRoutesContent = () => (
     <Route path={UnauthorizedRoutes.register} element={<Register />} />
     <Route
       path={`${UnauthorizedRoutes.resetPassword}/:token`}
-      element={<EnterNewPassword />}
+      element={<ResetPassword />}
     />
     <Route
       path={UnauthorizedRoutes.forgotPassword}

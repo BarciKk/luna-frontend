@@ -51,15 +51,15 @@ const resetPasswordEmailSchema = yup.object().shape({
     .required(translateValidateMessage('email')),
 });
 const updatePasswordSchema = yup.object().shape({
-  newPassword: yup.string().required(translateValidateMessage('password')),
-  repeatNewPassword: yup
+  password: yup.string().required(translateValidateMessage('password')).min(8),
+  confirmPassword: yup
     .string()
-    .oneOf(
-      [yup.ref('newPassword')],
-      translateValidateMessage('passwordsAreNotEqual'),
-    )
     .required(translateValidateMessage('confirmPassword'))
-    .trim(),
+    .trim()
+    .oneOf(
+      [yup.ref('password')],
+      translateValidateMessage('passwordsAreNotEqual'),
+    ),
 });
 
 export {

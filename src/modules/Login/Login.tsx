@@ -77,7 +77,10 @@ export const Login = () => {
       <Container
         component="main"
         style={{
-          width: '500px',
+          maxWidth: '500px',
+          width: '100%',
+          borderRadius: theme.spacing(2),
+          padding: '1em',
         }}
       >
         <Avatar
