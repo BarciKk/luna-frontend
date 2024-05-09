@@ -1,21 +1,20 @@
-import { MantineProvider } from "@mantine/core";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { Notifications } from '@mantine/notifications';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from 'react-router-dom';
-import { theme } from './styles/theme';
-import { RoutesWrapper } from "./Routes/RoutesWrapper.routes";
+import { RoutesWrapper } from './Routes/RoutesWrapper.routes';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import { theme } from './theme';
 
 export const App = () => {
   const queryClient = new QueryClient();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <MantineProvider theme={theme}>
-        <Notifications />
-        <BrowserRouter>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
           <RoutesWrapper />
-        </BrowserRouter>
-      </MantineProvider>
+        </ThemeProvider>
+      </BrowserRouter>
     </QueryClientProvider>
   );
 };

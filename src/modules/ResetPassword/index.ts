@@ -1,2 +1,2 @@
-export { EnterTheEmail } from './EmailVerification/EmailVerification.module';
-export { EnterNewPassword } from './NewPassword/UpdatePassword.module';
+export { ForgotPassword } from './ForgotPassword/ForgotPassword';
+export { EnterNewPassword } from './UpdatePassword/UpdatePassword.module';

@@ -1,31 +1,16 @@
-import {
-  Button,
-  Image,
-  PasswordInput,
-  SimpleGrid,
-  Stack,
-  Text,
-  TextInput,
-} from '@mantine/core';
-import { FaLock, FaUser } from 'react-icons/fa6';
-import { MdAlternateEmail, MdRepeat } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import classes from './Register.module.css';
 import { registerCall } from '../../api/auth';
 import { UnauthorizedRoutes } from '../../enums/Auth/routes.enums';
 import { useForm } from 'react-hook-form';
 import { RegisterValues } from './register.types';
 import { useMutation } from 'react-query';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useMediaQuery } from '@mantine/hooks';
 import { CustomErrorMessage } from '../../components/ErrorMessage';
 import { useState } from 'react';
-import { errorColor } from '../../styles/colors';
 import { registerSchema } from '../../validation/auth';
 import { useTranslationMessage } from '../../hooks';
 import { ErrorInfo } from '../../types/Shared.types';
 export const Register = () => {
-  const matches = useMediaQuery('(max-width: 520px)');
   const [message, setMessage] = useState<string | null>(null);
   const { t } = useTranslationMessage();
   const {
@@ -63,73 +48,30 @@ export const Register = () => {
   };
 
   return (
-    <Stack align="center" h="100%" gap={0}>
-      <Image
-        mt="xs"
-        radius="sm"
-        alt="logo"
-        style={{
-          display: matches && !!errors.email ? 'none' : 'block',
-        }}
-        src={null}
-        fallbackSrc="https://placehold.co/600x400?text=Placeholder"
-        maw={200}
-      />
-      <Text
-        w="60%"
-        c="darkerFontColors.1"
-        fz="md"
-        ta="center"
-        lineClamp={3}
-        m="sm"
-      >
-        {t('auth.registerMotivationMessage')}
-      </Text>
-      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-        <Stack
-          gap="sm"
-          className={classes.stack}
-          ta="center"
-          mt="xs"
-          onClick={() => setMessage(null)}
-        >
-          <TextInput
-            {...register('email')}
-            name="email"
-            className={classes.input}
-            placeholder={t('auth.placeholders.email')}
-            error={!!errors.email}
-            leftSection={<MdAlternateEmail size="1.25em" />}
-          />
+    <div>
+      <img alt="logo" src={''} />
+      <text>{t('auth.registerMotivationMessage')}</text>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div onClick={() => setMessage(null)}>
+          <text {...register('email')} name="email" />
           <CustomErrorMessage message={errors.email?.message} />
-          <TextInput
-            {...register('username')}
-            placeholder={t('auth.placeholders.username')}
-            name="username"
-            error={!!errors.username}
-            className={classes.input}
-            leftSection={<FaUser />}
-          />
+          <text {...register('username')} name="username" />
           <CustomErrorMessage message={errors.username?.message} />
-          <PasswordInput
+          <input
             {...register('password')}
             placeholder={t('auth.placeholders.password')}
             name="password"
-            error={!!errors.password}
-            className={classes.input}
-            leftSection={<FaLock />}
+            type="password"
           />
           <CustomErrorMessage message={errors.password?.message} />
-          <PasswordInput
+          <input
             {...register('repeatPassword')}
             placeholder={t('auth.placeholders.repeatPassword')}
-            className={classes.input}
-            error={!!errors.repeatPassword}
+            type="password"
             name="repeatPassword"
-            leftSection={<MdRepeat size="1.25em" />}
           />
           <CustomErrorMessage message={errors.repeatPassword?.message} />
-          <Text ta="center" fz="sm" mt="sm" c="darkerFontColors.1">
+          <text>
             {t('auth.firstPartOfTermsMessage')}
             <Link
               to={UnauthorizedRoutes.termsAndConditions}
@@ -137,47 +79,21 @@ export const Register = () => {
             >
               {t('auth.terms')}
             </Link>
-          </Text>
-          <CustomErrorMessage message={message} c={errorColor} fz={14} />
-          <SimpleGrid
-            mt="sm"
-            cols={{ base: 1, xs: 2 }}
-            spacing="none"
-            className={classes.simpleGrid}
-          >
+          </text>
+          <CustomErrorMessage message={message} />
+          <div>
             <Link
               to={UnauthorizedRoutes.login}
               style={{
                 color: 'darkerFontColors.1',
               }}
             >
-              <Text
-                w="fit-content"
-                mt="xs"
-                ml="lg"
-                fz="sm"
-                c="darkerFontColors.1"
-                className={classes.text}
-                lineClamp={1}
-              >
-                {t('auth.loginRedirectMessage')}
-              </Text>
+              <text>{t('auth.loginRedirectMessage')}</text>
             </Link>
-            <Button
-              size="md"
-              disabled={isLoading}
-              mb="sm"
-              ml="auto"
-              w="70%"
-              bg="headingColors.2"
-              onClick={handleSubmit(onSubmit)}
-              className={classes.button}
-            >
-              {t('auth.signUn')}
-            </Button>
-          </SimpleGrid>
-        </Stack>
+            <button onClick={handleSubmit(onSubmit)}>{t('auth.signUn')}</button>
+          </div>
+        </div>
       </form>
-    </Stack>
+    </div>
   );
 };

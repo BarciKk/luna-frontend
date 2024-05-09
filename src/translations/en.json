@@ -9,7 +9,7 @@
     "firstPartOfRegisterMessage": "You don't have account? ",
     "register": "Register right there!",
     "login": "Login",
-    "forgotPassword": "Forgot password ?",
+    "forgotPassword": "Forgot password?",
     "page404Message": " WE COULDN'T FIND THE PAGE YOU'RE LOOKING FOR.",
     "error404": "ERROR 404",
     "page404ops": "Oops!",
@@ -27,7 +27,7 @@
   },
   "validations": {
     "email": "Email is required",
-    "emailValidFormat": "Please enter a valid email address (e.g., example@example.com).",
+    "emailValidFormat": "Please enter a valid email address (e.g., name@example.com).",
     "minUsernameLength": "Username must be at least 3 characters",
     "password": "Password is required",
     "passwordsAreNotEqual": "Password are not the same ",

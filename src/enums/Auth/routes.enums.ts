@@ -3,6 +3,7 @@ enum UnauthorizedRoutes {
   register = '/accounts/register',
   forgotPassword = '/accounts/forgotPassword',
   termsAndConditions = '/TermsAndConditions',
+  resetPassword = 'resetPassword',
 }
 enum AuthorizedRoutes {
   dashboard = '/',

@@ -1,15 +1,7 @@
-import { FC } from 'react';
-import { Text } from '@mantine/core';
-import { errorColor } from '../../styles/colors';
-import { CustomErrorMessageProps } from './error.message.types';
-
-export const CustomErrorMessage: FC<CustomErrorMessageProps> = ({
+export const CustomErrorMessage = ({
   message,
-  ...props
+}: {
+  message: string | undefined | null;
 }) => {
-  return message ? (
-    <Text h="50%" fz="sm" c={errorColor} {...props}>
-      {message}
-    </Text>
-  ) : null;
+  return message ? <text>{message}</text> : null;
 };
