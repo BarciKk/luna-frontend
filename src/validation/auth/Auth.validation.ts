@@ -1,66 +1,56 @@
 import i18next from 'i18next';
-import * as yup from 'yup';
+import { z } from 'zod';
 
 const translateValidateMessage = (key: string): string => {
   return i18next.t(`validations.${key}`);
 };
 
-const registerSchema = yup
-  .object()
-  .shape({
-    email: yup
-      .string()
-      .email(translateValidateMessage('emailValidFormat'))
-      .required(translateValidateMessage('email')),
-    username: yup
-      .string()
-      .min(3, translateValidateMessage('minUsernameLength'))
-      .required()
-      .trim(),
-    password: yup.string().required(translateValidateMessage('password')),
-    repeatPassword: yup
-      .string()
-      .oneOf(
-        [yup.ref('password')],
-        translateValidateMessage('passwordsAreNotEqual'),
-      )
-      .required(translateValidateMessage('confirmPassword'))
-      .trim(),
-  })
-  .required();
-
-const loginSchema = yup
-  .object()
-  .shape({
-    username: yup
-      .string()
-      .min(3, translateValidateMessage('minUsernameLength'))
-      .trim()
-      .required(),
-    password: yup
-      .string()
-      .required(translateValidateMessage('password'))
-      .trim(),
-  })
-  .required();
-
-const resetPasswordEmailSchema = yup.object().shape({
-  email: yup
+const validate = {
+  email: z
     .string()
     .email(translateValidateMessage('emailValidFormat'))
-    .required(translateValidateMessage('email')),
-});
-const updatePasswordSchema = yup.object().shape({
-  password: yup.string().required(translateValidateMessage('password')).min(8),
-  confirmPassword: yup
+    .min(3)
+    .max(64),
+  username: z
     .string()
-    .required(translateValidateMessage('confirmPassword'))
-    .trim()
-    .oneOf(
-      [yup.ref('password')],
-      translateValidateMessage('passwordsAreNotEqual'),
-    ),
+    .min(4, translateValidateMessage('minUsernameLength'))
+    .max(32),
+  password: z.string().min(8, translateValidateMessage('minPasswordLength')),
+  confirmPassword: z
+    .string()
+    .min(8, translateValidateMessage('confirmPassword')),
+};
+
+const registerSchema = z
+  .object({
+    email: validate.email,
+    username: validate.username,
+    password: validate.password,
+    repeatPassword: validate.confirmPassword,
+  })
+  .refine(({ password, repeatPassword }) => password === repeatPassword, {
+    message: "Passwords don't match",
+    path: ['repeatPassword'],
+  });
+
+const loginSchema = z.object({
+  username: validate.username,
+  password: validate.password,
 });
+
+const resetPasswordEmailSchema = z.object({
+  email: validate.email,
+});
+
+const updatePasswordSchema = z
+  .object({
+    password: validate.password,
+    confirmPassword: validate.confirmPassword,
+  })
+  .refine(({ password, confirmPassword }) => password === confirmPassword, {
+    message: 'Passwords must match!',
+    path: ['confirmPassword'],
+  });
 
 export {
   registerSchema,

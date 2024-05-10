@@ -2,7 +2,6 @@ import { useMutation } from 'react-query';
 import { forgotPasswordToken } from '../../../api/auth';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { resetPasswordEmailSchema } from '../../../validation/auth/Auth.validation';
 import { ErrorInfo } from '../../../types/Shared.types';
 import { AuthWrapper } from '../../Login/Login';
@@ -15,6 +14,7 @@ import {
   Typography,
 } from '@mui/material';
 import { theme } from '../../../theme';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 type EmailVerification = {
   email: string;
@@ -27,8 +27,9 @@ export const ForgotPassword = () => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm({
-    resolver: yupResolver(resetPasswordEmailSchema),
+  } = useForm<EmailVerification>({
+    resolver: zodResolver(resetPasswordEmailSchema),
+    mode: 'onChange',
   });
   const { mutate, isLoading } = useMutation(forgotPasswordToken, {
     onSuccess() {
@@ -42,8 +43,7 @@ export const ForgotPassword = () => {
     },
   });
 
-  const onSubmit = async (data: EmailVerification) => {
-    const { email } = data;
+  const onSubmit = async ({ email }: EmailVerification) => {
     mutate(email);
   };
 
@@ -79,11 +79,7 @@ export const ForgotPassword = () => {
               width: '500px',
             }}
           >
-            <TextField
-              label="name@example.com"
-              type="email"
-              {...register('email')}
-            />
+            <TextField label="E-MAIL" {...register('email')} />
             <Typography textAlign="center" color="error">
               {errors.email?.message || errorMessage}
             </Typography>

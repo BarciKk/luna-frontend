@@ -26,10 +26,9 @@
     "incorrectLoginOrPassword": "Login or password are incorrect!"
   },
   "validations": {
-    "email": "Email is required",
     "emailValidFormat": "Please enter a valid email address (e.g., name@example.com).",
-    "minUsernameLength": "Username must be at least 3 characters",
-    "password": "Password is required",
+    "minUsernameLength": "Username must be at least 4 characters",
+    "minPasswordLength": "Password must be at least 8 characters",
     "passwordsAreNotEqual": "Password are not the same ",
     "confirmPassword": "You must confirm your password "
   }

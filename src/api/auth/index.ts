@@ -13,7 +13,7 @@ const login = (values: loginValues) =>
   axios.post<loginResponse>(`${BASE_URL.auth}login`, values);
 
 const registerCall = (values: RegisterValues) =>
-  axios.post<RegisterResponse>(`${BASE_URL.auth}register/`, values);
+  axios.post<RegisterResponse>(`${BASE_URL.auth}register`, values);
 
 const forgotPasswordToken = (email: string) =>
   axios.post<ForgotPasswordResponse>(`${BASE_URL.auth}forgot-password`, {

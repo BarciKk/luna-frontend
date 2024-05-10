@@ -1,7 +1,6 @@
 import { useMutation } from 'react-query';
 import { resetPassword } from '../../../api/auth';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { updatePasswordSchema } from '../../../validation/auth/Auth.validation';
 import { ErrorInfo } from '../../../types/Shared.types';
 import { useParams } from 'react-router-dom';
@@ -15,6 +14,7 @@ import {
   Typography,
 } from '@mui/material';
 import { theme } from '../../../theme';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 type ResetPasswordForm = { password: string; confirmPassword: string };
 
@@ -26,7 +26,8 @@ export const ResetPassword = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<ResetPasswordForm>({
-    resolver: yupResolver(updatePasswordSchema),
+    resolver: zodResolver(updatePasswordSchema),
+    mode: 'onChange',
   });
   if (!token) return null;
 
@@ -73,7 +74,7 @@ export const ResetPassword = () => {
             {...register('password')}
             label="Enter the new password"
             name="password"
-            type="text"
+            type="password"
           />
           {errors && (
             <Typography color="error" textAlign="center">
@@ -82,9 +83,9 @@ export const ResetPassword = () => {
           )}
           <TextField
             {...register('confirmPassword')}
-            type="text"
+            type="password"
             label="Repeat the new password"
-            name="repeatPassword"
+            name="confirmPassword"
           />
           {errors && (
             <Typography color="error" textAlign="center">

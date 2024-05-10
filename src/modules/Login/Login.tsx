@@ -6,8 +6,8 @@ import { loginValues } from './login.types';
 import { login } from '../../api/auth';
 import { cookieKeys } from '../../enums/Auth/cookiesKeys.enums';
 import { UnauthorizedRoutes } from '../../enums/Auth/routes.enums';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from '../../validation/auth';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import {
   Avatar,
@@ -43,7 +43,10 @@ export const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<loginValues>({ resolver: yupResolver(loginSchema) });
+  } = useForm<loginValues>({
+    resolver: zodResolver(loginSchema),
+    mode: 'onChange',
+  });
   const { mutate, isLoading, isError } = useMutation(
     (values: loginValues) => login(values),
     {
@@ -157,3 +160,6 @@ export const Login = () => {
     </AuthWrapper>
   );
 };
+
+/* login:TestUser123
+  password:testtest1 */
