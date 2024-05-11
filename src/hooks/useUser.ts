@@ -20,3 +20,6 @@ export const useUser = () => {
   };
   return { user, removeUser, setUserCookie };
 };
+
+//that one must be rebuilded cuz currnelty that have a lot of problems
+//u should declare cookie details/options

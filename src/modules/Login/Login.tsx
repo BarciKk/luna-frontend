@@ -163,3 +163,6 @@ export const Login = () => {
 
 /* login:TestUser123
   password:testtest1 */
+
+//i should work areound the auth wrapper to make that more friendly to the user
+//could be fun to implement change language as well if u are already using i18next

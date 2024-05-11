@@ -34,6 +34,7 @@ export const ForgotPassword = () => {
   const { mutate, isLoading } = useMutation(forgotPasswordToken, {
     onSuccess() {
       alert('information modal');
+      //!NOTE implement snackbar
       reset();
     },
     onError: (err: ErrorInfo) => {
@@ -98,3 +99,5 @@ export const ForgotPassword = () => {
     </AuthWrapper>
   );
 };
+
+//create own button to handle everything what u need text as prop, isLoading ..

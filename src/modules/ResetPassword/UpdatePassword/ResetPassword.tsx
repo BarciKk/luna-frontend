@@ -40,8 +40,10 @@ export const ResetPassword = () => {
     {
       onSuccess(response) {
         console.log(response);
+        //!NOTE implement snackbar
       },
       onError: (err: ErrorInfo) => {
+        //!NOTE: display it to the user
         console.log(err.response?.data?.message || 'An error occurred');
       },
     },

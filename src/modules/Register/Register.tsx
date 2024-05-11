@@ -39,6 +39,7 @@ export const Register = () => {
     {
       onSuccess: () => {
         setMessage(t('auth.registerMessage'));
+        //!NOTE implement snackbar
         reset();
       },
 
@@ -156,3 +157,6 @@ export const Register = () => {
     </AuthWrapper>
   );
 };
+
+//NOTE: u should also create own error message component
+//Note: link as well same as your current one but with sx/style prop and more "elastic"
