@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { registerCall } from '../../api/auth';
 import { UnauthorizedRoutes } from '../../enums/Auth/routes.enums';
 import { useForm } from 'react-hook-form';
@@ -9,16 +8,12 @@ import { registerSchema } from '../../validation/auth';
 import { useTranslationMessage } from '../../hooks';
 import { ErrorInfo } from '../../types/Shared.types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, Container, TextField, Typography } from '@mui/material';
 import { AuthWrapper } from '../Login/Login';
 import { theme } from '../../theme';
+import { Button } from '../../components/Button';
+import { Link } from '../../components/Link';
+
 export const Register = () => {
   const [message, setMessage] = useState<string | null>(null);
   const { t } = useTranslationMessage();
@@ -63,12 +58,20 @@ export const Register = () => {
         sx={{ maxWidth: '500px', width: '100%' }}
       >
         <Typography
-          variant="h2"
-          fontSize="24px"
+          variant="h1"
+          fontSize="32px"
           textAlign="center"
-          sx={{ marginBottom: theme.spacing(4) }}
+          sx={{ marginBottom: theme.spacing(3) }}
         >
-          {t('auth.registerMotivationMessage')}
+          Register now
+        </Typography>
+        <Typography
+          color="gray"
+          sx={{ marginBottom: theme.spacing(4), textAlign: 'center' }}
+        >
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
+          voluptas quam amet corporis! Aliquid modi distinctio quibusdam aperiam
+          dolorem
         </Typography>
         <Container
           sx={{
@@ -119,39 +122,30 @@ export const Register = () => {
           <Box
             sx={{
               display: 'flex',
-              alignItems: 'center',
               justifyContent: 'space-between',
               flexWrap: 'wrap',
             }}
           >
-            <Typography fontSize="small">
+            <Typography>
               {t('auth.firstPartOfTermsMessage')}
-              <Link to={UnauthorizedRoutes.termsAndConditions}>
-                {t('auth.terms')}
-              </Link>
-            </Typography>
-            <Box textAlign="end">
               <Link
-                to={UnauthorizedRoutes.login}
-                style={{
-                  color: 'darkerFontColors.1',
-                }}
-              >
-                <Typography fontSize="small">
-                  {t('auth.loginRedirectMessage')}
-                </Typography>
-              </Link>
-            </Box>
+                to={UnauthorizedRoutes.termsAndConditions}
+                text={t('auth.terms')}
+              />
+            </Typography>
+            <Link
+              to={UnauthorizedRoutes.login}
+              style={{
+                color: 'darkerFontColors.1',
+              }}
+              text={t('auth.loginRedirectMessage')}
+            />
           </Box>
           <Button
-            type="submit"
-            variant="contained"
-            sx={{ marginTop: theme.spacing(4) }}
-            color="primary"
-            fullWidth
-          >
-            {isLoading ? <CircularProgress /> : t('auth.signUn')}
-          </Button>
+            sx={{ marginTop: '2em' }}
+            text={t('auth.signUn')}
+            isLoading={isLoading}
+          />
         </Container>
       </Box>
     </AuthWrapper>

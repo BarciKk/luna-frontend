@@ -5,16 +5,10 @@ import { useForm } from 'react-hook-form';
 import { resetPasswordEmailSchema } from '../../../validation/auth/Auth.validation';
 import { ErrorInfo } from '../../../types/Shared.types';
 import { AuthWrapper } from '../../Login/Login';
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, Container, TextField, Typography } from '@mui/material';
 import { theme } from '../../../theme';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Button } from '../../../components/Button';
 
 type EmailVerification = {
   email: string;
@@ -33,7 +27,6 @@ export const ForgotPassword = () => {
   });
   const { mutate, isLoading } = useMutation(forgotPasswordToken, {
     onSuccess() {
-      alert('information modal');
       //!NOTE implement snackbar
       reset();
     },
@@ -84,20 +77,11 @@ export const ForgotPassword = () => {
             <Typography textAlign="center" color="error">
               {errors.email?.message || errorMessage}
             </Typography>
-            <Button
-              type="submit"
-              variant="contained"
-              sx={{ marginTop: theme.spacing(4) }}
-              color="primary"
-              fullWidth
-            >
-              {isLoading ? <CircularProgress /> : 'send email'}
-            </Button>
+
+            <Button text={'send email'} isLoading={isLoading} />
           </Container>
         </Box>
       </Container>
     </AuthWrapper>
   );
 };
-
-//create own button to handle everything what u need text as prop, isLoading ..

@@ -2,19 +2,15 @@ import { useMutation } from 'react-query';
 import { resetPassword } from '../../../api/auth';
 import { useForm } from 'react-hook-form';
 import { updatePasswordSchema } from '../../../validation/auth/Auth.validation';
-import { ErrorInfo } from '../../../types/Shared.types';
 import { useParams } from 'react-router-dom';
 import { AuthWrapper } from '../../Login/Login';
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, Container, TextField, Typography } from '@mui/material';
 import { theme } from '../../../theme';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
+import { Button } from '../../../components/Button';
+import { ErrorMessage } from '../../../components/ErrorMessage';
+import { ErrorInfo } from '../../../types/Shared.types';
 
 type ResetPasswordForm = { password: string; confirmPassword: string };
 
@@ -30,7 +26,7 @@ export const ResetPassword = () => {
     mode: 'onChange',
   });
   if (!token) return null;
-
+  const [errorMessage, setErrorMessage] = useState<string | undefined>('');
   const { mutate, isLoading } = useMutation(
     (resetFormValues: ResetPasswordForm) =>
       resetPassword({
@@ -43,8 +39,9 @@ export const ResetPassword = () => {
         //!NOTE implement snackbar
       },
       onError: (err: ErrorInfo) => {
-        //!NOTE: display it to the user
-        console.log(err.response?.data?.message || 'An error occurred');
+        if (err.response) {
+          setErrorMessage(`${err.response.data.error}`);
+        }
       },
     },
   );
@@ -77,6 +74,7 @@ export const ResetPassword = () => {
             label="Enter the new password"
             name="password"
             type="password"
+            error={!!errors.password || !!errorMessage}
           />
           {errors && (
             <Typography color="error" textAlign="center">
@@ -88,21 +86,15 @@ export const ResetPassword = () => {
             type="password"
             label="Repeat the new password"
             name="confirmPassword"
+            error={!!errors.confirmPassword || !!errorMessage}
           />
           {errors && (
-            <Typography color="error" textAlign="center">
-              {errors.confirmPassword?.message}
-            </Typography>
+            <ErrorMessage
+              message={errors.confirmPassword?.message || errorMessage}
+            />
           )}
-          <Button
-            sx={{ marginTop: theme.spacing(4) }}
-            color="primary"
-            fullWidth
-            type="submit"
-            variant="contained"
-          >
-            {isLoading ? <CircularProgress /> : 'Update Password'}
-          </Button>
+
+          <Button text={'Update password'} isLoading={isLoading} />
         </Container>
       </Box>
     </AuthWrapper>

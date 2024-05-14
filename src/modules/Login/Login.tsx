@@ -1,4 +1,5 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '../../components/Button';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import Cookies from 'universal-cookie';
@@ -9,18 +10,11 @@ import { UnauthorizedRoutes } from '../../enums/Auth/routes.enums';
 import { loginSchema } from '../../validation/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
-import {
-  Avatar,
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  Grid,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Avatar, Box, Container, Grid, TextField } from '@mui/material';
 import { theme } from '../../theme';
 import { PropsWithChildren } from 'react';
+import { ErrorMessage } from '../../components/ErrorMessage';
+import { Link } from '../../components/Link/Link.component';
 
 export const AuthWrapper = ({ children }: PropsWithChildren) => (
   <Container
@@ -108,50 +102,38 @@ export const Login = () => {
               error={!!errors.username}
             />
             {errors.username && (
-              <Typography textAlign="center" color="error">
-                {errors.username.message}
-              </Typography>
+              <ErrorMessage message={errors.username.message} />
             )}
             <TextField
               {...register('password')}
+              name="password"
               type="password"
               label={t('auth.placeholders.password')}
               variant="outlined"
               fullWidth
               error={!!errors.password}
             />
+
             {errors.password && (
-              <Typography textAlign="center" color="error">
-                {errors.password.message}
-              </Typography>
+              <ErrorMessage message={errors?.password.message} />
             )}
-            <Typography textAlign="end">
-              <Link to={UnauthorizedRoutes.forgotPassword}>
-                {t('auth.forgotPassword')}
-              </Link>
-            </Typography>
-            <Typography
-              display={isError ? 'block' : 'none'}
-              color="error"
-              textAlign="center"
-            >
-              {t('errors.incorrectLoginOrPassword')}
-            </Typography>
-            <Button
-              type="submit"
-              variant="contained"
-              sx={{ marginTop: theme.spacing(4) }}
-              color="primary"
-              fullWidth
-            >
-              {isLoading ? <CircularProgress /> : t('auth.login')}
-            </Button>
+            <Link
+              textAlign="end"
+              text={t('auth.forgotPassword')}
+              to={UnauthorizedRoutes.forgotPassword}
+            />
+            {isError && (
+              <ErrorMessage message={t('errors.incorrectLoginOrPassword')} />
+            )}
+            <Button text={t('auth.login')} isLoading={isLoading} />
             <Grid container justifyContent="flex-end">
               <Grid item fontSize="small">
                 {t('auth.firstPartOfRegisterMessage')}
-                <Link to={UnauthorizedRoutes.register}>
-                  {t('auth.register')}
-                </Link>
+                <Link
+                  fontSize="small"
+                  to={UnauthorizedRoutes.register}
+                  text={t('auth.register')}
+                />
               </Grid>
             </Grid>
           </Container>

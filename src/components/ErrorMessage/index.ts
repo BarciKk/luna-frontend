@@ -1,1 +1,1 @@
-export { CustomErrorMessage } from "./ErrorMessage.component";
+export { ErrorMessage } from './ErrorMessage.component';

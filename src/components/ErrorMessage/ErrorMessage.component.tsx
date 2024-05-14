@@ -1,7 +1,12 @@
-export const CustomErrorMessage = ({
+import { Typography, TypographyProps } from '@mui/material';
+
+export const ErrorMessage = ({
   message,
-}: {
-  message: string | undefined | null;
-}) => {
-  return message ? <text>{message}</text> : null;
+  ...props
+}: TypographyProps & { message: string | undefined }) => {
+  return message ? (
+    <Typography color="error" textAlign="center" {...props}>
+      {message}
+    </Typography>
+  ) : null;
 };
