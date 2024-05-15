@@ -10,23 +10,32 @@ import { UnauthorizedRoutes } from '../../enums/Auth/routes.enums';
 import { loginSchema } from '../../validation/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
-import { Avatar, Box, Container, Grid, TextField } from '@mui/material';
-import { theme } from '../../theme';
+import { Box, Container, TextField, Typography } from '@mui/material';
 import { PropsWithChildren } from 'react';
 import { ErrorMessage } from '../../components/ErrorMessage';
 import { Link } from '../../components/Link/Link.component';
 
 export const AuthWrapper = ({ children }: PropsWithChildren) => (
-  <Container
-    style={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: '80vh',
-    }}
-  >
-    {children}
+  <Container component="main" maxWidth="xs">
+    <Box
+      sx={{
+        marginTop: '6em',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 2,
+      }}
+    >
+      {children}
+    </Box>
   </Container>
+);
+export const Copyright = () => (
+  <Typography variant="body2" color="text.secondary" align="center" mt={4}>
+    {'Copyright © LunaSync '}
+    {new Date().getFullYear()}
+    {'.'}
+  </Typography>
 );
 
 export const Login = () => {
@@ -71,74 +80,57 @@ export const Login = () => {
   };
   return (
     <AuthWrapper>
-      <Container
-        component="main"
-        style={{
-          maxWidth: '500px',
-          width: '100%',
-          borderRadius: theme.spacing(2),
-          padding: '1em',
-        }}
+      <Typography textAlign="center" fontSize="32px" m={1}>
+        {t('auth.signIn')}
+      </Typography>
+      <Box
+        component="form"
+        onSubmit={handleSubmit(onSubmit)}
+        sx={{ marginTop: 3, width: '100%' }}
       >
-        <Avatar
-          alt="smilie face"
-          src="https://i.pinimg.com/474x/82/89/82/828982474d13dd8d8e42b2948149ffb1.jpg"
-          sx={{ marginBottom: theme.spacing(5), marginX: 'auto' }}
+        <TextField
+          {...register('username')}
+          type="text"
+          variant="outlined"
+          autoFocus
+          fullWidth
+          label={t('auth.placeholders.username')}
+          sx={{ mb: 2 }}
+          error={!!errors.username}
         />
-        <Box component="form" onSubmit={handleSubmit(onSubmit)}>
-          <Container
-            sx={{
-              gap: theme.spacing(2),
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            <TextField
-              {...register('username')}
-              type="text"
-              variant="outlined"
-              label={t('auth.placeholders.username')}
-              fullWidth
-              error={!!errors.username}
-            />
-            {errors.username && (
-              <ErrorMessage message={errors.username.message} />
-            )}
-            <TextField
-              {...register('password')}
-              name="password"
-              type="password"
-              label={t('auth.placeholders.password')}
-              variant="outlined"
-              fullWidth
-              error={!!errors.password}
-            />
+        <ErrorMessage message={errors.username?.message} />
+        <TextField
+          {...register('password')}
+          name="password"
+          type="password"
+          label={t('auth.placeholders.password')}
+          variant="outlined"
+          fullWidth
+          sx={{ marginBottom: 2 }}
+          error={!!errors.password}
+        />
 
-            {errors.password && (
-              <ErrorMessage message={errors?.password.message} />
-            )}
-            <Link
-              textAlign="end"
-              text={t('auth.forgotPassword')}
-              to={UnauthorizedRoutes.forgotPassword}
-            />
-            {isError && (
-              <ErrorMessage message={t('errors.incorrectLoginOrPassword')} />
-            )}
-            <Button text={t('auth.login')} isLoading={isLoading} />
-            <Grid container justifyContent="flex-end">
-              <Grid item fontSize="small">
-                {t('auth.firstPartOfRegisterMessage')}
-                <Link
-                  fontSize="small"
-                  to={UnauthorizedRoutes.register}
-                  text={t('auth.register')}
-                />
-              </Grid>
-            </Grid>
-          </Container>
-        </Box>
-      </Container>
+        <ErrorMessage message={errors.password?.message} />
+        <Link
+          text={t('auth.forgotPassword')}
+          sx={{ textAlign: 'end', display: 'inline-block' }}
+          to={UnauthorizedRoutes.forgotPassword}
+        />
+        {isError && (
+          <ErrorMessage message={t('errors.incorrectLoginOrPassword')} />
+        )}
+        <Button
+          sx={{ mt: 4, mb: 2 }}
+          text={t('auth.login')}
+          fullWidth
+          isLoading={isLoading}
+        />
+        <Typography variant="body2" textAlign="center" mt={2}>
+          {t('auth.firstPartOfRegisterMessage')}{' '}
+          <Link to={UnauthorizedRoutes.register} text={t('auth.register')} />
+        </Typography>
+        <Copyright />
+      </Box>
     </AuthWrapper>
   );
 };
@@ -146,5 +138,4 @@ export const Login = () => {
 /* login:TestUser123
   password:testtest1 */
 
-//i should work areound the auth wrapper to make that more friendly to the user
 //could be fun to implement change language as well if u are already using i18next

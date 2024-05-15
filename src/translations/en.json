@@ -1,10 +1,15 @@
 {
   "auth": {
     "registerMessage": "Registration complete now u can login into your account",
-    "signUn": "Sign up",
-    "loginRedirectMessage": " Have an account? Login",
+    "signUp": "Sign Up",
+    "signIn": "Sign In",
+    "haveAccount": "Have an account? ",
+    "forgotPasswordMessage": " Please provide us with your email address so we can send you a link to reset your password.",
     "firstPartOfTermsMessage": "By signing up, you agree to our ",
     "terms": "Terms & Conditions",
+    "sendEmail": "Send Email",
+
+    "acceptTerms": "Accept Terms & Conditions",
     "registerMotivationMessage": "Level up your fitness journey! Sign up now to track workouts, conquer challenges, and crush goals with your exercise crew. Let's sweat together!",
     "firstPartOfRegisterMessage": "You don't have account? ",
     "register": "Register right there!",
@@ -15,7 +20,7 @@
     "page404ops": "Oops!",
     "home": "Go home",
     "placeholders": {
-      "email": "E-Mail",
+      "email": "E-MAIL",
       "username": "Username",
       "password": "Password",
       "repeatPassword": "Confirm the password"

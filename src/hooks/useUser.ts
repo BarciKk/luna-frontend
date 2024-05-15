@@ -15,8 +15,8 @@ export const useUser = () => {
     navigate(`${UnauthorizedRoutes.login}`);
   };
 
-  const setUserCookie = (userData: User) => {
-    cookies.set(cookieKeys.user, userData);
+  const setUserCookie = (user: User) => {
+    cookies.set(cookieKeys.user, user);
   };
   return { user, removeUser, setUserCookie };
 };

@@ -1,9 +1,6 @@
 import { User } from '../../types/user.types';
 
-type loginValues = {
-  username: string;
-  password: string;
-};
+type loginValues = Pick<User, 'username' | 'password'>;
 
 type loginResponse = {
   jwt: string;

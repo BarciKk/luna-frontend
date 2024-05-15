@@ -9,5 +9,6 @@ type ErrorInfo = {
 
 type GenericResponseType = {
   message: string;
+  success: boolean;
 };
 export type { ErrorInfo, GenericResponseType };

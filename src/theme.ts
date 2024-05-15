@@ -16,7 +16,7 @@ export const theme = createTheme({
   },
   palette: {
     primary: {
-      main: '#007bff',
+      main: '#1976d2',
     },
     error: {
       main: '#ff3333',
@@ -26,28 +26,27 @@ export const theme = createTheme({
     },
   },
   components: {
+    MuiTextField: {
+      defaultProps: {
+        size: 'medium',
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {
-          padding: '12px 18px',
+          backgroundColor: '#1976d2',
+          ':hover': {
+            backgroundColor: '#115293',
+          },
+          padding: '10px 0px',
+          boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)',
         },
       },
     },
     MuiTypography: {
       defaultProps: {
-        fontSize: 14,
-        fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-
-        variantMapping: {
-          h1: 'h2',
-          h2: 'h2',
-          h3: 'h2',
-          h4: 'h2',
-          h5: 'h2',
-          h6: 'h2',
-          subtitle1: 'h2',
-          subtitle2: 'h2',
-        },
+        fontSize: 16,
+        fontFamily: 'Roboto", "Helvetica", "Arial", sans-serif',
       },
       styleOverrides: {
         root: {
@@ -59,7 +58,7 @@ export const theme = createTheme({
       styleOverrides: {
         a: {
           textDecoration: 'none',
-          color: '#46679E',
+          color: '#1976d2',
         },
       },
     },

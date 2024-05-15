@@ -19,6 +19,9 @@ const validate = {
   confirmPassword: z
     .string()
     .min(8, translateValidateMessage('confirmPassword')),
+  terms: z.literal(true, {
+    errorMap: () => ({ message: 'You must accept Terms and Conditions' }),
+  }),
 };
 
 const registerSchema = z
@@ -27,6 +30,7 @@ const registerSchema = z
     username: validate.username,
     password: validate.password,
     repeatPassword: validate.confirmPassword,
+    terms: validate.terms,
   })
   .refine(({ password, repeatPassword }) => password === repeatPassword, {
     message: "Passwords don't match",

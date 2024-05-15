@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import {
   Button as MaterialButton,
   ButtonProps,
@@ -10,12 +10,12 @@ type CustomButtonProps = ButtonProps & {
   isLoading?: boolean;
 };
 
-export const Button: React.FC<CustomButtonProps> = ({
+export const Button: FC<CustomButtonProps> = ({
   text,
   isLoading = false,
   ...props
 }) => (
-  <MaterialButton {...props} type="submit" color="primary" variant="contained">
-    {isLoading ? <CircularProgress size={24} /> : text}
+  <MaterialButton {...props} type="submit" variant="contained">
+    {isLoading ? <CircularProgress sx={{ color: 'white' }} size={24} /> : text}
   </MaterialButton>
 );

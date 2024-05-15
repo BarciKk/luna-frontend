@@ -8,6 +8,8 @@ interface CustomLinkProps extends TypographyProps {
 
 export const Link = ({ to, text, ...props }: CustomLinkProps) => (
   <ReactRouterLink to={to}>
-    <Typography {...props}>{text}</Typography>
+    <Typography component="span" fontSize="16px" {...props}>
+      {text}
+    </Typography>
   </ReactRouterLink>
 );

@@ -1,8 +1,7 @@
-import { UpdatePasswordType } from '../../modules/ResetPassword/UpdatePassword/ResetPassword.types';
+import { UpdatePasswordType } from '../../modules/ResetPassword/ResetPassword/ResetPassword.types';
 import axios from 'axios';
 import { loginResponse, loginValues } from '../../modules/Login/login.types';
 import {
-  ForgotPasswordResponse,
   RegisterResponse,
   RegisterValues,
 } from '../../modules/Register/register.types';
@@ -15,8 +14,8 @@ const login = (values: loginValues) =>
 const registerCall = (values: RegisterValues) =>
   axios.post<RegisterResponse>(`${BASE_URL.auth}register`, values);
 
-const forgotPasswordToken = (email: string) =>
-  axios.post<ForgotPasswordResponse>(`${BASE_URL.auth}forgot-password`, {
+const forgotPassword = (email: string) =>
+  axios.post<GenericResponseType>(`${BASE_URL.auth}forgot-password`, {
     email,
   });
 
@@ -26,4 +25,4 @@ const resetPassword = ({ password, token }: UpdatePasswordType) =>
     password,
   });
 
-export { login, registerCall, forgotPasswordToken, resetPassword };
+export { login, registerCall, forgotPassword, resetPassword };

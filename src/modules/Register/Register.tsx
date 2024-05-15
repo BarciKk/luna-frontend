@@ -8,11 +8,18 @@ import { registerSchema } from '../../validation/auth';
 import { useTranslationMessage } from '../../hooks';
 import { ErrorInfo } from '../../types/Shared.types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Box, Container, TextField, Typography } from '@mui/material';
-import { AuthWrapper } from '../Login/Login';
+import {
+  Box,
+  Checkbox,
+  FormControlLabel,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { theme } from '../../theme';
 import { Button } from '../../components/Button';
 import { Link } from '../../components/Link';
+import { ErrorMessage } from '../../components/ErrorMessage';
+import { AuthWrapper } from '../Login/Login';
 
 export const Register = () => {
   const [message, setMessage] = useState<string | null>(null);
@@ -52,105 +59,82 @@ export const Register = () => {
 
   return (
     <AuthWrapper>
+      <Typography fontSize="32px" m={1}>
+        {t('auth.signUp')}
+      </Typography>
+
       <Box
         component="form"
+        sx={{ width: '100%', marginTop: 3 }}
         onSubmit={handleSubmit(onSubmit)}
-        sx={{ maxWidth: '500px', width: '100%' }}
       >
-        <Typography
-          variant="h1"
-          fontSize="32px"
-          textAlign="center"
-          sx={{ marginBottom: theme.spacing(3) }}
-        >
-          Register now
-        </Typography>
-        <Typography
-          color="gray"
-          sx={{ marginBottom: theme.spacing(4), textAlign: 'center' }}
-        >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
-          voluptas quam amet corporis! Aliquid modi distinctio quibusdam aperiam
-          dolorem
-        </Typography>
-        <Container
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: theme.spacing(1),
-          }}
-        >
-          <TextField
-            error={!!errors.email}
-            label="E-MAIL"
-            {...register('email')}
-            name="email"
-          />
-          <Typography color="error" textAlign="center">
-            {errors.email?.message}
-          </Typography>
-          <TextField
-            label="Username"
-            {...register('username')}
-            name="username"
-            error={!!errors.username}
-          />
-          <Typography color="error" textAlign="center">
-            {errors.username?.message}
-          </Typography>
-          <TextField
-            label={t('auth.placeholders.password')}
-            {...register('password')}
-            name="password"
-            type="password"
-            error={!!errors.password}
-          />
-          <Typography color="error" textAlign="center">
-            {errors.password?.message}
-          </Typography>
-          <TextField
-            label={t('auth.placeholders.repeatPassword')}
-            {...register('repeatPassword')}
-            type="password"
-            error={!!errors.repeatPassword}
-            name="repeatPassword"
-          />
-          <Typography color="error" textAlign="center">
-            {errors.repeatPassword?.message}
-          </Typography>
-          {message && <Typography textAlign="center">{message}</Typography>}
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-            }}
-          >
-            <Typography>
-              {t('auth.firstPartOfTermsMessage')}
-              <Link
-                to={UnauthorizedRoutes.termsAndConditions}
-                text={t('auth.terms')}
-              />
-            </Typography>
-            <Link
-              to={UnauthorizedRoutes.login}
-              style={{
-                color: 'darkerFontColors.1',
+        <TextField
+          error={!!errors.email}
+          label={t('auth.placeholders.email')}
+          fullWidth
+          {...register('email')}
+          name="email"
+          autoFocus
+          sx={{ mb: 2 }}
+        />
+        <ErrorMessage message={errors.email?.message} />
+        <TextField
+          label="Username"
+          {...register('username')}
+          fullWidth
+          name="username"
+          error={!!errors.username}
+          sx={{ mb: 2 }}
+        />
+        <ErrorMessage message={errors.username?.message} />
+        <TextField
+          label={t('auth.placeholders.password')}
+          {...register('password')}
+          name="password"
+          type="password"
+          fullWidth
+          sx={{ mb: 2 }}
+          error={!!errors.password}
+        />
+        <ErrorMessage message={errors.password?.message} />
+        <TextField
+          label={t('auth.placeholders.repeatPassword')}
+          {...register('repeatPassword')}
+          type="password"
+          fullWidth
+          error={!!errors.repeatPassword}
+          name="repeatPassword"
+        />
+        <ErrorMessage message={errors.repeatPassword?.message} />
+        {message && <Typography textAlign="center">{message}</Typography>}
+        <FormControlLabel
+          control={
+            <Checkbox
+              {...register('terms')}
+              sx={{
+                color: errors.terms ? theme.palette.error.main : 'none',
               }}
-              text={t('auth.loginRedirectMessage')}
             />
-          </Box>
-          <Button
-            sx={{ marginTop: '2em' }}
-            text={t('auth.signUn')}
-            isLoading={isLoading}
-          />
-        </Container>
+          }
+          label={t('auth.acceptTerms')}
+        />
+
+        <ErrorMessage message={errors.terms?.message} />
+        <Button
+          fullWidth
+          text={t('auth.signUp')}
+          isLoading={isLoading}
+          sx={{ mt: 4, mb: 2 }}
+        />
+        <Typography style={{ textAlign: 'center' }} mt={2}>
+          {t('auth.haveAccount')}{' '}
+          <Link
+            to={UnauthorizedRoutes.login}
+            style={{ display: 'inline-block' }}
+            text={t('auth.login')}
+          ></Link>
+        </Typography>
       </Box>
     </AuthWrapper>
   );
 };
-
-//NOTE: u should also create own error message component
-//Note: link as well same as your current one but with sx/style prop and more "elastic"
