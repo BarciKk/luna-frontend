@@ -139,3 +139,7 @@ export const Login = () => {
   password:testtest1 */
 
 //could be fun to implement change language as well if u are already using i18next
+//!NOTE: Tbh create own input component to handle everything perfectly (at least try) register difference between password/text Input (dont forget about the show password option and see how it looks like with icon (not really necessary))
+//!NOTE create hook or sth for snackbar like (information snackbar,error etc) to better display to the users when something is up or something went wrong
+//!NOTE i mean work around the animation when finished earlier steps
+//!NOTE FINISH UNTIL FRIDAY AND we gonna be happy :)
