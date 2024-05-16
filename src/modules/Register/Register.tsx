@@ -19,9 +19,9 @@ import { theme } from '../../theme';
 import { Button } from '../../components/Button';
 import { Link } from '../../components/Link';
 import { ErrorMessage } from '../../components/ErrorMessage';
-import { AuthWrapper } from '../Login/Login';
 import { CustomSnackbar } from '../../components/Snackbar';
 import { useSnackbar } from '../../hooks/useSnackbar';
+import { AuthWrapper } from '../../assets/authWrapper';
 
 export const Register = () => {
   const [message, setMessage] = useState<string | null>(null);

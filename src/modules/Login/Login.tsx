@@ -10,33 +10,11 @@ import { UnauthorizedRoutes } from '../../enums/Auth/routes.enums';
 import { loginSchema } from '../../validation/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
-import { Box, Container, TextField, Typography } from '@mui/material';
-import { PropsWithChildren } from 'react';
+import { Box, TextField, Typography } from '@mui/material';
 import { ErrorMessage } from '../../components/ErrorMessage';
 import { Link } from '../../components/Link/Link.component';
-
-export const AuthWrapper = ({ children }: PropsWithChildren) => (
-  <Container component="main" maxWidth="xs">
-    <Box
-      sx={{
-        marginTop: '6em',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 2,
-      }}
-    >
-      {children}
-    </Box>
-  </Container>
-);
-export const Copyright = () => (
-  <Typography variant="body2" color="text.secondary" align="center" mt={4}>
-    {'Copyright © LunaSync '}
-    {new Date().getFullYear()}
-    {'.'}
-  </Typography>
-);
+import { AuthWrapper } from '../../assets/authWrapper';
+import { Copyright } from '../../assets/copyright';
 
 export const Login = () => {
   const cookies = new Cookies(null, { path: '/' });
@@ -91,6 +69,7 @@ export const Login = () => {
         <TextField
           {...register('username')}
           type="text"
+          name="username"
           variant="outlined"
           autoFocus
           fullWidth
@@ -109,7 +88,6 @@ export const Login = () => {
           sx={{ marginBottom: 2 }}
           error={!!errors.password}
         />
-
         <ErrorMessage message={errors.password?.message} />
         <Link
           text={t('auth.forgotPassword')}
@@ -140,6 +118,5 @@ export const Login = () => {
 
 //could be fun to implement change language as well if u are already using i18next
 //!NOTE: Tbh create own input component to handle everything perfectly (at least try) register difference between password/text Input (dont forget about the show password option and see how it looks like with icon (not really necessary))
-//!NOTE create hook or sth for snackbar like (information snackbar,error etc) to better display to the users when something is up or something went wrong
 //!NOTE i mean work around the animation when finished earlier steps
 //!NOTE FINISH UNTIL FRIDAY AND we gonna be happy :)

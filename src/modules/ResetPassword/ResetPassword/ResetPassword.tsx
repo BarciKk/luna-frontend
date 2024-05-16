@@ -9,12 +9,12 @@ import { useState } from 'react';
 import { Button } from '../../../components/Button';
 import { ErrorMessage } from '../../../components/ErrorMessage';
 import { ErrorInfo } from '../../../types/Shared.types';
-import { AuthWrapper } from '../../Login/Login';
 import { ResetPasswordForm } from './ResetPassword.types';
 import { Link } from '../../../components/Link';
 import { UnauthorizedRoutes } from '../../../enums/Auth/routes.enums';
 import { CustomSnackbar } from '../../../components/Snackbar';
 import { useSnackbar } from '../../../hooks/useSnackbar';
+import { AuthWrapper } from '../../../assets/authWrapper';
 
 export const ResetPassword = () => {
   const { token } = useParams<{ token: string }>();

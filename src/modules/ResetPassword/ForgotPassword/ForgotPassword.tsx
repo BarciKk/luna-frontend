@@ -7,7 +7,6 @@ import { ErrorInfo } from '../../../types/Shared.types';
 import { Box, TextField, Typography } from '@mui/material';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '../../../components/Button';
-import { AuthWrapper } from '../../Login/Login';
 import { ErrorMessage } from '../../../components/ErrorMessage';
 import { useTranslation } from 'react-i18next';
 import { Link } from '../../../components/Link';
@@ -15,6 +14,7 @@ import { UnauthorizedRoutes } from '../../../enums/Auth/routes.enums';
 import { ForgotPasswordForm } from './forgotPassword.types';
 import { useSnackbar } from '../../../hooks/useSnackbar';
 import { CustomSnackbar } from '../../../components/Snackbar/Snackbar.component';
+import { AuthWrapper } from '../../../assets/authWrapper';
 
 export const ForgotPassword = () => {
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
@@ -71,6 +71,7 @@ export const ForgotPassword = () => {
           sx={{ marginTop: 3, marginBottom: 1 }}
           autoFocus
           {...register('email')}
+          name="email"
         />
         <ErrorMessage message={errors.email?.message || errorMessage} />
         <Button

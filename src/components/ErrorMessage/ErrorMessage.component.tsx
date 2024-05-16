@@ -5,7 +5,13 @@ export const ErrorMessage = ({
   ...props
 }: TypographyProps & { message: string | undefined }) => {
   return message ? (
-    <Typography textAlign="center" fontSize="14px" color="error" {...props}>
+    <Typography
+      textAlign="center"
+      fontSize="14px"
+      color="error"
+      mb={2}
+      {...props}
+    >
       {message}
     </Typography>
   ) : null;
