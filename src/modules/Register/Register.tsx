@@ -20,10 +20,15 @@ import { Button } from '../../components/Button';
 import { Link } from '../../components/Link';
 import { ErrorMessage } from '../../components/ErrorMessage';
 import { AuthWrapper } from '../Login/Login';
+import { CustomSnackbar } from '../../components/Snackbar';
+import { useSnackbar } from '../../hooks/useSnackbar';
 
 export const Register = () => {
   const [message, setMessage] = useState<string | null>(null);
+
   const { t } = useTranslationMessage();
+  const { showSnackbar, snackbarProps } = useSnackbar();
+
   const {
     register,
     reset,
@@ -40,13 +45,21 @@ export const Register = () => {
     (values: RegisterValues) => registerCall(values),
     {
       onSuccess: () => {
-        setMessage(t('auth.registerMessage'));
-        //!NOTE implement snackbar
+        showSnackbar({
+          message: 'Registration complete now u can login into your account',
+          duration: 3000,
+          severity: 'success',
+        });
         reset();
       },
 
       onError: (err: ErrorInfo) => {
         if (err.response) {
+          showSnackbar({
+            message: 'Something went wrong !',
+            duration: 3000,
+            severity: 'error',
+          });
           setMessage(`${err.response.data.error}`);
         }
       },
@@ -55,6 +68,9 @@ export const Register = () => {
   const onSubmit = async (data: RegisterValues) => {
     mutate(data);
     reset();
+  };
+  const handleInputChange = () => {
+    setMessage(null);
   };
 
   return (
@@ -76,6 +92,7 @@ export const Register = () => {
           name="email"
           autoFocus
           sx={{ mb: 2 }}
+          onChange={handleInputChange}
         />
         <ErrorMessage message={errors.email?.message} />
         <TextField
@@ -106,7 +123,7 @@ export const Register = () => {
           name="repeatPassword"
         />
         <ErrorMessage message={errors.repeatPassword?.message} />
-        {message && <Typography textAlign="center">{message}</Typography>}
+        {message && <ErrorMessage mt={2} message={message} />}
         <FormControlLabel
           control={
             <Checkbox
@@ -135,6 +152,7 @@ export const Register = () => {
           ></Link>
         </Typography>
       </Box>
+      <CustomSnackbar {...snackbarProps} />
     </AuthWrapper>
   );
 };

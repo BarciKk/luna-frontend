@@ -13,10 +13,13 @@ import { useTranslation } from 'react-i18next';
 import { Link } from '../../../components/Link';
 import { UnauthorizedRoutes } from '../../../enums/Auth/routes.enums';
 import { ForgotPasswordForm } from './forgotPassword.types';
+import { useSnackbar } from '../../../hooks/useSnackbar';
+import { CustomSnackbar } from '../../../components/Snackbar/Snackbar.component';
 
 export const ForgotPassword = () => {
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
   const { t } = useTranslation();
+  const { showSnackbar, snackbarProps } = useSnackbar();
   const {
     register,
     handleSubmit,
@@ -28,10 +31,19 @@ export const ForgotPassword = () => {
   });
   const { mutate, isLoading } = useMutation(forgotPassword, {
     onSuccess() {
-      //!NOTE implement snackbar
+      showSnackbar({
+        message: 'Password reset link sent!',
+        duration: 5000,
+        severity: 'success',
+      });
       reset();
     },
     onError: (err: ErrorInfo) => {
+      showSnackbar({
+        message: 'Failed to send password reset link.',
+        duration: 5000,
+        severity: 'error',
+      });
       if (err.response) {
         setErrorMessage(`${err.response.data.error}`);
       }
@@ -78,6 +90,7 @@ export const ForgotPassword = () => {
           />
         </Typography>
       </Box>
+      <CustomSnackbar {...snackbarProps} />
     </AuthWrapper>
   );
 };

@@ -11,9 +11,14 @@ import { ErrorMessage } from '../../../components/ErrorMessage';
 import { ErrorInfo } from '../../../types/Shared.types';
 import { AuthWrapper } from '../../Login/Login';
 import { ResetPasswordForm } from './ResetPassword.types';
+import { Link } from '../../../components/Link';
+import { UnauthorizedRoutes } from '../../../enums/Auth/routes.enums';
+import { CustomSnackbar } from '../../../components/Snackbar';
+import { useSnackbar } from '../../../hooks/useSnackbar';
 
 export const ResetPassword = () => {
   const { token } = useParams<{ token: string }>();
+  const { showSnackbar, snackbarProps } = useSnackbar();
 
   const {
     register,
@@ -32,12 +37,20 @@ export const ResetPassword = () => {
         token: token ?? '',
       }),
     {
-      onSuccess(response) {
-        console.log(response);
-        //!NOTE implement snackbar
+      onSuccess() {
+        showSnackbar({
+          message: 'Password updated correctly !',
+          duration: 5000,
+          severity: 'success',
+        });
       },
       onError: (err: ErrorInfo) => {
         if (err.response) {
+          showSnackbar({
+            message: 'Something went wrong !',
+            duration: 5000,
+            severity: 'error',
+          });
           setErrorMessage(`${err.response.data.error}`);
         }
       },
@@ -88,7 +101,18 @@ export const ResetPassword = () => {
           isLoading={isLoading}
           fullWidth
         />
+        <Typography textAlign="end" mt={4}>
+          <Link
+            to={UnauthorizedRoutes.login}
+            style={{
+              display: 'inline-block',
+              color: 'gray',
+            }}
+            text={'Back to login'}
+          />
+        </Typography>
       </Box>
+      <CustomSnackbar {...snackbarProps} />
     </AuthWrapper>
   );
 };
