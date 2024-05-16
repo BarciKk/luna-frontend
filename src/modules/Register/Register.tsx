@@ -22,6 +22,7 @@ import { ErrorMessage } from '../../components/ErrorMessage';
 import { CustomSnackbar } from '../../components/Snackbar';
 import { useSnackbar } from '../../hooks/useSnackbar';
 import { AuthWrapper } from '../../assets/authWrapper';
+import { AuthAnimation } from '../../animations';
 
 export const Register = () => {
   const [message, setMessage] = useState<string | null>(null);
@@ -74,85 +75,87 @@ export const Register = () => {
   };
 
   return (
-    <AuthWrapper>
-      <Typography fontSize="32px" m={1}>
-        {t('auth.signUp')}
-      </Typography>
-
-      <Box
-        component="form"
-        sx={{ width: '100%', marginTop: 3 }}
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <TextField
-          error={!!errors.email}
-          label={t('auth.placeholders.email')}
-          fullWidth
-          {...register('email')}
-          name="email"
-          autoFocus
-          sx={{ mb: 2 }}
-          onChange={handleInputChange}
-        />
-        <ErrorMessage message={errors.email?.message} />
-        <TextField
-          label="Username"
-          {...register('username')}
-          fullWidth
-          name="username"
-          error={!!errors.username}
-          sx={{ mb: 2 }}
-        />
-        <ErrorMessage message={errors.username?.message} />
-        <TextField
-          label={t('auth.placeholders.password')}
-          {...register('password')}
-          name="password"
-          type="password"
-          fullWidth
-          sx={{ mb: 2 }}
-          error={!!errors.password}
-        />
-        <ErrorMessage message={errors.password?.message} />
-        <TextField
-          label={t('auth.placeholders.repeatPassword')}
-          {...register('repeatPassword')}
-          type="password"
-          fullWidth
-          error={!!errors.repeatPassword}
-          name="repeatPassword"
-        />
-        <ErrorMessage message={errors.repeatPassword?.message} />
-        {message && <ErrorMessage mt={2} message={message} />}
-        <FormControlLabel
-          control={
-            <Checkbox
-              {...register('terms')}
-              sx={{
-                color: errors.terms ? theme.palette.error.main : 'none',
-              }}
-            />
-          }
-          label={t('auth.acceptTerms')}
-        />
-
-        <ErrorMessage message={errors.terms?.message} />
-        <Button
-          fullWidth
-          text={t('auth.signUp')}
-          isLoading={isLoading}
-          sx={{ mt: 4, mb: 2 }}
-        />
-        <Typography style={{ textAlign: 'center' }} mt={2}>
-          {t('auth.haveAccount')}{' '}
-          <Link
-            to={UnauthorizedRoutes.login}
-            style={{ display: 'inline-block' }}
-            text={t('auth.login')}
-          ></Link>
+    <AuthAnimation>
+      <AuthWrapper>
+        <Typography fontSize="32px" m={1}>
+          {t('auth.signUp')}
         </Typography>
-      </Box>
-      <CustomSnackbar {...snackbarProps} />
-    </AuthWrapper>
+
+        <Box
+          component="form"
+          sx={{ width: '100%', marginTop: 3 }}
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <TextField
+            error={!!errors.email}
+            label={t('auth.placeholders.email')}
+            fullWidth
+            {...register('email')}
+            name="email"
+            autoFocus
+            sx={{ mb: 2 }}
+            onChange={handleInputChange}
+          />
+          <ErrorMessage message={errors.email?.message} />
+          <TextField
+            label="Username"
+            {...register('username')}
+            fullWidth
+            name="username"
+            error={!!errors.username}
+            sx={{ mb: 2 }}
+          />
+          <ErrorMessage message={errors.username?.message} />
+          <TextField
+            label={t('auth.placeholders.password')}
+            {...register('password')}
+            name="password"
+            type="password"
+            fullWidth
+            sx={{ mb: 2 }}
+            error={!!errors.password}
+          />
+          <ErrorMessage message={errors.password?.message} />
+          <TextField
+            label={t('auth.placeholders.repeatPassword')}
+            {...register('repeatPassword')}
+            type="password"
+            fullWidth
+            error={!!errors.repeatPassword}
+            name="repeatPassword"
+          />
+          <ErrorMessage message={errors.repeatPassword?.message} />
+          {message && <ErrorMessage mt={2} message={message} />}
+          <FormControlLabel
+            control={
+              <Checkbox
+                {...register('terms')}
+                sx={{
+                  color: errors.terms ? theme.palette.error.main : 'none',
+                }}
+              />
+            }
+            label={t('auth.acceptTerms')}
+          />
+
+          <ErrorMessage message={errors.terms?.message} />
+          <Button
+            fullWidth
+            text={t('auth.signUp')}
+            isLoading={isLoading}
+            sx={{ mt: 4, mb: 2 }}
+          />
+          <Typography style={{ textAlign: 'center' }} mt={2}>
+            {t('auth.haveAccount')}{' '}
+            <Link
+              to={UnauthorizedRoutes.login}
+              style={{ display: 'inline-block' }}
+              text={t('auth.login')}
+            ></Link>
+          </Typography>
+        </Box>
+        <CustomSnackbar {...snackbarProps} />
+      </AuthWrapper>
+    </AuthAnimation>
   );
 };

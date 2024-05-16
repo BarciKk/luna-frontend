@@ -15,6 +15,7 @@ import { ForgotPasswordForm } from './forgotPassword.types';
 import { useSnackbar } from '../../../hooks/useSnackbar';
 import { CustomSnackbar } from '../../../components/Snackbar/Snackbar.component';
 import { AuthWrapper } from '../../../assets/authWrapper';
+import { AuthAnimation } from '../../../animations';
 
 export const ForgotPassword = () => {
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
@@ -55,43 +56,45 @@ export const ForgotPassword = () => {
   };
 
   return (
-    <AuthWrapper>
-      <Typography fontSize="32px">{t('auth.forgotPassword')}</Typography>
-      <Typography textAlign="center" variant="h2">
-        {t('auth.forgotPasswordMessage')}
-      </Typography>
-      <Box
-        component="form"
-        onSubmit={handleSubmit(onSubmit)}
-        sx={{ width: '100%', marginTop: 3 }}
-      >
-        <TextField
-          fullWidth
-          label={t('auth.placeholders.email')}
-          sx={{ marginTop: 3, marginBottom: 1 }}
-          autoFocus
-          {...register('email')}
-          name="email"
-        />
-        <ErrorMessage message={errors.email?.message || errorMessage} />
-        <Button
-          text={t('auth.sendEmail')}
-          fullWidth
-          isLoading={isLoading}
-          sx={{ mt: 4, mb: 2 }}
-        />
-        <Typography textAlign="end" mt={4}>
-          <Link
-            to={UnauthorizedRoutes.login}
-            style={{
-              display: 'inline-block',
-              color: 'gray',
-            }}
-            text={'Back to login'}
-          />
+    <AuthAnimation>
+      <AuthWrapper>
+        <Typography fontSize="32px">{t('auth.forgotPassword')}</Typography>
+        <Typography textAlign="center" variant="h2">
+          {t('auth.forgotPasswordMessage')}
         </Typography>
-      </Box>
-      <CustomSnackbar {...snackbarProps} />
-    </AuthWrapper>
+        <Box
+          component="form"
+          onSubmit={handleSubmit(onSubmit)}
+          sx={{ width: '100%', marginTop: 3 }}
+        >
+          <TextField
+            fullWidth
+            label={t('auth.placeholders.email')}
+            sx={{ marginTop: 3, marginBottom: 1 }}
+            autoFocus
+            {...register('email')}
+            name="email"
+          />
+          <ErrorMessage message={errors.email?.message || errorMessage} />
+          <Button
+            text={t('auth.sendEmail')}
+            fullWidth
+            isLoading={isLoading}
+            sx={{ mt: 4, mb: 2 }}
+          />
+          <Typography textAlign="end" mt={4}>
+            <Link
+              to={UnauthorizedRoutes.login}
+              style={{
+                display: 'inline-block',
+                color: 'gray',
+              }}
+              text={'Back to login'}
+            />
+          </Typography>
+        </Box>
+        <CustomSnackbar {...snackbarProps} />
+      </AuthWrapper>
+    </AuthAnimation>
   );
 };

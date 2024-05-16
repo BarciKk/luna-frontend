@@ -15,6 +15,7 @@ import { UnauthorizedRoutes } from '../../../enums/Auth/routes.enums';
 import { CustomSnackbar } from '../../../components/Snackbar';
 import { useSnackbar } from '../../../hooks/useSnackbar';
 import { AuthWrapper } from '../../../assets/authWrapper';
+import { AuthAnimation } from '../../../animations';
 
 export const ResetPassword = () => {
   const { token } = useParams<{ token: string }>();
@@ -62,57 +63,59 @@ export const ResetPassword = () => {
   };
 
   return (
-    <AuthWrapper>
-      <Typography fontSize="32px" m={1}>
-        Update your password
-      </Typography>
-      <Box
-        component="form"
-        onSubmit={handleSubmit(onSubmit)}
-        sx={{ width: '100%', marginTop: 3 }}
-      >
-        <TextField
-          {...register('password')}
-          label="Enter the new password"
-          name="password"
-          fullWidth
-          autoFocus
-          type="password"
-          error={!!errors.password || !!errorMessage}
-          sx={{ mb: 2 }}
-        />
-        {errors && <ErrorMessage message={errors.password?.message} />}
-        <TextField
-          {...register('confirmPassword')}
-          type="password"
-          label="Repeat the new password"
-          name="confirmPassword"
-          fullWidth
-          error={!!errors.confirmPassword || !!errorMessage}
-        />
-        {errors && (
-          <ErrorMessage
-            message={errors.confirmPassword?.message || errorMessage}
-          />
-        )}
-        <Button
-          sx={{ mt: 4, mb: 2 }}
-          text={'Update password'}
-          isLoading={isLoading}
-          fullWidth
-        />
-        <Typography textAlign="end" mt={4}>
-          <Link
-            to={UnauthorizedRoutes.login}
-            style={{
-              display: 'inline-block',
-              color: 'gray',
-            }}
-            text={'Back to login'}
-          />
+    <AuthAnimation>
+      <AuthWrapper>
+        <Typography fontSize="32px" m={1}>
+          Update your password
         </Typography>
-      </Box>
-      <CustomSnackbar {...snackbarProps} />
-    </AuthWrapper>
+        <Box
+          component="form"
+          onSubmit={handleSubmit(onSubmit)}
+          sx={{ width: '100%', marginTop: 3 }}
+        >
+          <TextField
+            {...register('password')}
+            label="Enter the new password"
+            name="password"
+            fullWidth
+            autoFocus
+            type="password"
+            error={!!errors.password || !!errorMessage}
+            sx={{ mb: 2 }}
+          />
+          {errors && <ErrorMessage message={errors.password?.message} />}
+          <TextField
+            {...register('confirmPassword')}
+            type="password"
+            label="Repeat the new password"
+            name="confirmPassword"
+            fullWidth
+            error={!!errors.confirmPassword || !!errorMessage}
+          />
+          {errors && (
+            <ErrorMessage
+              message={errors.confirmPassword?.message || errorMessage}
+            />
+          )}
+          <Button
+            sx={{ mt: 4, mb: 2 }}
+            text={'Update password'}
+            isLoading={isLoading}
+            fullWidth
+          />
+          <Typography textAlign="end" mt={4}>
+            <Link
+              to={UnauthorizedRoutes.login}
+              style={{
+                display: 'inline-block',
+                color: 'gray',
+              }}
+              text={'Back to login'}
+            />
+          </Typography>
+        </Box>
+        <CustomSnackbar {...snackbarProps} />
+      </AuthWrapper>
+    </AuthAnimation>
   );
 };

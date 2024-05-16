@@ -15,6 +15,7 @@ import { ErrorMessage } from '../../components/ErrorMessage';
 import { Link } from '../../components/Link/Link.component';
 import { AuthWrapper } from '../../assets/authWrapper';
 import { Copyright } from '../../assets/copyright';
+import { AuthAnimation } from '../../animations/Auth.animation';
 
 export const Login = () => {
   const cookies = new Cookies(null, { path: '/' });
@@ -57,66 +58,63 @@ export const Login = () => {
     }
   };
   return (
-    <AuthWrapper>
-      <Typography textAlign="center" fontSize="32px" m={1}>
-        {t('auth.signIn')}
-      </Typography>
-      <Box
-        component="form"
-        onSubmit={handleSubmit(onSubmit)}
-        sx={{ marginTop: 3, width: '100%' }}
-      >
-        <TextField
-          {...register('username')}
-          type="text"
-          name="username"
-          variant="outlined"
-          autoFocus
-          fullWidth
-          label={t('auth.placeholders.username')}
-          sx={{ mb: 2 }}
-          error={!!errors.username}
-        />
-        <ErrorMessage message={errors.username?.message} />
-        <TextField
-          {...register('password')}
-          name="password"
-          type="password"
-          label={t('auth.placeholders.password')}
-          variant="outlined"
-          fullWidth
-          sx={{ marginBottom: 2 }}
-          error={!!errors.password}
-        />
-        <ErrorMessage message={errors.password?.message} />
-        <Link
-          text={t('auth.forgotPassword')}
-          sx={{ textAlign: 'end', display: 'inline-block' }}
-          to={UnauthorizedRoutes.forgotPassword}
-        />
-        {isError && (
-          <ErrorMessage message={t('errors.incorrectLoginOrPassword')} />
-        )}
-        <Button
-          sx={{ mt: 4, mb: 2 }}
-          text={t('auth.login')}
-          fullWidth
-          isLoading={isLoading}
-        />
-        <Typography variant="body2" textAlign="center" mt={2}>
-          {t('auth.firstPartOfRegisterMessage')}{' '}
-          <Link to={UnauthorizedRoutes.register} text={t('auth.register')} />
+    <AuthAnimation>
+      <AuthWrapper>
+        <Typography textAlign="center" fontSize="32px" m={1}>
+          {t('auth.signIn')}
         </Typography>
-        <Copyright />
-      </Box>
-    </AuthWrapper>
+        <Box
+          component="form"
+          onSubmit={handleSubmit(onSubmit)}
+          sx={{ marginTop: 3, width: '100%' }}
+        >
+          <TextField
+            {...register('username')}
+            type="text"
+            name="username"
+            variant="outlined"
+            autoFocus
+            fullWidth
+            label={t('auth.placeholders.username')}
+            sx={{ mb: 2 }}
+            error={!!errors.username}
+          />
+          <ErrorMessage message={errors.username?.message} />
+          <TextField
+            {...register('password')}
+            name="password"
+            type="password"
+            label={t('auth.placeholders.password')}
+            variant="outlined"
+            fullWidth
+            sx={{ marginBottom: 2 }}
+            error={!!errors.password}
+          />
+          <ErrorMessage message={errors.password?.message} />
+          <Link
+            text={t('auth.forgotPassword')}
+            sx={{ textAlign: 'end', display: 'inline-block' }}
+            to={UnauthorizedRoutes.forgotPassword}
+          />
+          {isError && (
+            <ErrorMessage message={t('errors.incorrectLoginOrPassword')} />
+          )}
+          <Button
+            sx={{ mt: 4, mb: 2 }}
+            text={t('auth.login')}
+            fullWidth
+            isLoading={isLoading}
+          />
+          <Typography variant="body2" textAlign="center" mt={2}>
+            {t('auth.firstPartOfRegisterMessage')}{' '}
+            <Link to={UnauthorizedRoutes.register} text={t('auth.register')} />
+          </Typography>
+          <Copyright />
+        </Box>
+      </AuthWrapper>
+    </AuthAnimation>
   );
 };
 
 /* login:TestUser123
   password:testtest1 */
-
-//could be fun to implement change language as well if u are already using i18next
-//!NOTE: Tbh create own input component to handle everything perfectly (at least try) register difference between password/text Input (dont forget about the show password option and see how it looks like with icon (not really necessary))
-//!NOTE i mean work around the animation when finished earlier steps
-//!NOTE FINISH UNTIL FRIDAY AND we gonna be happy :)
