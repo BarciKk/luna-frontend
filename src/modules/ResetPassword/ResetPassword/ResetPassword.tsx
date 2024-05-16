@@ -3,7 +3,13 @@ import { resetPassword } from '../../../api/auth';
 import { useForm } from 'react-hook-form';
 import { updatePasswordSchema } from '../../../validation/auth/Auth.validation';
 import { useParams } from 'react-router-dom';
-import { Box, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { Button } from '../../../components/Button';
@@ -16,9 +22,11 @@ import { CustomSnackbar } from '../../../components/Snackbar';
 import { useSnackbar } from '../../../hooks/useSnackbar';
 import { AuthWrapper } from '../../../assets/authWrapper';
 import { AuthAnimation } from '../../../animations';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 export const ResetPassword = () => {
   const { token } = useParams<{ token: string }>();
+  const [showPassword, setShowPassword] = useState(false);
   const { showSnackbar, snackbarProps } = useSnackbar();
 
   const {
@@ -86,8 +94,22 @@ export const ResetPassword = () => {
           {errors && <ErrorMessage message={errors.password?.message} />}
           <TextField
             {...register('confirmPassword')}
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             label="Repeat the new password"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowPassword((show) => !show)}
+                    edge="end"
+                    size="large"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
             name="confirmPassword"
             fullWidth
             error={!!errors.confirmPassword || !!errorMessage}

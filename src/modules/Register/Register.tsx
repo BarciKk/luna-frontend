@@ -12,6 +12,8 @@ import {
   Box,
   Checkbox,
   FormControlLabel,
+  IconButton,
+  InputAdornment,
   TextField,
   Typography,
 } from '@mui/material';
@@ -23,10 +25,11 @@ import { CustomSnackbar } from '../../components/Snackbar';
 import { useSnackbar } from '../../hooks/useSnackbar';
 import { AuthWrapper } from '../../assets/authWrapper';
 import { AuthAnimation } from '../../animations';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 export const Register = () => {
   const [message, setMessage] = useState<string | null>(null);
-
+  const [showPassword, setShowPassword] = useState(false);
   const { t } = useTranslationMessage();
   const { showSnackbar, snackbarProps } = useSnackbar();
 
@@ -110,8 +113,22 @@ export const Register = () => {
             label={t('auth.placeholders.password')}
             {...register('password')}
             name="password"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             fullWidth
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowPassword((e) => !e)}
+                    edge="end"
+                    size="large"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
             sx={{ mb: 2 }}
             error={!!errors.password}
           />
@@ -119,8 +136,22 @@ export const Register = () => {
           <TextField
             label={t('auth.placeholders.repeatPassword')}
             {...register('repeatPassword')}
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             fullWidth
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowPassword((e) => !e)}
+                    edge="end"
+                    size="large"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
             error={!!errors.repeatPassword}
             name="repeatPassword"
           />

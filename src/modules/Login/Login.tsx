@@ -10,15 +10,24 @@ import { UnauthorizedRoutes } from '../../enums/Auth/routes.enums';
 import { loginSchema } from '../../validation/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
-import { Box, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { ErrorMessage } from '../../components/ErrorMessage';
 import { Link } from '../../components/Link/Link.component';
 import { AuthWrapper } from '../../assets/authWrapper';
 import { Copyright } from '../../assets/copyright';
 import { AuthAnimation } from '../../animations/Auth.animation';
+import { useState } from 'react';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 export const Login = () => {
   const cookies = new Cookies(null, { path: '/' });
+  const [showPassword, setShowPassword] = useState(false);
   const { t } = useTranslation();
   const navigate = useNavigate();
   const {
@@ -83,10 +92,24 @@ export const Login = () => {
           <TextField
             {...register('password')}
             name="password"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             label={t('auth.placeholders.password')}
             variant="outlined"
             fullWidth
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowPassword((e) => !e)}
+                    edge="end"
+                    size="large"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
             sx={{ marginBottom: 2 }}
             error={!!errors.password}
           />
