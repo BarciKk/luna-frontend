@@ -27,6 +27,14 @@ import { AuthWrapper } from '../../assets/authWrapper';
 import { AuthAnimation } from '../../animations';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
+type registerForm = {
+  email: string;
+  username: string;
+  password: string;
+  repeatPassword: string;
+  terms: boolean;
+};
+
 export const Register = () => {
   const [message, setMessage] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
@@ -37,9 +45,8 @@ export const Register = () => {
     register,
     reset,
     handleSubmit,
-
     formState: { errors },
-  } = useForm<RegisterValues>({
+  } = useForm<registerForm>({
     resolver: zodResolver(registerSchema),
     mode: 'onChange',
     criteriaMode: 'all',
