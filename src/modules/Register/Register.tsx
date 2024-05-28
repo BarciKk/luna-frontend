@@ -127,7 +127,7 @@ export const Register = () => {
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
-                    onClick={() => setShowPassword((e) => !e)}
+                    onClick={() => setShowPassword((visible) => !visible)}
                     edge="end"
                     size="large"
                   >
@@ -150,7 +150,7 @@ export const Register = () => {
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
-                    onClick={() => setShowPassword((e) => !e)}
+                    onClick={() => setShowPassword((visible) => !visible)}
                     edge="end"
                     size="large"
                   >

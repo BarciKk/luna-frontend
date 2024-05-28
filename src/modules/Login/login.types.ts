@@ -3,7 +3,7 @@ import { User } from '../../types/user.types';
 type loginValues = Pick<User, 'username' | 'password'>;
 
 type loginResponse = {
-  jwt: string;
+  token: string;
   user: User;
 };
 

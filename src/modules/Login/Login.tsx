@@ -2,7 +2,6 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '../../components/Button';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import Cookies from 'universal-cookie';
 import { loginValues } from './login.types';
 import { login } from '../../api/auth';
 import { cookieKeys } from '../../enums/Auth/cookiesKeys.enums';
@@ -24,10 +23,11 @@ import { Copyright } from '../../assets/copyright';
 import { AuthAnimation } from '../../animations/Auth.animation';
 import { useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useCookies } from '../../hooks';
 
 export const Login = () => {
-  const cookies = new Cookies(null, { path: '/' });
   const [showPassword, setShowPassword] = useState(false);
+  const { setCookie } = useCookies();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const {
@@ -38,17 +38,19 @@ export const Login = () => {
     resolver: zodResolver(loginSchema),
     mode: 'onChange',
   });
+
   const { mutate, isLoading, isError } = useMutation(
     (values: loginValues) => login(values),
     {
       onSuccess: (response) => {
         const {
-          data: { jwt, user },
+          data: { token, user },
         } = response;
 
-        if (jwt && user) {
-          cookies.set(cookieKeys.jwt, jwt, { maxAge: 3600 });
-          cookies.set(cookieKeys.user, user);
+        if (token && user) {
+          setCookie(cookieKeys.token, token);
+          setCookie(cookieKeys.user, user);
+
           navigate('/');
         }
       },
@@ -66,6 +68,7 @@ export const Login = () => {
       console.error(t('errors.incorrectLoginOrPassword') + err);
     }
   };
+
   return (
     <AuthAnimation>
       <AuthWrapper>
@@ -75,7 +78,7 @@ export const Login = () => {
         <Box
           component="form"
           onSubmit={handleSubmit(onSubmit)}
-          sx={{ marginTop: 3, width: '100%' }}
+          sx={{ marginTop: 4, width: '100%' }}
         >
           <TextField
             {...register('username')}
@@ -101,7 +104,7 @@ export const Login = () => {
                 <InputAdornment position="end">
                   <IconButton
                     aria-label="toggle password visibility"
-                    onClick={() => setShowPassword((e) => !e)}
+                    onClick={() => setShowPassword((visible) => !visible)}
                     edge="end"
                     size="large"
                   >
@@ -116,7 +119,6 @@ export const Login = () => {
           <ErrorMessage message={errors.password?.message} />
           <Link
             text={t('auth.forgotPassword')}
-            sx={{ textAlign: 'end', display: 'inline-block' }}
             to={UnauthorizedRoutes.forgotPassword}
           />
           {isError && (
@@ -138,6 +140,3 @@ export const Login = () => {
     </AuthAnimation>
   );
 };
-
-/* login:TestUser123
-  password:testtest1 */

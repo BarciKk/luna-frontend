@@ -1,24 +1,21 @@
 import { useNavigate } from 'react-router-dom';
-import Cookies from 'universal-cookie';
 import { User } from '../modules/Login/login.types';
 import { cookieKeys } from '../enums/Auth/cookiesKeys.enums';
 import { UnauthorizedRoutes } from '../enums/Auth/routes.enums';
+import { useCookies } from './useCookies';
 
 export const useUser = () => {
-  const cookies = new Cookies();
+  const { getCookie, removeCookie } = useCookies();
   const navigate = useNavigate();
-  const user: User = cookies.get(cookieKeys.user);
+  const user: User = getCookie(cookieKeys.user);
 
   const removeUser = () => {
-    cookies.remove(cookieKeys.user);
-    cookies.remove(cookieKeys.jwt);
+    removeCookie(cookieKeys.user);
+    removeCookie(cookieKeys.token);
     navigate(`${UnauthorizedRoutes.login}`);
   };
 
-  const setUserCookie = (user: User) => {
-    cookies.set(cookieKeys.user, user);
-  };
-  return { user, removeUser, setUserCookie };
+  return { user, removeUser };
 };
 
 //that one must be rebuilded cuz currnelty that have a lot of problems
