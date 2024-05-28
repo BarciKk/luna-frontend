@@ -11,7 +11,7 @@ export const useUser = () => {
 
   const removeUser = () => {
     removeCookie(cookieKeys.user);
-    removeCookie(cookieKeys.token);
+    removeCookie(cookieKeys.jwt);
     navigate(`${UnauthorizedRoutes.login}`);
   };
 

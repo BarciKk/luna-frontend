@@ -1,26 +1,25 @@
 import { UpdatePasswordType } from '../../modules/ResetPassword/ResetPassword/ResetPassword.types';
-import axios from 'axios';
 import { loginResponse, loginValues } from '../../modules/Login/login.types';
 import {
   RegisterResponse,
   RegisterValues,
 } from '../../modules/Register/register.types';
-import { BASE_URL } from '../axios.config';
 import { GenericResponseType } from '../../types/Shared.types';
+import { axiosInstance as axios } from '../axios.config';
 
 const login = (values: loginValues) =>
-  axios.post<loginResponse>(`${BASE_URL.auth}login`, values);
+  axios.post<loginResponse>('auth/login', values);
 
 const registerCall = (values: RegisterValues) =>
-  axios.post<RegisterResponse>(`${BASE_URL.auth}register`, values);
+  axios.post<RegisterResponse>('auth/register', values);
 
 const forgotPassword = (email: string) =>
-  axios.post<GenericResponseType>(`${BASE_URL.auth}forgot-password`, {
+  axios.post<GenericResponseType>('auth/forgot-password', {
     email,
   });
 
 const resetPassword = ({ password, token }: UpdatePasswordType) =>
-  axios.post<GenericResponseType>(`${BASE_URL.auth}reset-password`, {
+  axios.post<GenericResponseType>('auth/reset-password', {
     token,
     password,
   });

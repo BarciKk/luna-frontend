@@ -1,7 +1,6 @@
 import axios from 'axios';
-const BASE_URL = {
-  auth: 'http://localhost:3000/auth/',
-};
-axios.defaults.withCredentials = true;
+import { baseURL } from '../config';
 
-export { BASE_URL };
+const axiosInstance = axios.create({ baseURL });
+
+export { axiosInstance };

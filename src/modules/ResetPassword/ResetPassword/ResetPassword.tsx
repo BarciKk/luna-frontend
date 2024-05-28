@@ -85,9 +85,23 @@ export const ResetPassword = () => {
             {...register('password')}
             label="Enter the new password"
             name="password"
+            type={showPassword ? 'text' : 'password'}
             fullWidth
             autoFocus
-            type="password"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowPassword((show) => !show)}
+                    edge="end"
+                    size="large"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
             error={!!errors.password || !!errorMessage}
             sx={{ mb: 2 }}
           />

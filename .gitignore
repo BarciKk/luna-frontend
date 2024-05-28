@@ -6,7 +6,7 @@
 .pnp.js
 postcss.config.cjs
 global.d.ts
-
+config.ts
 
 # testing
 /coverage
