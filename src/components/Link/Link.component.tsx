@@ -1,5 +1,6 @@
-import { Typography, TypographyProps } from '@mui/material';
+import { TypographyProps } from '@mui/material';
 import { Link as ReactRouterLink } from 'react-router-dom';
+import { CustomTypography } from '../../styles/CustomTypography';
 
 interface CustomLinkProps extends TypographyProps {
   to: string;
@@ -8,8 +9,8 @@ interface CustomLinkProps extends TypographyProps {
 
 export const Link = ({ to, text, ...props }: CustomLinkProps) => (
   <ReactRouterLink to={to}>
-    <Typography component="span" color="primary" fontSize="16px" {...props}>
+    <CustomTypography component="span" fontSize="16px" {...props}>
       {text}
-    </Typography>
+    </CustomTypography>
   </ReactRouterLink>
 );

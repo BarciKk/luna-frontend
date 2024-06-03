@@ -23,7 +23,7 @@ export const StyledSwitch = styled(Switch)(({ theme }) => ({
     },
   },
   '& .MuiSwitch-thumb': {
-    backgroundColor: theme.palette.mode === 'dark' ? '#003892' : 'white',
+    backgroundColor: theme.palette.mode === 'dark' ? '#1976d2' : 'white',
     width: 32,
     height: 32,
     '&::before': {

@@ -72,7 +72,7 @@ export const Login = () => {
   return (
     <AuthAnimation>
       <AuthWrapper>
-        <Typography textAlign="center" fontSize="32px" m={1}>
+        <Typography textAlign="center" fontSize="36px" m={1}>
           {t('auth.signIn')}
         </Typography>
         <Box
@@ -88,7 +88,9 @@ export const Login = () => {
             autoFocus
             fullWidth
             label={t('auth.placeholders.username')}
-            sx={{ mb: '10px' }}
+            sx={{
+              mb: '10px',
+            }}
             error={!!errors.username}
           />
           <ErrorMessage message={errors.username?.message} />

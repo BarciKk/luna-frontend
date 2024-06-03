@@ -1,18 +1,19 @@
-import { Box, Container } from '@mui/material';
+import { Container, Paper } from '@mui/material';
 import { PropsWithChildren } from 'react';
 
 export const AuthWrapper = ({ children }: PropsWithChildren) => (
-  <Container component="main" maxWidth="xs">
-    <Box
+  <Container component="main" maxWidth="sm">
+    <Paper
+      elevation={10}
       sx={{
-        marginTop: '8em',
+        marginTop: '6em',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: 2,
+        padding: '32px 40px 32px 40px',
       }}
     >
       {children}
-    </Box>
+    </Paper>
   </Container>
 );

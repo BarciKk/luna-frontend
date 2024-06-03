@@ -58,8 +58,10 @@ export const ForgotPassword = () => {
   return (
     <AuthAnimation>
       <AuthWrapper>
-        <Typography fontSize="32px">{t('auth.forgotPassword')}</Typography>
-        <Typography textAlign="center" variant="h2">
+        <Typography fontSize="36px" textAlign="center">
+          {t('auth.forgotPassword')}
+        </Typography>
+        <Typography textAlign="center" variant="h2" m={2}>
           {t('auth.forgotPasswordMessage')}
         </Typography>
         <Box

@@ -18,6 +18,7 @@ export const lightTheme = createTheme({
     mode: 'light',
     primary: {
       main: '#1976d2',
+      dark: '#2276d2',
     },
     error: {
       main: '#ff3333',
@@ -87,10 +88,11 @@ export const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     background: {
-      default: '#6c7683',
+      default: '#414c50',
     },
     primary: {
       main: '#1565c0',
+      dark: '#2276d2',
       contrastText: '#fff',
     },
     error: {

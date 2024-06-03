@@ -1,5 +1,5 @@
 import { useTheme } from '../../providers/ThemeProvider';
-import { StyledSwitch } from '../../styles/StyledSwitch';
+import { StyledSwitch } from '../../styles/CustomSwitch';
 
 export const ThemeSwitch = () => {
   const { darkMode, toggleTheme } = useTheme();

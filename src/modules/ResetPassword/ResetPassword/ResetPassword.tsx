@@ -73,7 +73,7 @@ export const ResetPassword = () => {
   return (
     <AuthAnimation>
       <AuthWrapper>
-        <Typography fontSize="32px" m={1}>
+        <Typography fontSize="36px" m={1} mb={4}>
           Update your password
         </Typography>
         <Box
