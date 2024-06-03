@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box';
-import { LinearProgress, Stack, Switch } from '@mui/material';
+import { LinearProgress, Stack } from '@mui/material';
 import { Button } from '../../components/Button';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
