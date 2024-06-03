@@ -13,9 +13,10 @@ type CustomButtonProps = ButtonProps & {
 export const Button: FC<CustomButtonProps> = ({
   text,
   isLoading = false,
+  variant = 'contained',
   ...props
 }) => (
-  <MaterialButton {...props} type="submit" variant="contained">
+  <MaterialButton {...props} type="submit" variant={variant}>
     {isLoading ? <CircularProgress sx={{ color: 'white' }} size={24} /> : text}
   </MaterialButton>
 );

@@ -20,7 +20,7 @@
     "page404ops": "Oops!",
     "home": "Go home",
     "placeholders": {
-      "email": "E-MAIL",
+      "email": "E-mail",
       "username": "Username",
       "password": "Password",
       "repeatPassword": "Confirm the password"

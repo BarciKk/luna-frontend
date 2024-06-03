@@ -1,4 +1,5 @@
 enum UnauthorizedRoutes {
+  welcome = '/',
   login = '/accounts/login',
   register = '/accounts/register',
   forgotPassword = '/accounts/forgotPassword',

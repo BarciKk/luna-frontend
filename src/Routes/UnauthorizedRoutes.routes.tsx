@@ -4,21 +4,42 @@ import { Login } from '../modules/Login/Login';
 import { Register } from '../modules/Register/Register';
 import { Page404 } from '../pages/Page404/Page404.page';
 import { ForgotPassword, ResetPassword } from '../modules/ResetPassword';
+import { Welcome } from '../pages/Welcome/Welcome.page';
+import { Dashboard } from '../pages/Dashboard/Dashboard.page';
+import { useCookies } from '../hooks';
+import { cookieKeys } from '../enums/Auth/cookiesKeys.enums';
 
-export const UnauthorizedRoutesContent = () => (
-  <Routes>
-    <Route path={UnauthorizedRoutes.login} element={<Login />} />
-    <Route path={UnauthorizedRoutes.register} element={<Register />} />
-    <Route
-      path={`${UnauthorizedRoutes.resetPassword}/:token`}
-      element={<ResetPassword />}
-    />
-    <Route
-      path={UnauthorizedRoutes.forgotPassword}
-      element={<ForgotPassword />}
-    />
-    <Route path={UnauthorizedRoutes.termsAndConditions} element={<Page404 />} />
-    <Route path="*" element={<Page404 />} />
-    <Route path="/" element={<Login />} />
-  </Routes>
-);
+export const UnauthorizedRoutesContent = () => {
+  const { getCookie } = useCookies();
+  const isAuthorized = getCookie(cookieKeys.authorized);
+
+  return (
+    <Routes>
+      {!isAuthorized && (
+        <>
+          <Route path={UnauthorizedRoutes.welcome} element={<Welcome />} />
+          <Route path="*" element={<Page404 />} />
+        </>
+      )}
+      <>
+        <Route path={UnauthorizedRoutes.login} element={<Login />} />
+        <Route path={UnauthorizedRoutes.register} element={<Register />} />
+        <Route
+          path={`${UnauthorizedRoutes.resetPassword}/:token`}
+          element={<ResetPassword />}
+        />
+        <Route
+          path={UnauthorizedRoutes.forgotPassword}
+          element={<ForgotPassword />}
+        />
+        <Route
+          path={UnauthorizedRoutes.termsAndConditions}
+          element={<Page404 />}
+        />
+        <Route path="/" element={<Login />} />
+
+        <Route path="/dashboard" element={<Dashboard />} />
+      </>
+    </Routes>
+  );
+};

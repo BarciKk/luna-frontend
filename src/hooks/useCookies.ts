@@ -12,8 +12,9 @@ type CookieOptions = {
 export const useCookies = () => {
   const cookies = new Cookies();
 
+  //work around this maxAge
   const cookieOptions: CookieOptions = {
-    maxAge: 3600,
+    maxAge: 36000,
     path: '/',
     secure: true,
     sameSite: 'strict' as const,

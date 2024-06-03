@@ -17,7 +17,6 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { theme } from '../../theme';
 import { Button } from '../../components/Button';
 import { Link } from '../../components/Link';
 import { ErrorMessage } from '../../components/ErrorMessage';
@@ -103,7 +102,7 @@ export const Register = () => {
             {...register('email')}
             name="email"
             autoFocus
-            sx={{ mb: 2 }}
+            sx={{ mb: '10px' }}
             onChange={handleInputChange}
           />
           <ErrorMessage message={errors.email?.message} />
@@ -113,7 +112,7 @@ export const Register = () => {
             fullWidth
             name="username"
             error={!!errors.username}
-            sx={{ mb: 2 }}
+            sx={{ mb: '10px' }}
           />
           <ErrorMessage message={errors.username?.message} />
           <TextField
@@ -136,7 +135,7 @@ export const Register = () => {
                 </InputAdornment>
               ),
             }}
-            sx={{ mb: 2 }}
+            sx={{ mb: '10px' }}
             error={!!errors.password}
           />
           <ErrorMessage message={errors.password?.message} />
@@ -163,13 +162,13 @@ export const Register = () => {
             name="repeatPassword"
           />
           <ErrorMessage message={errors.repeatPassword?.message} />
-          {message && <ErrorMessage mt={2} message={message} />}
+          {message && <ErrorMessage mt="10px" message={message} />}
           <FormControlLabel
             control={
               <Checkbox
                 {...register('terms')}
                 sx={{
-                  color: errors.terms ? theme.palette.error.main : 'none',
+                  color: errors.terms ? 'error.main' : 'none',
                 }}
               />
             }
@@ -181,7 +180,7 @@ export const Register = () => {
             fullWidth
             text={t('auth.signUp')}
             isLoading={isLoading}
-            sx={{ mt: 4, mb: 2 }}
+            sx={{ mt: 4, mb: '10px' }}
           />
           <Typography style={{ textAlign: 'center' }} mt={2}>
             {t('auth.haveAccount')}{' '}

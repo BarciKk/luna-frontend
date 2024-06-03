@@ -8,6 +8,7 @@ export const useUser = () => {
   const { getCookie, removeCookie } = useCookies();
   const navigate = useNavigate();
   const user: User = getCookie(cookieKeys.user);
+  const jwt: string = getCookie(cookieKeys.jwt);
 
   const removeUser = () => {
     removeCookie(cookieKeys.user);
@@ -15,7 +16,7 @@ export const useUser = () => {
     navigate(`${UnauthorizedRoutes.login}`);
   };
 
-  return { user, removeUser };
+  return { user, jwt, removeUser };
 };
 
 //that one must be rebuilded cuz currnelty that have a lot of problems

@@ -50,7 +50,7 @@ export const Login = () => {
         if (token && user) {
           setCookie(cookieKeys.jwt, token);
           setCookie(cookieKeys.user, user);
-
+          setCookie(cookieKeys.authorized, true);
           navigate('/');
         }
       },
@@ -88,7 +88,7 @@ export const Login = () => {
             autoFocus
             fullWidth
             label={t('auth.placeholders.username')}
-            sx={{ mb: 2 }}
+            sx={{ mb: '10px' }}
             error={!!errors.username}
           />
           <ErrorMessage message={errors.username?.message} />
