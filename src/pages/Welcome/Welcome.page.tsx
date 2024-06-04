@@ -6,16 +6,20 @@ import { useNavigate } from 'react-router-dom';
 import { InfoBlock } from '../../assets/infoBlock/infoBlock.module';
 import { steps } from '../../constants/welcomePage.data';
 import { ThemeSwitch } from '../../components/ThemeSwitch/ThemeSwitch.component';
+import { useCookies } from '../../hooks';
+import { cookieKeys } from '../../enums/Auth/cookiesKeys.enums';
 
 export const Welcome = () => {
   const [step, setStep] = useState(0);
   const navigate = useNavigate();
   const [progress, setProgress] = useState(0);
+  const { setCookie } = useCookies();
 
   const handleNext = () => {
     if (step < steps.length - 1) {
       setStep(step + 1);
       setProgress((progress) => progress + 33.3);
+      setCookie(cookieKeys.authorized, true);
     } else if (step === 3) {
       navigate('/dashboard');
     }

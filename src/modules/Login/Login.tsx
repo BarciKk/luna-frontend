@@ -50,7 +50,6 @@ export const Login = () => {
         if (token && user) {
           setCookie(cookieKeys.jwt, token);
           setCookie(cookieKeys.user, user);
-          setCookie(cookieKeys.authorized, true);
           navigate('/');
         }
       },
