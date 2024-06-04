@@ -58,6 +58,7 @@ export const Welcome = () => {
         title={steps[step].title}
         description={steps[step].description}
       />
+
       {step === 3 && <ThemeSwitch />}
       <Stack
         mt={5}
