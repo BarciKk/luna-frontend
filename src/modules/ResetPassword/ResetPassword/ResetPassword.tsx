@@ -1,7 +1,5 @@
 import { useMutation } from 'react-query';
-import { resetPassword } from '../../../api/auth';
 import { useForm } from 'react-hook-form';
-import { updatePasswordSchema } from '../../../validation/auth/Auth.validation';
 import { useParams } from 'react-router-dom';
 import {
   Box,
@@ -12,17 +10,20 @@ import {
 } from '@mui/material';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
-import { Button } from '../../../components/Button';
-import { ErrorMessage } from '../../../components/ErrorMessage';
-import { ErrorInfo } from '../../../types/Shared.types';
-import { ResetPasswordForm } from './ResetPassword.types';
-import { Link } from '../../../components/Link';
-import { UnauthorizedRoutes } from '../../../enums/Auth/routes.enums';
-import { CustomSnackbar } from '../../../components/Snackbar';
-import { useSnackbar } from '../../../hooks/useSnackbar';
-import { AuthWrapper } from '../../../assets/authWrapper';
-import { AuthAnimation } from '../../../animations';
+
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useSnackbar } from 'hooks';
+import { ResetPasswordForm } from './ResetPassword.types';
+import { updatePasswordSchema } from 'validation/auth/Auth.validation';
+import { resetPassword } from 'api/auth';
+import { AuthAnimation } from 'animations';
+import { AuthWrapper } from 'assets/authWrapper';
+import { ErrorMessage } from 'components/ErrorMessage';
+import { UnauthorizedRoutes } from 'enums/Auth/routes.enums';
+import { Button } from 'components/Button';
+import { Link } from 'components/Link';
+import { CustomSnackbar } from 'components/Snackbar';
+import { ErrorInfo } from 'types/Shared.types';
 
 export const ResetPassword = () => {
   const { token } = useParams<{ token: string }>();

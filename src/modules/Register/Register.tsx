@@ -1,12 +1,6 @@
-import { registerCall } from '../../api/auth';
-import { UnauthorizedRoutes } from '../../enums/Auth/routes.enums';
 import { useForm } from 'react-hook-form';
-import { RegisterValues } from './register.types';
 import { useMutation } from 'react-query';
 import { useState } from 'react';
-import { registerSchema } from '../../validation/auth';
-import { useTranslationMessage } from '../../hooks';
-import { ErrorInfo } from '../../types/Shared.types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Box,
@@ -17,14 +11,21 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { Button } from '../../components/Button';
-import { Link } from '../../components/Link';
-import { ErrorMessage } from '../../components/ErrorMessage';
-import { CustomSnackbar } from '../../components/Snackbar';
-import { useSnackbar } from '../../hooks/useSnackbar';
-import { AuthWrapper } from '../../assets/authWrapper';
-import { AuthAnimation } from '../../animations';
+
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useSnackbar } from 'hooks/useSnackbar';
+import { useTranslationMessage } from 'hooks';
+import { registerCall } from 'api/auth';
+import { registerSchema } from 'validation/auth';
+import { RegisterValues } from './register.types';
+import { ErrorInfo } from 'types/Shared.types';
+import { AuthAnimation } from 'animations/Auth.animation';
+import { AuthWrapper } from 'assets/authWrapper';
+import { ErrorMessage } from 'components/ErrorMessage';
+import { Button } from 'components/Button';
+import { Link } from 'components/Link';
+import { UnauthorizedRoutes } from 'enums/Auth/routes.enums';
+import { CustomSnackbar } from 'components/Snackbar';
 
 type registerForm = {
   email: string;
@@ -188,7 +189,7 @@ export const Register = () => {
               to={UnauthorizedRoutes.login}
               style={{ display: 'inline-block' }}
               text={t('auth.login')}
-            ></Link>
+            />
           </Typography>
         </Box>
         <CustomSnackbar {...snackbarProps} />

@@ -1,14 +1,13 @@
 import Box from '@mui/material/Box';
 import { LinearProgress, Stack } from '@mui/material';
-import { Button } from '../../components/Button';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { InfoBlock } from '../../assets/infoBlock/infoBlock.module';
-import { steps } from '../../constants/welcomePage.data';
-import { ThemeSwitch } from '../../components/ThemeSwitch/ThemeSwitch.component';
-import { useCookies } from '../../hooks';
-import { cookieKeys } from '../../enums/Auth/cookiesKeys.enums';
-
+import { useCookies } from 'hooks';
+import { cookieKeys } from 'enums/Auth/cookiesKeys.enums';
+import { steps } from 'constants/welcomePage.data';
+import { InfoBlock } from 'assets/infoBlock';
+import { ThemeSwitch } from 'components/ThemeSwitch/ThemeSwitch.component';
+import { Button } from 'components/Button';
 export const Welcome = () => {
   const [step, setStep] = useState(0);
   const navigate = useNavigate();

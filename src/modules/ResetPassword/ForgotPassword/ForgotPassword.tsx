@@ -1,22 +1,21 @@
 import { useMutation } from 'react-query';
-import { forgotPassword } from '../../../api/auth';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { resetPasswordEmailSchema } from '../../../validation/auth/Auth.validation';
-import { ErrorInfo } from '../../../types/Shared.types';
 import { Box, TextField, Typography } from '@mui/material';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '../../../components/Button';
-import { ErrorMessage } from '../../../components/ErrorMessage';
 import { useTranslation } from 'react-i18next';
-import { Link } from '../../../components/Link';
-import { UnauthorizedRoutes } from '../../../enums/Auth/routes.enums';
+import { useSnackbar } from 'hooks';
 import { ForgotPasswordForm } from './forgotPassword.types';
-import { useSnackbar } from '../../../hooks/useSnackbar';
-import { CustomSnackbar } from '../../../components/Snackbar/Snackbar.component';
-import { AuthWrapper } from '../../../assets/authWrapper';
-import { AuthAnimation } from '../../../animations';
-
+import { resetPasswordEmailSchema } from 'validation/auth/Auth.validation';
+import { ErrorInfo } from 'types/Shared.types';
+import { forgotPassword } from 'api/auth';
+import { AuthAnimation } from 'animations';
+import { AuthWrapper } from 'assets/authWrapper';
+import { ErrorMessage } from 'components/ErrorMessage';
+import { Button } from 'components/Button';
+import { UnauthorizedRoutes } from 'enums/Auth/routes.enums';
+import { Link } from 'components/Link';
+import { CustomSnackbar } from 'components/Snackbar';
 export const ForgotPassword = () => {
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
   const { t } = useTranslation();
