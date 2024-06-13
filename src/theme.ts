@@ -95,11 +95,14 @@ export const darkTheme = createTheme({
       dark: '#2276d2',
       contrastText: '#fff',
     },
+
     error: {
       main: '#ef5350',
     },
     success: {
+      light: '#8cdb98',
       main: '#66bb6a',
+      dark: '#4c944c',
     },
     info: {
       main: '#bbdefb',

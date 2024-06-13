@@ -79,11 +79,13 @@ export const Welcome = () => {
           />
         </Box>
         <Button
+          sx={{ lineBreak: 'normal' }}
           variant="text"
-          text={step === 3 ? 'Got it !' : 'Next'}
+          text={step === 3 ? 'Start' : 'Next'}
           onClick={handleNext}
         />
       </Stack>
     </Box>
   );
 };
+//uno problemo here
