@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { UnauthorizedRoutes } from 'enums/Auth/routes.enums';
+import { AuthorizedRoutes, UnauthorizedRoutes } from 'enums/Auth/routes.enums';
 import { useCookies } from 'hooks/useCookies';
 import { Link } from 'components/Link/Link.component';
 import { AuthWrapper } from 'assets/authWrapper';
@@ -50,7 +50,7 @@ export const Login = () => {
         if (token && user) {
           setCookie(cookieKeys.jwt, token);
           setCookie(cookieKeys.user, user);
-          navigate('/');
+          navigate(`${AuthorizedRoutes.today}`);
         }
       },
 

@@ -1,6 +1,7 @@
 import {
   BottomNavigationAction,
   BottomNavigation as MaterialNavigation,
+  useTheme,
 } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 import CategoryIcon from '@mui/icons-material/Category';
@@ -10,8 +11,11 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 export const BottomNavigation = () => {
   const location = useLocation();
+  const theme = useTheme();
 
-  console.log(location.pathname);
+  const getColor = (path: string) =>
+    location.pathname === path ? theme.palette.primary.main : 'white';
+
   return (
     <MaterialNavigation
       showLabels
@@ -24,29 +28,29 @@ export const BottomNavigation = () => {
     >
       <BottomNavigationAction
         label="Today"
-        sx={{ color: 'white' }}
+        sx={{ color: getColor('/today') }}
         component={Link}
         to="/today"
         icon={<CalendarMonthIcon />}
       />
       <BottomNavigationAction
         label="Habits"
-        icon={<WorkspacePremiumIcon />}
+        sx={{ color: getColor('/habits') }}
         component={Link}
         to="/habits"
-        sx={{ color: 'white' }}
+        icon={<WorkspacePremiumIcon />}
       />
       <BottomNavigationAction
         label="Tasks"
+        sx={{ color: getColor('/tasks') }}
         component={Link}
         to="/tasks"
         icon={<TaskAltIcon />}
-        sx={{ color: 'white' }}
       />
       <BottomNavigationAction
         label="Categories"
+        sx={{ color: getColor('/categories') }}
         component={Link}
-        sx={{ color: 'white' }}
         to="/categories"
         icon={<CategoryIcon />}
       />

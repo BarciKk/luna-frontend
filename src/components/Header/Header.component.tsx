@@ -1,5 +1,6 @@
 import { Segment } from '@mui/icons-material';
 import { AppBar, Toolbar, Box, IconButton, Typography } from '@mui/material';
+import { CustomAvatar } from 'components/Avatar/Avatar.component';
 import { Button } from 'components/Button/Button.component';
 import { Drawer } from 'components/Drawer/Drawer.component';
 import { UnauthorizedRoutes } from 'enums/Auth/routes.enums';
@@ -48,7 +49,7 @@ export const Header = () => {
             onClick={() => navigate(`${UnauthorizedRoutes.login}`)}
           />
         ) : (
-          <Typography>{'Hello' + user.username}</Typography>
+          <CustomAvatar src={user.avatar} label="Open settings" />
         )}
       </Toolbar>
     </AppBar>

@@ -8,6 +8,10 @@ enum UnauthorizedRoutes {
 }
 enum AuthorizedRoutes {
   dashboard = '/',
+  categories = '/categories',
+  today = '/today',
+  tasks = '/tasks',
+  habits = '/habits',
 }
 
 export { AuthorizedRoutes, UnauthorizedRoutes };
