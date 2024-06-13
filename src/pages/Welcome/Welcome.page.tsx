@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'hooks';
 import { cookieKeys } from 'enums/Auth/cookiesKeys.enums';
-import { steps } from 'constants/welcomePage.data';
+import { steps } from 'constants/welcomePage';
 import { InfoBlock } from 'assets/infoBlock';
 import { ThemeSwitch } from 'components/ThemeSwitch/ThemeSwitch.component';
 import { Button } from 'components/Button';

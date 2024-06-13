@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import {
   Box,
@@ -12,8 +11,6 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { AuthAnimation } from 'animations/Auth.animation';
-import { cookieKeys } from 'enums/Auth/cookiesKeys.enums';
 import { UnauthorizedRoutes } from 'enums/Auth/routes.enums';
 import { useCookies } from 'hooks/useCookies';
 import { Link } from 'components/Link/Link.component';
@@ -24,6 +21,9 @@ import { Button } from 'components/Button';
 import { loginSchema } from 'validation/auth';
 import { login } from 'api/auth';
 import { loginValues } from './login.types';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { AuthAnimation } from 'animations/Auth.animation';
+import { cookieKeys } from 'enums/Auth/cookiesKeys.enums';
 
 export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);

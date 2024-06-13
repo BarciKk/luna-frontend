@@ -6,5 +6,5 @@
     "**/*.less",
     "node_modules/@mantine/core/esm/index.css"
   ],
-  "cSpell.words": ["reseted", "Uthinticated"]
+  "cSpell.words": ["reseted", "testid", "Uthinticated"]
 }

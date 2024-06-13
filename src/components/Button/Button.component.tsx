@@ -16,7 +16,20 @@ export const Button: FC<CustomButtonProps> = ({
   variant = 'contained',
   ...props
 }) => (
-  <MaterialButton {...props} type="submit" variant={variant}>
-    {isLoading ? <CircularProgress sx={{ color: 'white' }} size={24} /> : text}
+  <MaterialButton
+    data-testid="button-component"
+    {...props}
+    type="submit"
+    variant={variant}
+  >
+    {isLoading ? (
+      <CircularProgress
+        data-testid="loading-spinner"
+        sx={{ color: 'white' }}
+        size={24}
+      />
+    ) : (
+      text
+    )}
   </MaterialButton>
 );
