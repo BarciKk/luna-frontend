@@ -1,6 +1,6 @@
 export enum cookieKeys {
   user = 'user',
   jwt = 'jwt',
-  theme = 'theme',
-  authorized = 'authorized',
+  theme = 'mui-theme-color',
+  authorized = 'user-first-login',
 }

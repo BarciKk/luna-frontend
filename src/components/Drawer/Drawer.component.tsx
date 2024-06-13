@@ -1,9 +1,10 @@
 import {
+  AutoAwesome,
   Category,
-  ContactEmergency,
+  ContactMail,
   Home,
-  PermIdentityOutlined,
   Settings,
+  WorkspacePremium,
 } from '@mui/icons-material';
 import {
   Typography,
@@ -13,6 +14,7 @@ import {
   Divider,
 } from '@mui/material';
 import { Button } from 'components/Button';
+import { formatDate } from 'constants/formatDate';
 import { useUser } from 'hooks';
 
 type DrawerProps = {
@@ -22,6 +24,8 @@ type DrawerProps = {
 
 export const Drawer = ({ open, onClose }: DrawerProps) => {
   const { user, jwt, removeUser } = useUser();
+  const currentDate = new Date();
+  const { dayName, fullDate } = formatDate(currentDate);
 
   return (
     <MuiDrawer open={open} onClose={onClose} anchor="left">
@@ -31,10 +35,10 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
             LunaSync
           </Typography>
           <Typography fontSize="12px" fontWeight="bolder">
-            Czwartek
+            {dayName}
           </Typography>
           <Typography marginBottom="8px" fontSize="12px">
-            13 czerwca 2024
+            {fullDate}
           </Typography>
         </Box>
         <Divider />
@@ -46,11 +50,16 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
             variant="text"
             alignLeft
           />
-          <Button text="Customize" icon={<Home />} variant="text" alignLeft />
+          <Button
+            text="Customize"
+            icon={<AutoAwesome />}
+            variant="text"
+            alignLeft
+          />
           <Divider sx={{ marginY: '8px' }} />
           <Button
             text="Get Premium"
-            icon={<PermIdentityOutlined />}
+            icon={<WorkspacePremium />}
             variant="text"
             alignLeft
           />
@@ -62,13 +71,13 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
           />
           <Button
             text="Contact us"
-            icon={<ContactEmergency />}
+            icon={<ContactMail />}
             variant="text"
             alignLeft
           />
           <Divider sx={{ marginY: '8px' }} />
         </Stack>
-        {user && jwt && <Button onClick={() => removeUser()} text="Logout" />}
+        {user && jwt && <Button onClick={removeUser} text="Logout" />}
       </Stack>
     </MuiDrawer>
   );

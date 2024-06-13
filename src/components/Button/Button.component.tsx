@@ -27,6 +27,7 @@ export const Button: FC<CustomButtonProps> = ({
     startIcon={icon}
     variant={variant}
     sx={{
+      marginY: 3,
       ...(alignLeft && {
         width: '100%',
         textAlign: 'left',

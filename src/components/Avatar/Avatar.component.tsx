@@ -1,32 +1,71 @@
+import React, { useState } from 'react';
 import {
   Avatar as MuiAvatar,
   AvatarProps,
   IconButton,
   Tooltip,
+  Menu,
+  MenuItem,
+  Box,
 } from '@mui/material';
+import { useUser } from 'hooks';
 
 type CustomAvatarProps = AvatarProps & {
-  onClick?: () => void;
   src: string;
   label?: string;
+  showMenu?: boolean;
 };
 
 export const CustomAvatar = ({
-  onClick,
   src,
   label,
+  showMenu = false,
   ...props
 }: CustomAvatarProps) => {
+  const { removeUser } = useUser();
+  const [anchorElement, setAnchorElement] = useState<null | HTMLElement>(null);
+
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElement(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorElement(null);
+  };
+
   return (
-    <Tooltip title={label}>
-      <IconButton onClick={onClick}>
-        <MuiAvatar
-          {...props}
-          alt="user avatar"
-          src={src}
-          sx={{ width: '60px', height: '60px' }}
-        />
-      </IconButton>
-    </Tooltip>
+    <Box>
+      <Tooltip title={label || ''}>
+        <IconButton onClick={handleClick}>
+          <MuiAvatar
+            {...props}
+            alt="user avatar"
+            src={src}
+            sx={{ width: '60px', height: '60px' }}
+          />
+        </IconButton>
+      </Tooltip>
+      {showMenu && (
+        <Menu
+          MenuListProps={{ sx: { padding: '12px' } }}
+          anchorEl={anchorElement}
+          open={Boolean(anchorElement)}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+        >
+          <MenuItem onClick={handleClose}>Profile</MenuItem>
+          <MenuItem onClick={handleClose}>My account</MenuItem>
+          <MenuItem onClick={removeUser}>Logout</MenuItem>
+        </Menu>
+      )}
+    </Box>
   );
 };
+// update menu items into navigation to user page my account should show user details/ profile should show profile with some stats
