@@ -24,7 +24,9 @@
       "@api/*": ["src/api/*"],
       "@types/*": ["src/types/*"],
       "@constants/*": ["src/constants/*"]
-    }
+    },
+    "types": ["vitest/globals", "@testing-library/jest-dom"]
   },
-  "include": ["src"]
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.vite.json" }]
 }

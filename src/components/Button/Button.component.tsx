@@ -36,11 +36,7 @@ export const Button: FC<CustomButtonProps> = ({
     }}
   >
     {isLoading ? (
-      <CircularProgress
-        data-testid="loading-spinner"
-        sx={{ color: 'white' }}
-        size={24}
-      />
+      <CircularProgress role="loading" sx={{ color: 'white' }} size={24} />
     ) : (
       text
     )}

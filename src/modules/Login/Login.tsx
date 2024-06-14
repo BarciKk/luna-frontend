@@ -20,10 +20,10 @@ import { ErrorMessage } from 'components/ErrorMessage';
 import { Button } from 'components/Button';
 import { loginSchema } from 'validation/auth';
 import { login } from 'api/auth';
-import { loginValues } from './login.types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AuthAnimation } from 'animations/Auth.animation';
 import { cookieKeys } from 'enums/Auth/cookiesKeys.enums';
+import { loginValues } from 'modules/ResetPassword/ForgotPassword/login.types';
 
 export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
