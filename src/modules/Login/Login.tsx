@@ -24,6 +24,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { AuthAnimation } from 'animations/Auth.animation';
 import { cookieKeys } from 'enums/Auth/cookiesKeys.enums';
 import { loginValues } from 'modules/ResetPassword/ForgotPassword/login.types';
+import { Seo } from 'components/Seo';
 
 export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -70,6 +71,7 @@ export const Login = () => {
 
   return (
     <AuthAnimation>
+      <Seo title="LunaSync - Login" description="Auth login" />
       <AuthWrapper>
         <Typography textAlign="center" fontSize="36px" m={1}>
           {t('auth.signIn')}

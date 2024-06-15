@@ -24,6 +24,7 @@ import { Button } from 'components/Button';
 import { Link } from 'components/Link';
 import { CustomSnackbar } from 'components/Snackbar';
 import { ErrorInfo } from 'types/Shared.types';
+import { Seo } from 'components/Seo';
 
 export const ResetPassword = () => {
   const { token } = useParams<{ token: string }>();
@@ -73,6 +74,10 @@ export const ResetPassword = () => {
 
   return (
     <AuthAnimation>
+      <Seo
+        title="LunaSync - Reset Password"
+        description="auth reset password"
+      />
       <AuthWrapper>
         <Typography fontSize="36px" m={1} mb={4}>
           Update your password

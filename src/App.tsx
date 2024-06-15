@@ -5,6 +5,7 @@ import { CssBaseline } from '@mui/material';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { ThemeProvider } from './providers/ThemeProvider';
+import { HelmetProvider } from 'react-helmet-async';
 
 export const App = () => {
   const queryClient = new QueryClient();
@@ -15,8 +16,10 @@ export const App = () => {
       <BrowserRouter>
         <ThemeProvider>
           <FormProvider {...methods}>
-            <CssBaseline />
-            <RoutesWrapper />
+            <HelmetProvider>
+              <CssBaseline />
+              <RoutesWrapper />
+            </HelmetProvider>
           </FormProvider>
         </ThemeProvider>
       </BrowserRouter>

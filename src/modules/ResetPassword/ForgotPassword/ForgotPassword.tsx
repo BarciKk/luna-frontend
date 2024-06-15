@@ -16,6 +16,7 @@ import { Link } from 'components/Link';
 import { CustomSnackbar } from 'components/Snackbar';
 import { useSnackbar } from 'hooks';
 import { ErrorMessage } from 'components/ErrorMessage';
+import { Seo } from 'components/Seo';
 export const ForgotPassword = () => {
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
   const { t } = useTranslation();
@@ -56,6 +57,10 @@ export const ForgotPassword = () => {
 
   return (
     <AuthAnimation>
+      <Seo
+        title="LunaSync - Forgot Password"
+        description="auth forgot password"
+      />
       <AuthWrapper>
         <Typography fontSize="36px" textAlign="center">
           {t('auth.forgotPassword')}

@@ -8,6 +8,7 @@ import { steps } from 'constants/welcomePage';
 import { InfoBlock } from 'assets/infoBlock';
 import { ThemeSwitch } from 'components/ThemeSwitch/ThemeSwitch.component';
 import { Button } from 'components/Button';
+import { Seo } from 'components/Seo';
 export const Welcome = () => {
   const [step, setStep] = useState(0);
   const navigate = useNavigate();
@@ -52,6 +53,7 @@ export const Welcome = () => {
         gap: '10px',
       }}
     >
+      <Seo title="Welcome" description="welcome page" />
       <InfoBlock
         img={steps[step].img}
         title={steps[step].title}

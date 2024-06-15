@@ -26,6 +26,7 @@ import { Button } from 'components/Button';
 import { Link } from 'components/Link';
 import { UnauthorizedRoutes } from 'enums/Auth/routes.enums';
 import { CustomSnackbar } from 'components/Snackbar';
+import { Seo } from 'components/Seo';
 
 type registerForm = {
   email: string;
@@ -86,6 +87,7 @@ export const Register = () => {
 
   return (
     <AuthAnimation>
+      <Seo title="LunaSync - Register" description="Auth register" />
       <AuthWrapper>
         <Typography fontSize="36px" m={1} mb={4}>
           {t('auth.signUp')}
