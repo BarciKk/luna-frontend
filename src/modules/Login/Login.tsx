@@ -80,13 +80,11 @@ export const Login = () => {
               name="username"
               type="text"
               label={t('auth.placeholders.username')}
-              sx={{ mb: '10px' }}
             />
             <Input
               name="password"
               type="password"
               label={t('auth.placeholders.password')}
-              sx={{ marginBottom: 2 }}
             />
             <Link
               text={t('auth.forgotPassword')}

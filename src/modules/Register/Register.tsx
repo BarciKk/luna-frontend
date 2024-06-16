@@ -89,25 +89,17 @@ export const Register = () => {
               label={t('auth.placeholders.email')}
               type="text"
               name="email"
-              sx={{ mb: 1 }}
             />
-            <Input
-              label="Username"
-              name="username"
-              type="text"
-              sx={{ mb: 1 }}
-            />
+            <Input label="Username" name="username" type="text" />
             <Input
               label={t('auth.placeholders.password')}
               name="password"
               type="password"
-              sx={{ mb: 1 }}
             />
             <Input
               label={t('auth.placeholders.repeatPassword')}
               name="repeatPassword"
               type="password"
-              sx={{ mb: 1 }}
             />
 
             <FormControlLabel
@@ -143,3 +135,5 @@ export const Register = () => {
     </AuthAnimation>
   );
 };
+
+//please update labels with translations

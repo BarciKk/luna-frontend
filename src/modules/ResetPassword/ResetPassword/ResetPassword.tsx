@@ -82,7 +82,6 @@ export const ResetPassword = () => {
               type="password"
               name="password"
               label="Enter the new password"
-              sx={{ mb: 2 }}
             />
             <Input
               type="password"

@@ -74,7 +74,7 @@ export const ForgotPassword = () => {
               name="email"
               type="text"
               label={t('auth.placeholders.email')}
-              sx={{ marginTop: 3, marginBottom: 1 }}
+              sx={{ marginTop: 3 }}
             />
 
             <Button
