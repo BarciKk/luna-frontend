@@ -1,7 +1,7 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Box, Checkbox, FormControlLabel, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import { useSnackbar } from 'hooks/useSnackbar';
 import { useTranslationMessage } from 'hooks';
@@ -11,13 +11,13 @@ import { RegisterValues } from './register.types';
 import { ErrorInfo } from 'types/Shared.types';
 import { AuthAnimation } from 'animations/Auth.animation';
 import { AuthWrapper } from 'assets/authWrapper';
-import { ErrorMessage } from 'components/ErrorMessage';
 import { Button } from 'components/Button';
 import { Link } from 'components/Link';
 import { UnauthorizedRoutes } from 'enums/Auth/routes.enums';
 import { CustomSnackbar } from 'components/Snackbar';
 import { Seo } from 'components/Seo';
 import { Input } from 'components/Input/Input.component';
+import { Checkbox } from 'components/Checkbox/Checkbox.component';
 
 export const Register = () => {
   const { t } = useTranslationMessage();
@@ -101,19 +101,7 @@ export const Register = () => {
               name="repeatPassword"
               type="password"
             />
-
-            <FormControlLabel
-              control={
-                <Checkbox
-                  {...register('terms')}
-                  sx={{
-                    color: errors.terms ? 'error.main' : 'none',
-                  }}
-                />
-              }
-              label={t('auth.acceptTerms')}
-            />
-            <ErrorMessage message={errors.terms?.message} />
+            <Checkbox name="terms" label={t('auth.acceptTerms')} />
             <Button
               fullWidth
               text={t('auth.signUp')}

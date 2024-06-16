@@ -6,34 +6,16 @@ import {
   TextFieldProps,
   Box,
 } from '@mui/material';
-import {
-  useFormContext,
-  Controller,
-  FieldErrorsImpl,
-  FieldError,
-  Merge,
-} from 'react-hook-form';
+import { useFormContext, Controller } from 'react-hook-form';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { ErrorMessage } from 'components/ErrorMessage';
+import { getErrorMessage } from 'utils/getErrorMessage';
 
 type CustomTextFieldProps = TextFieldProps & {
   name: string;
 };
 
-const getErrorMessage = (
-  error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined,
-): string => {
-  if (error && typeof error.message === 'string') {
-    return error.message || '';
-  }
-  return '';
-};
-export const Input: FC<CustomTextFieldProps> = ({
-  name,
-  type,
-  onChange,
-  ...props
-}) => {
+export const Input: FC<CustomTextFieldProps> = ({ name, type, ...props }) => {
   const {
     control,
     formState: { errors },

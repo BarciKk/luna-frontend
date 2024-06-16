@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter } from 'react-router-dom';
-import { RoutesWrapper } from './Routes/RoutesWrapper.routes';
+import { RoutesWrapper } from './routes/RoutesWrapper.routes';
 import { CssBaseline } from '@mui/material';
 import { FormProvider, useForm } from 'react-hook-form';
 

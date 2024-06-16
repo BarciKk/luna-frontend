@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { User } from '../modules/Login/login.types';
 import { cookieKeys } from '../enums/Auth/cookiesKeys.enums';
 import { UnauthorizedRoutes } from '../enums/Auth/routes.enums';
 import { useCookies } from './useCookies';
+import { User } from 'types/user.types';
 
 export const useUser = () => {
   const { getCookie, removeCookie } = useCookies();
