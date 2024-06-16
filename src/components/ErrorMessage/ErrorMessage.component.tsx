@@ -3,7 +3,7 @@ import { Typography, TypographyProps } from '@mui/material';
 export const ErrorMessage = ({
   message,
   ...props
-}: TypographyProps & { message: any }) => {
+}: TypographyProps & { message: string | undefined }) => {
   return message ? (
     <Typography
       textAlign="center"

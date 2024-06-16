@@ -1,1 +1,1 @@
-export { BottomNavigation } from '@mui/material';
+export { BottomNavigation } from './BottomNavigation.component';

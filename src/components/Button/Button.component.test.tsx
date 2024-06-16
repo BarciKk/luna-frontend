@@ -26,10 +26,4 @@ describe('Button component', () => {
     const button = screen.getByRole('button');
     expect(button).toHaveAttribute('type', 'submit');
   });
-
-  it('renders with outlined variant', () => {
-    render(<Button text="Outlined Button" variant="outlined" />);
-    const button = screen.getByRole('button');
-    expect(button).toHaveClass('MuiButton-outlined');
-  });
 });

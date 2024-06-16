@@ -1,46 +1,37 @@
 import { useMutation } from 'react-query';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import {
-  Box,
-  IconButton,
-  InputAdornment,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
 
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useSnackbar } from 'hooks';
 import { ResetPasswordForm } from './ResetPassword.types';
 import { updatePasswordSchema } from 'validation/auth/Auth.validation';
 import { resetPassword } from 'api/auth';
 import { AuthAnimation } from 'animations';
 import { AuthWrapper } from 'assets/authWrapper';
-import { ErrorMessage } from 'components/ErrorMessage';
 import { UnauthorizedRoutes } from 'enums/Auth/routes.enums';
 import { Button } from 'components/Button';
 import { Link } from 'components/Link';
 import { CustomSnackbar } from 'components/Snackbar';
 import { ErrorInfo } from 'types/Shared.types';
 import { Seo } from 'components/Seo';
+import { Input } from 'components/Input/Input.component';
 
 export const ResetPassword = () => {
   const { token } = useParams<{ token: string }>();
-  const [showPassword, setShowPassword] = useState(false);
   const { showSnackbar, snackbarProps } = useSnackbar();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ResetPasswordForm>({
+  const methods = useForm<ResetPasswordForm>({
     resolver: zodResolver(updatePasswordSchema),
     mode: 'onChange',
+    defaultValues: {
+      password: '',
+      confirmPassword: '',
+    },
   });
+  const { handleSubmit } = methods;
   if (!token) return null;
-  const [errorMessage, setErrorMessage] = useState<string | undefined>('');
   const { mutate, isLoading } = useMutation(
     (resetFormValues: ResetPasswordForm) =>
       resetPassword({
@@ -62,7 +53,6 @@ export const ResetPassword = () => {
             duration: 5000,
             severity: 'error',
           });
-          setErrorMessage(`${err.response.data.error}`);
         }
       },
     },
@@ -82,80 +72,41 @@ export const ResetPassword = () => {
         <Typography fontSize="36px" m={1} mb={4}>
           Update your password
         </Typography>
-        <Box
-          component="form"
-          onSubmit={handleSubmit(onSubmit)}
-          sx={{ width: '100%', marginTop: 3 }}
-        >
-          <TextField
-            {...register('password')}
-            label="Enter the new password"
-            name="password"
-            type={showPassword ? 'text' : 'password'}
-            fullWidth
-            autoFocus
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={() => setShowPassword((show) => !show)}
-                    edge="end"
-                    size="large"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            error={!!errors.password || !!errorMessage}
-            sx={{ mb: 2 }}
-          />
-          {errors && <ErrorMessage message={errors.password?.message} />}
-          <TextField
-            {...register('confirmPassword')}
-            type={showPassword ? 'text' : 'password'}
-            label="Repeat the new password"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={() => setShowPassword((show) => !show)}
-                    edge="end"
-                    size="large"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-            name="confirmPassword"
-            fullWidth
-            error={!!errors.confirmPassword || !!errorMessage}
-          />
-          {errors && (
-            <ErrorMessage
-              message={errors.confirmPassword?.message || errorMessage}
+        <FormProvider {...methods}>
+          <Box
+            component="form"
+            onSubmit={handleSubmit(onSubmit)}
+            sx={{ width: '100%', marginTop: 3 }}
+          >
+            <Input
+              type="password"
+              name="password"
+              label="Enter the new password"
+              sx={{ mb: 2 }}
             />
-          )}
-          <Button
-            sx={{ mt: 4, mb: 2 }}
-            text={'Update password'}
-            isLoading={isLoading}
-            fullWidth
-          />
-          <Typography textAlign="end" mt={4}>
-            <Link
-              to={UnauthorizedRoutes.login}
-              style={{
-                display: 'inline-block',
-                color: 'gray',
-              }}
-              text={'Back to login'}
+            <Input
+              type="password"
+              name="confirmPassword"
+              label="Repeat the new password"
             />
-          </Typography>
-        </Box>
+            <Button
+              sx={{ mt: 4, mb: 2 }}
+              text={'Update password'}
+              isLoading={isLoading}
+              fullWidth
+            />
+            <Typography textAlign="end" mt={4}>
+              <Link
+                to={UnauthorizedRoutes.login}
+                style={{
+                  display: 'inline-block',
+                  color: 'gray',
+                }}
+                text={'Back to login'}
+              />
+            </Typography>
+          </Box>
+        </FormProvider>
         <CustomSnackbar {...snackbarProps} />
       </AuthWrapper>
     </AuthAnimation>

@@ -1,3 +1,3 @@
-import { User } from '../../Login/login.types';
+import { User } from './login.types';
 
 export type ForgotPasswordForm = Pick<User, 'email'>;
