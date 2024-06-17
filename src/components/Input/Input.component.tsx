@@ -32,6 +32,7 @@ export const Input: FC<CustomTextFieldProps> = ({ name, type, ...props }) => {
             <TextField
               {...field}
               {...props}
+              id={name}
               type={type === 'password' && showPassword ? 'text' : type}
               value={field.value || ''}
               error={!!errors[name]}

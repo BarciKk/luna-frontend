@@ -1,11 +1,15 @@
-import { UpdatePasswordType } from '../../modules/ResetPassword/ResetPassword/ResetPassword.types';
-import { loginResponse, loginValues } from '../../modules/Login/login.types';
+import { UpdatePasswordType } from 'modules/ResetPassword/ResetPassword/ResetPassword.types';
+
+import { axiosInstance as axios } from '../axios.config';
+import {
+  loginValues,
+  loginResponse,
+} from 'modules/ResetPassword/ForgotPassword/login.types';
+import { GenericResponseType } from 'types/Shared.types';
 import {
   RegisterResponse,
   RegisterValues,
-} from '../../modules/Register/register.types';
-import { GenericResponseType } from '../../types/Shared.types';
-import { axiosInstance as axios } from '../axios.config';
+} from 'modules/Register/register.types';
 
 const login = (values: loginValues) =>
   axios.post<loginResponse>('auth/login', values);

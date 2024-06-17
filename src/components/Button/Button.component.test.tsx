@@ -1,5 +1,6 @@
-import { render, screen } from 'tests';
+import { screen } from 'tests';
 import { Button } from './Button.component';
+import { render } from 'utils/tests/Mocks';
 
 describe('Button component', () => {
   it('renders button with text', () => {

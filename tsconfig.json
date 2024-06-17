@@ -22,6 +22,7 @@
       "@assets/*": ["src/assets/*"],
       "@validation/*": ["src/validation/*"],
       "@api/*": ["src/api/*"],
+      "@modules/*": ["src/modules/*"],
       "@types/*": ["src/types/*"],
       "@constants/*": ["src/constants/*"]
     },
