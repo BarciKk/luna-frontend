@@ -3,7 +3,7 @@ enum UnauthorizedRoutes {
   login = '/accounts/login',
   register = '/accounts/register',
   forgotPassword = '/accounts/forgotPassword',
-  termsAndConditions = '/TermsAndConditions',
+  termsAndConditions = '/termsAndConditions',
   resetPassword = '/accounts/resetPassword',
 }
 enum AuthorizedRoutes {
@@ -12,6 +12,7 @@ enum AuthorizedRoutes {
   today = '/today',
   tasks = '/tasks',
   habits = '/habits',
+  termsAndConditions = '/termsAndConditions',
 }
 
 export { AuthorizedRoutes, UnauthorizedRoutes };

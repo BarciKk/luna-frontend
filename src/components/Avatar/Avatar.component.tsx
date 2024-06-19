@@ -23,6 +23,7 @@ export const CustomAvatar = ({
   ...props
 }: CustomAvatarProps) => {
   const { removeUser } = useUser();
+
   const [anchorElement, setAnchorElement] = useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -36,7 +37,7 @@ export const CustomAvatar = ({
   return (
     <Box>
       <Tooltip title={label || ''}>
-        <IconButton onClick={handleClick}>
+        <IconButton data-testid="menu-click" onClick={handleClick}>
           <MuiAvatar
             {...props}
             alt="user avatar"
@@ -47,6 +48,7 @@ export const CustomAvatar = ({
       </Tooltip>
       {showMenu && (
         <Menu
+          data-testid="avatar-menu"
           MenuListProps={{ sx: { padding: '12px' } }}
           anchorEl={anchorElement}
           open={Boolean(anchorElement)}

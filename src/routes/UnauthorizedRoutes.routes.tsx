@@ -8,6 +8,7 @@ import { Welcome } from '../pages/Welcome/Welcome.page';
 import { Dashboard } from '../pages/Dashboard/Dashboard.page';
 import { useCookies } from '../hooks';
 import { cookieKeys } from '../enums/Auth/cookiesKeys.enums';
+import { TermsAndConditions } from 'pages/TermsAndConditions';
 
 export const UnauthorizedRoutesContent = () => {
   const { getCookie } = useCookies();
@@ -34,10 +35,10 @@ export const UnauthorizedRoutesContent = () => {
         />
         <Route
           path={UnauthorizedRoutes.termsAndConditions}
-          element={<Page404 />}
+          element={<TermsAndConditions />}
         />
         <Route path="/" element={<Login />} />
-
+        <Route path="*" element={<Page404 />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </>
     </Routes>

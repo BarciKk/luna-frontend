@@ -8,11 +8,7 @@ import {
   useTheme,
 } from '@mui/material';
 import { useFormContext, Controller } from 'react-hook-form';
-import {
-  DisabledByDefaultOutlined,
-  Visibility,
-  VisibilityOff,
-} from '@mui/icons-material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { ErrorMessage } from 'components/ErrorMessage';
 import { getErrorMessage } from 'utils/getErrorMessage';
 
@@ -45,11 +41,6 @@ export const Input: FC<CustomTextFieldProps> = ({ name, type, ...props }) => {
               variant="outlined"
               InputLabelProps={{
                 color: theme.palette.mode === 'dark' ? 'info' : 'primary',
-              }}
-              sx={{
-                ':root': {
-                  color: theme.palette.mode === 'dark' ? 'info' : 'primary',
-                },
               }}
               fullWidth
               InputProps={{
