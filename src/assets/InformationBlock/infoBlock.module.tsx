@@ -1,13 +1,13 @@
 import {} from '@emotion/react';
 import { Stack, Typography } from '@mui/material';
-import { CustomTypographyDescription } from '../../styles/CustomTypography';
-import { motion } from 'framer-motion';
 import {
   InfoBlockAnimation,
-  descriptionVariants,
   logoVariants,
   titleVariants,
-} from '../../animations/InfoBlock.animation';
+  descriptionVariants,
+} from 'animations/InfoBlock.animation';
+import { motion } from 'framer-motion';
+import { CustomTypographyDescription } from 'styles/CustomTypography';
 
 export const InfoBlock = ({
   img,

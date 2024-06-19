@@ -105,7 +105,7 @@ export const darkTheme = createTheme({
       dark: '#4c944c',
     },
     info: {
-      main: '#bbdefb',
+      main: '#FFFFFF',
     },
   },
   components: {

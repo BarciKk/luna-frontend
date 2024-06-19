@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'hooks';
 import { cookieKeys } from 'enums/Auth/cookiesKeys.enums';
 import { steps } from 'constants/welcomePage';
-import { InfoBlock } from 'assets/infoBlock';
+import { InfoBlock } from 'assets/InformationBlock';
 import { ThemeSwitch } from 'components/ThemeSwitch/ThemeSwitch.component';
 import { Button } from 'components/Button';
 import { Seo } from 'components/Seo';

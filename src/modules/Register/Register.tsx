@@ -10,7 +10,7 @@ import { registerSchema } from 'validation/auth';
 import { RegisterValues } from './register.types';
 import { ErrorInfo } from 'types/Shared.types';
 import { AuthAnimation } from 'animations/Auth.animation';
-import { AuthWrapper } from 'assets/authWrapper';
+import { AuthWrapper } from 'assets/AuthWrapper';
 import { Button } from 'components/Button';
 import { Link } from 'components/Link';
 import { UnauthorizedRoutes } from 'enums/Auth/routes.enums';
