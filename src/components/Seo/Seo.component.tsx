@@ -25,4 +25,3 @@ export const Seo = ({ description, title, image, type, url }: CustomSeo) => (
     <link rel="canonical" href={`${window.location.origin}/${url}`} />
   </Helmet>
 );
-//update image please
