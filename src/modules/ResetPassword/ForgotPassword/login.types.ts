@@ -1,10 +1,10 @@
-import { User } from 'types/user.types';
+import { User } from 'types/User.types';
 
-type loginValues = Pick<User, 'username' | 'password'>;
+type LoginValues = Pick<User, 'username' | 'password'>;
 
-type loginResponse = {
+type LoginResponse = {
   token: string;
   user: User;
 };
 
-export type { loginValues, loginResponse, User };
+export type { LoginValues, LoginResponse, User };

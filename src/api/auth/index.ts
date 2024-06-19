@@ -2,8 +2,8 @@ import { UpdatePasswordType } from 'modules/ResetPassword/ResetPassword/ResetPas
 
 import { axiosInstance as axios } from '../axios.config';
 import {
-  loginValues,
-  loginResponse,
+  LoginValues,
+  LoginResponse,
 } from 'modules/ResetPassword/ForgotPassword/login.types';
 import { GenericResponseType } from 'types/Shared.types';
 import {
@@ -11,8 +11,8 @@ import {
   RegisterValues,
 } from 'modules/Register/register.types';
 
-const login = (values: loginValues) =>
-  axios.post<loginResponse>('auth/login', values);
+const login = (values: LoginValues) =>
+  axios.post<LoginResponse>('auth/login', values);
 
 const registerCall = (values: RegisterValues) =>
   axios.post<RegisterResponse>('auth/register', values);

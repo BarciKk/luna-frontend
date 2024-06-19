@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto';
-import { User } from 'types/user.types';
+import { User } from 'types/User.types';
 
 export const TEST_USER: User = {
   id: randomUUID(),

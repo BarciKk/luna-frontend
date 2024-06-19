@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm, FormProvider } from 'react-hook-form';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import { Box, Typography } from '@mui/material';
 import { AuthorizedRoutes, UnauthorizedRoutes } from 'enums/Auth/routes.enums';
@@ -15,7 +15,7 @@ import { login } from 'api/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AuthAnimation } from 'animations/Auth.animation';
 import { cookieKeys } from 'enums/Auth/cookiesKeys.enums';
-import { loginValues } from 'modules/ResetPassword/ForgotPassword/login.types';
+import { LoginValues } from 'modules/ResetPassword/ForgotPassword/login.types';
 import { Seo } from 'components/Seo';
 import { Input } from 'components/Input/Input.component';
 
@@ -23,7 +23,7 @@ export const Login = () => {
   const { setCookie } = useCookies();
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const methods = useForm<loginValues>({
+  const methods = useForm<LoginValues>({
     resolver: zodResolver(loginSchema),
     mode: 'onChange',
     defaultValues: {
@@ -35,7 +35,7 @@ export const Login = () => {
   const { handleSubmit } = methods;
 
   const { mutate, isLoading, isError } = useMutation(
-    (values: loginValues) => login(values),
+    (values: LoginValues) => login(values),
     {
       onSuccess: (response) => {
         const {
@@ -55,7 +55,7 @@ export const Login = () => {
     },
   );
 
-  const onSubmit: SubmitHandler<loginValues> = async (data) => {
+  const onSubmit: SubmitHandler<LoginValues> = async (data) => {
     try {
       mutate(data);
     } catch (err) {
