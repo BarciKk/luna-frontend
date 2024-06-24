@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { UnauthorizedRoutes } from '../enums/Auth/routes.enums';
+import { UnauthorizedRoutes } from '../enums/routes.enums';
 import { Login } from '../modules/Login/Login';
 import { Register } from '../modules/Register/Register';
 import { Page404 } from '../pages/Page404/Page404.page';
@@ -7,7 +7,7 @@ import { ForgotPassword, ResetPassword } from '../modules/ResetPassword';
 import { Welcome } from '../pages/Welcome/Welcome.page';
 import { Dashboard } from '../pages/Dashboard/Dashboard.page';
 import { useCookies } from '../hooks';
-import { cookieKeys } from '../enums/Auth/cookiesKeys.enums';
+import { cookieKeys } from '../enums/cookiesKeys.enums';
 import { TermsAndConditions } from 'pages/TermsAndConditions';
 
 export const UnauthorizedRoutesContent = () => {

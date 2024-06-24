@@ -10,7 +10,7 @@ import { updatePasswordSchema } from 'validation/auth/Auth.validation';
 import { resetPassword } from 'api/auth';
 import { AuthAnimation } from 'animations';
 import { AuthWrapper } from 'assets/AuthWrapper';
-import { UnauthorizedRoutes } from 'enums/Auth/routes.enums';
+import { UnauthorizedRoutes } from 'enums/routes.enums';
 import { Button } from 'components/Button';
 import { Link } from 'components/Link';
 import { CustomSnackbar } from 'components/Snackbar';

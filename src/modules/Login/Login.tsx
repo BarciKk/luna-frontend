@@ -1,10 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm, FormProvider } from 'react-hook-form';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import { Box, Typography } from '@mui/material';
-import { AuthorizedRoutes, UnauthorizedRoutes } from 'enums/Auth/routes.enums';
-import { useCookies } from 'hooks/useCookies';
+import { AuthorizedRoutes, UnauthorizedRoutes } from 'enums/routes.enums';
 import { Link } from 'components/Link/Link.component';
 import { AuthWrapper } from 'assets/AuthWrapper';
 import { Copyright } from 'assets/Copyright';
@@ -14,13 +13,16 @@ import { loginSchema } from 'validation/auth';
 import { login } from 'api/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AuthAnimation } from 'animations/Auth.animation';
-import { cookieKeys } from 'enums/Auth/cookiesKeys.enums';
 import { LoginValues } from 'modules/ResetPassword/ForgotPassword/login.types';
 import { Seo } from 'components/Seo';
 import { Input } from 'components/Input/Input.component';
+import { useSnackbar, useUser } from 'hooks';
+import { ErrorInfo } from 'types/Shared.types';
+import { CustomSnackbar } from 'components/Snackbar';
 
 export const Login = () => {
-  const { setCookie } = useCookies();
+  const { setUser } = useUser();
+  const { showSnackbar, snackbarProps } = useSnackbar();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const methods = useForm<LoginValues>({
@@ -43,14 +45,19 @@ export const Login = () => {
         } = response;
 
         if (token && user) {
-          setCookie(cookieKeys.jwt, token);
-          setCookie(cookieKeys.user, user);
+          setUser(user, token);
           navigate(`${AuthorizedRoutes.today}`);
         }
       },
 
-      onError: (error: Error) => {
-        console.error(t('errors.incorrectLoginOrPassword') + error);
+      onError: (error: ErrorInfo) => {
+        if (error.response) {
+          showSnackbar({
+            message: error.response.data.message,
+            duration: 3000,
+            severity: 'error',
+          });
+        }
       },
     },
   );
@@ -110,6 +117,7 @@ export const Login = () => {
           </Box>
         </FormProvider>
       </AuthWrapper>
+      <CustomSnackbar {...snackbarProps} />
     </AuthAnimation>
   );
 };

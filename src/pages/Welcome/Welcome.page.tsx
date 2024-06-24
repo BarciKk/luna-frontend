@@ -3,7 +3,7 @@ import { LinearProgress, Stack } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCookies } from 'hooks';
-import { cookieKeys } from 'enums/Auth/cookiesKeys.enums';
+import { cookieKeys } from 'enums/cookiesKeys.enums';
 import { steps } from 'constants/welcomePage';
 import { InfoBlock } from 'assets/InformationBlock';
 import { ThemeSwitch } from 'components/ThemeSwitch/ThemeSwitch.component';

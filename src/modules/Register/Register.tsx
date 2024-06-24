@@ -13,7 +13,7 @@ import { AuthAnimation } from 'animations/Auth.animation';
 import { AuthWrapper } from 'assets/AuthWrapper';
 import { Button } from 'components/Button';
 import { Link } from 'components/Link';
-import { UnauthorizedRoutes } from 'enums/Auth/routes.enums';
+import { UnauthorizedRoutes } from 'enums/routes.enums';
 import { CustomSnackbar } from 'components/Snackbar';
 import { Seo } from 'components/Seo';
 import { Input } from 'components/Input/Input.component';
@@ -57,7 +57,7 @@ export const Register = () => {
       onError: (err: ErrorInfo) => {
         if (err.response) {
           showSnackbar({
-            message: err.response.data.error,
+            message: err.response.data.message,
             duration: 3000,
             severity: 'error',
           });

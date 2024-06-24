@@ -6,10 +6,10 @@ import {
   FC,
   useEffect,
 } from 'react';
-import { darkTheme, lightTheme } from '../theme';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material';
-import { useCookies } from '../hooks';
-import { cookieKeys } from '../enums/Auth/cookiesKeys.enums';
+import { useCookies } from 'hooks';
+import { cookieKeys } from 'enums/cookiesKeys.enums';
+import { darkTheme, lightTheme } from 'theme';
 
 interface ThemeContextProps {
   darkMode: boolean;

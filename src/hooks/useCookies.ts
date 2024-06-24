@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import Cookies from 'universal-cookie';
-import { cookieKeys } from '../enums/Auth/cookiesKeys.enums';
+import { cookieKeys } from '../enums/cookiesKeys.enums';
 
 type CookieOptions = {
   maxAge: number;
@@ -12,9 +12,8 @@ type CookieOptions = {
 export const useCookies = () => {
   const cookies = new Cookies();
 
-  //work around this maxAge
   const cookieOptions: CookieOptions = {
-    maxAge: 36000,
+    maxAge: 3600,
     path: '/',
     secure: true,
     sameSite: 'strict' as const,
