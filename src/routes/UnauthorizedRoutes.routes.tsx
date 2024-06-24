@@ -1,14 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
-import { UnauthorizedRoutes } from '../enums/routes.enums';
-import { Login } from '../modules/Login/Login';
-import { Register } from '../modules/Register/Register';
-import { Page404 } from '../pages/Page404/Page404.page';
-import { ForgotPassword, ResetPassword } from '../modules/ResetPassword';
-import { Welcome } from '../pages/Welcome/Welcome.page';
-import { Dashboard } from '../pages/Dashboard/Dashboard.page';
-import { useCookies } from '../hooks';
-import { cookieKeys } from '../enums/cookiesKeys.enums';
 import { TermsAndConditions } from 'pages/TermsAndConditions';
+import { ForgotPassword, ResetPassword } from 'modules/ResetPassword';
+import { cookieKeys } from 'enums/cookiesKeys.enums';
+import { useCookies } from 'hooks';
+import { Welcome } from 'pages/Welcome';
+import { Page404 } from 'pages/Page404';
+import { Dashboard } from 'pages/Dashboard';
+import { Register } from 'modules/Register';
+import { UnauthorizedRoutes } from 'enums/routes.enums';
+import { Login } from 'modules/Login';
 
 export const UnauthorizedRoutesContent = () => {
   const { getCookie } = useCookies();
