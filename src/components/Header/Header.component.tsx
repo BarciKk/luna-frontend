@@ -10,7 +10,9 @@ import {
 import { CustomAvatar } from 'components/Avatar/Avatar.component';
 import { Button } from 'components/Button/Button.component';
 import { Drawer } from 'components/Drawer/Drawer.component';
+import { DEFAULT_USER_IMAGE } from 'constants/user.constants';
 import { UnauthorizedRoutes } from 'enums/routes.enums';
+import { motion } from 'framer-motion';
 import { useUser } from 'hooks';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -22,48 +24,57 @@ export const Header = () => {
   const theme = useTheme();
 
   const shouldRenderLoginButton = !user && !jwt;
-
   const toggleOpenDrawer = () => setOpenDrawer((drawer) => !drawer);
 
   return (
-    <AppBar position="static">
-      <Toolbar
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-        }}
-      >
-        <Box
+    <motion.div
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      transition={{ duration: 1.6 }}
+    >
+      <AppBar position="fixed" sx={{ top: '0px' }}>
+        <Toolbar
           sx={{
             display: 'flex',
-            alignItems: 'center',
+            justifyContent: 'space-between',
           }}
         >
-          <IconButton
-            size="large"
-            edge="start"
-            aria-label="menu"
+          <Box
             sx={{
-              mr: 2,
-              color: theme.palette.mode === 'dark' ? 'primary.main' : 'white',
+              display: 'flex',
+              alignItems: 'center',
             }}
-            onClick={toggleOpenDrawer}
           >
-            <Segment />
-          </IconButton>
-          <Typography color="">Today</Typography>
-        </Box>
-        <Drawer open={openDrawer} onClose={toggleOpenDrawer} />
-        {shouldRenderLoginButton ? (
-          <Button
-            text="Login"
-            variant="text"
-            onClick={() => navigate(`${UnauthorizedRoutes.login}`)}
-          />
-        ) : (
-          <CustomAvatar src={user.avatar} label="Open settings" showMenu />
-        )}
-      </Toolbar>
-    </AppBar>
+            <IconButton
+              size="large"
+              edge="start"
+              aria-label="menu"
+              sx={{
+                mr: 2,
+                color: theme.palette.mode === 'dark' ? 'primary.main' : 'white',
+              }}
+              onClick={toggleOpenDrawer}
+            >
+              <Segment />
+            </IconButton>
+            <Typography color="">Today</Typography>
+          </Box>
+          <Drawer open={openDrawer} onClose={toggleOpenDrawer} />
+          {shouldRenderLoginButton ? (
+            <Button
+              text="Login"
+              variant="text"
+              onClick={() => navigate(`${UnauthorizedRoutes.login}`)}
+            />
+          ) : (
+            <CustomAvatar
+              src={user?.avatar ?? DEFAULT_USER_IMAGE}
+              label="Open settings"
+              showMenu
+            />
+          )}
+        </Toolbar>
+      </AppBar>
+    </motion.div>
   );
 };

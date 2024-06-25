@@ -16,7 +16,7 @@ export const useUser = () => {
   const jwt: string = getCookie(cookieKeys.jwt);
   const navigate = useNavigate();
 
-  const { data, isLoading, error, status } = useQuery([QueryKeys.user], {
+  const { data, isLoading, error, status } = useQuery<User>([QueryKeys.user], {
     queryFn: () => getCurrentUser(user._id),
     retry: 0,
     enabled: !!(user && jwt),
