@@ -12,7 +12,7 @@ export const LoadingAnimation: FC<LoadingAnimationProps> = (
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let timer = setTimeout(() => {
+    const timer = setTimeout(() => {
       setLoading(false);
     }, 1500);
     return () => clearTimeout(timer);
@@ -20,7 +20,7 @@ export const LoadingAnimation: FC<LoadingAnimationProps> = (
 
   const showLoading = loading && isLoading;
   return (
-    <Box style={{ position: 'relative', width: '100%', minHeight: '100vh' }}>
+    <Box>
       {showLoading && (
         <motion.div
           animate={{

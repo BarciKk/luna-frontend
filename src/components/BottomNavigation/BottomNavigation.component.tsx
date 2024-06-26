@@ -26,9 +26,8 @@ export const BottomNavigation = () => {
       <MaterialNavigation
         showLabels
         sx={{
-          position: 'fixed',
-          bottom: 0,
           width: '100%',
+          position: 'sticky',
           backgroundColor: 'rgba(43, 43, 43, .95)',
         }}
       >

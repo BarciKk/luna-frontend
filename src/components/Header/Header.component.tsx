@@ -32,7 +32,7 @@ export const Header = () => {
       initial={{ opacity: 0 }}
       transition={{ duration: 1.6 }}
     >
-      <AppBar position="fixed" sx={{ top: '0px' }}>
+      <AppBar sx={{ position: 'sticky' }}>
         <Toolbar
           sx={{
             display: 'flex',
@@ -57,7 +57,7 @@ export const Header = () => {
             >
               <Segment />
             </IconButton>
-            <Typography color="">Today</Typography>
+            <Typography>Today</Typography>
           </Box>
           <Drawer open={openDrawer} onClose={toggleOpenDrawer} />
           {shouldRenderLoginButton ? (

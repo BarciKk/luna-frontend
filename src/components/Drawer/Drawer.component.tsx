@@ -14,7 +14,7 @@ import {
   Divider,
 } from '@mui/material';
 import { Button } from 'components/Button';
-import { formatDate } from 'constants/formatDate';
+import { format } from 'date-fns';
 import { useUser } from 'hooks';
 
 type DrawerProps = {
@@ -24,8 +24,6 @@ type DrawerProps = {
 
 export const Drawer = ({ open, onClose }: DrawerProps) => {
   const { user, jwt, removeUser } = useUser();
-  const currentDate = new Date();
-  const { dayName, fullDate } = formatDate(currentDate);
 
   return (
     <MuiDrawer open={open} onClose={onClose} anchor="left">
@@ -35,10 +33,10 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
             LunaSync
           </Typography>
           <Typography fontSize="12px" fontWeight="bolder">
-            {dayName}
+            {format(new Date(), 'iiii')}
           </Typography>
           <Typography marginBottom="8px" fontSize="12px">
-            {fullDate}
+            {format(new Date(), 'PPP')}
           </Typography>
         </Box>
         <Divider />
