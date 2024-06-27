@@ -9,7 +9,7 @@ import { forgotPassword } from 'api/auth';
 import { AuthAnimation } from 'animations';
 import { AuthWrapper } from 'assets/AuthWrapper';
 import { Button } from 'components/Button';
-import { UnauthorizedRoutes } from 'enums/routes.enums';
+import { UnauthorizedRoutes } from 'enums/Routes.enums';
 import { Link } from 'components/Link';
 import { CustomSnackbar } from 'components/Snackbar';
 import { useSnackbar } from 'hooks';

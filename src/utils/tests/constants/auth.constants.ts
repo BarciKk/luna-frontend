@@ -2,7 +2,7 @@ import { randomUUID } from 'crypto';
 import { User } from 'types/User.types';
 
 export const TEST_USER: User = {
-  id: randomUUID(),
+  _id: randomUUID(),
   email: 'testUser321@gmail.com',
   username: 'testUser',
   password: '**********',

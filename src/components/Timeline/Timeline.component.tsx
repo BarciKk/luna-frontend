@@ -1,34 +1,44 @@
-import { FC, useState } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { format, addDays, subDays } from 'date-fns';
 import { Badge, Box, useMediaQuery, useTheme } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { Day } from './Day';
+import { Day } from '../Day';
 import { ArrowForwardIos } from '@mui/icons-material';
 import { motion } from 'framer-motion';
+import { useSearchParams } from 'react-router-dom';
+import { currentDate } from 'constants/date.constants';
 
-type TimelineProps = {
-  selectedDate: string;
-  onDateChange: (date: string) => void;
-};
-
-export const Timeline: FC<TimelineProps> = ({ selectedDate, onDateChange }) => {
-  const [currentDate, setCurrentDate] = useState(new Date());
+export const Timeline: FC = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const dateParam = searchParams.get('date');
+  const initialDate = dateParam ? new Date(dateParam) : currentDate;
+  const [date, setDate] = useState(initialDate);
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.between('xs', 'sm'));
   const amountOfDays = isSmallScreen ? 1 : 4;
 
+  useEffect(() => {
+    if (format(date, 'yyyy-MM-dd') !== dateParam) {
+      setSearchParams({ date: format(date, 'yyyy-MM-dd') });
+    }
+  }, [date, dateParam, setSearchParams]);
+
   const days = [];
 
   for (let i = -amountOfDays; i <= amountOfDays; i++) {
-    days.push(addDays(currentDate, i));
+    days.push(addDays(date, i));
   }
 
   const handlePrevDay = () => {
-    setCurrentDate(subDays(currentDate, 1));
+    setDate(subDays(date, 1));
   };
 
   const handleNextDay = () => {
-    setCurrentDate(addDays(currentDate, 1));
+    setDate(addDays(date, 1));
+  };
+
+  const handleDayClick = (date: Date) => {
+    setDate(date);
   };
 
   return (
@@ -51,8 +61,7 @@ export const Timeline: FC<TimelineProps> = ({ selectedDate, onDateChange }) => {
           <Day
             key={format(day, 'yyyy-MM-dd')}
             day={day}
-            selectedDate={selectedDate}
-            onDateChange={onDateChange}
+            onClick={handleDayClick}
           />
         ))}
       </Box>

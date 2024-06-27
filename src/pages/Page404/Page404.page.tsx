@@ -1,11 +1,9 @@
-import { useTranslation } from 'react-i18next';
 import { Typography, Grid, Button } from '@mui/material';
 import { Seo } from 'components/Seo';
 import { Link } from 'react-router-dom';
-import { UnauthorizedRoutes } from 'enums/routes.enums';
+import { UnauthorizedRoutes } from 'enums/Routes.enums';
 
 export const Page404 = () => {
-  const { t } = useTranslation();
   return (
     <>
       <Seo title={'Something went wrong !'} description={'page 404'} />

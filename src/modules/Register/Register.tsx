@@ -13,7 +13,7 @@ import { AuthAnimation } from 'animations/Auth.animation';
 import { AuthWrapper } from 'assets/AuthWrapper';
 import { Button } from 'components/Button';
 import { Link } from 'components/Link';
-import { UnauthorizedRoutes } from 'enums/routes.enums';
+import { UnauthorizedRoutes } from 'enums/Routes.enums';
 import { CustomSnackbar } from 'components/Snackbar';
 import { Seo } from 'components/Seo';
 import { Input } from 'components/Input/Input.component';
@@ -36,12 +36,7 @@ export const Register = () => {
     },
   });
 
-  const {
-    reset,
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = methods;
+  const { reset, handleSubmit } = methods;
   const { mutate, isLoading } = useMutation(
     (values: RegisterValues) => registerCall(values),
     {

@@ -3,7 +3,7 @@ import { SubmitHandler, useForm, FormProvider } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { useTranslation } from 'react-i18next';
 import { Box, Typography } from '@mui/material';
-import { AuthorizedRoutes, UnauthorizedRoutes } from 'enums/routes.enums';
+import { AuthorizedRoutes, UnauthorizedRoutes } from 'enums/Routes.enums';
 import { Link } from 'components/Link/Link.component';
 import { AuthWrapper } from 'assets/AuthWrapper';
 import { Copyright } from 'assets/Copyright';

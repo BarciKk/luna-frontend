@@ -1,29 +1,36 @@
 import { Box, Typography, useTheme } from '@mui/material';
 import { format } from 'date-fns';
 import { motion } from 'framer-motion';
+import { useQueryString } from 'hooks';
 import { FC } from 'react';
 
 type DayProps = {
   day: Date;
-  selectedDate: string;
-  onDateChange: (date: string) => void;
+  onClick: (date: Date) => void;
 };
 
-export const Day: FC<DayProps> = ({ day, selectedDate, onDateChange }) => {
+export const Day: FC<DayProps> = ({ day, onClick }) => {
+  const { getQueryString, createQueryString } = useQueryString();
+  const selectedDate = getQueryString('date');
   const dayFormatted = format(day, 'yyyy-MM-dd');
   const dayName = format(day, 'eee');
   const dayNumber = format(day, 'dd');
   const theme = useTheme();
+
+  const handleClick = () => {
+    onClick(day);
+    createQueryString('date', dayFormatted);
+  };
+
   return (
     <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
       <Box
         textAlign="center"
         minWidth="4em"
-        width="100%"
         style={{
           cursor: 'pointer',
         }}
-        onClick={() => onDateChange(dayFormatted)}
+        onClick={handleClick}
       >
         <Box
           padding="12px"

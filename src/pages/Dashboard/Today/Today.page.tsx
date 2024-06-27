@@ -1,13 +1,7 @@
-import { useState } from 'react';
 import { Box } from '@mui/material';
 import { Timeline } from 'components/Timeline/Timeline.component';
-import { format } from 'date-fns';
 
 export const Today = () => {
-  const [selectedDate, setSelectedDate] = useState(
-    format(new Date(), 'yyyy-MM-dd'),
-  );
-
   // enum TaskPriority {
   //   Default = 1,
   //   Low = 2,
@@ -44,7 +38,7 @@ export const Today = () => {
   */
   return (
     <Box>
-      <Timeline selectedDate={selectedDate} onDateChange={setSelectedDate} />
+      <Timeline />
     </Box>
   );
 };

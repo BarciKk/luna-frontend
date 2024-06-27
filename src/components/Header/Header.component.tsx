@@ -10,22 +10,32 @@ import {
 import { CustomAvatar } from 'components/Avatar/Avatar.component';
 import { Button } from 'components/Button/Button.component';
 import { Drawer } from 'components/Drawer/Drawer.component';
+import { currentDate } from 'constants/date.constants';
 import { DEFAULT_USER_IMAGE } from 'constants/user.constants';
-import { UnauthorizedRoutes } from 'enums/routes.enums';
+import { format } from 'date-fns';
+import { UnauthorizedRoutes } from 'enums/Routes.enums';
 import { motion } from 'framer-motion';
-import { useUser } from 'hooks';
+import { useQueryString, useUser } from 'hooks';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const Header = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
+  const { getQueryString } = useQueryString();
+  const dateParam = getQueryString('date');
   const navigate = useNavigate();
   const { user, jwt } = useUser();
   const theme = useTheme();
 
+  const formattedDate = dateParam ? new Date(dateParam) : currentDate;
+
+  const headerDate =
+    format(currentDate, 'yyyy-MM-dd') === format(formattedDate, 'yyyy-MM-dd')
+      ? 'Today'
+      : format(formattedDate, 'dd MMM yyyy');
+
   const shouldRenderLoginButton = !user && !jwt;
   const toggleOpenDrawer = () => setOpenDrawer((drawer) => !drawer);
-
   return (
     <motion.div
       animate={{ opacity: 1 }}
@@ -57,7 +67,18 @@ export const Header = () => {
             >
               <Segment />
             </IconButton>
-            <Typography>Today</Typography>
+            <motion.div
+              key={headerDate}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{
+                duration: 1,
+              }}
+            >
+              <Typography fontSize={18} fontWeight="bolder">
+                {headerDate}
+              </Typography>
+            </motion.div>
           </Box>
           <Drawer open={openDrawer} onClose={toggleOpenDrawer} />
           {shouldRenderLoginButton ? (

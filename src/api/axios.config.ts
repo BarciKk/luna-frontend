@@ -2,7 +2,7 @@ import axios from 'axios';
 import Cookies from 'universal-cookie';
 
 import { baseURL } from '../config';
-import { cookieKeys } from 'enums/cookiesKeys.enums';
+import { cookieKeys } from 'enums/CookiesKeys.enums';
 
 const axiosInstance = axios.create({ baseURL });
 

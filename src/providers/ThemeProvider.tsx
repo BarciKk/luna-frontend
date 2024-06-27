@@ -8,7 +8,7 @@ import {
 } from 'react';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material';
 import { useCookies } from 'hooks';
-import { cookieKeys } from 'enums/cookiesKeys.enums';
+import { cookieKeys } from 'enums/CookiesKeys.enums';
 import { darkTheme, lightTheme } from 'theme';
 
 interface ThemeContextProps {

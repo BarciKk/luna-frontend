@@ -1,0 +1,72 @@
+import { useState } from 'react';
+import AddIcon from '@mui/icons-material/Add';
+import { Fab, Box, Typography, Divider } from '@mui/material';
+import { ArrowForwardIos } from '@mui/icons-material';
+import { ClickAwayListener } from '@mui/base/ClickAwayListener';
+
+import CloseIcon from '@mui/icons-material/Close';
+import { taskOptions } from 'constants/user.constants';
+
+export const AddActivity = () => {
+  const [showBox, setShowBox] = useState(false);
+
+  const handleFabClick = () => {
+    setShowBox((prevShowBox) => !prevShowBox);
+  };
+
+  return (
+    <Box>
+      <Fab color="primary" aria-label="add" onClick={handleFabClick}>
+        {showBox ? <CloseIcon /> : <AddIcon />}
+      </Fab>
+      {showBox && (
+        <Box
+          sx={{
+            bgcolor: 'rgba(43, 43, 43, .75)',
+            position: 'absolute',
+            maxWidth: '400px',
+            bottom: '8em',
+            right: '1em',
+            borderRadius: '8px',
+            padding: '14px',
+          }}
+        >
+          {taskOptions.map((task, index) => (
+            <Box key={index}>
+              <ClickAwayListener onClickAway={handleFabClick}>
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  gap="12px"
+                  sx={{
+                    minHeight: '50px',
+                    height: '100%',
+                    ':hover': {
+                      cursor: 'pointer',
+                      borderRadius: '8px',
+                      bgcolor: 'rgba(53, 53, 53, .75)',
+                    },
+                  }}
+                >
+                  {task.icon}
+                  <Box flex={1}>
+                    <Typography fontSize={14} fontWeight="bolder">
+                      {task.title}
+                    </Typography>
+                    <Typography fontSize={12} color="rgb(211, 211, 211)">
+                      {task.description}
+                    </Typography>
+                  </Box>
+                  <ArrowForwardIos fontSize="small" />
+                </Box>
+              </ClickAwayListener>
+              {index < taskOptions.length - 1 && (
+                <Divider sx={{ marginY: '10px' }} />
+              )}
+            </Box>
+          ))}
+        </Box>
+      )}
+    </Box>
+  );
+};

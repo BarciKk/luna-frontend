@@ -1,5 +1,6 @@
-import { Box, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import { BottomNavigation } from 'components/BottomNavigation/BottomNavigation.component';
+import { AddActivity } from 'components/Button/AddContent/AddActivity.component';
 import { Header } from 'components/Header/Header.component';
 import { Seo } from 'components/Seo';
 import { Outlet } from 'react-router-dom';
@@ -12,9 +13,10 @@ export const Dashboard = () => {
         <Header />
       </Grid>
       <Grid item xs>
-        <Box>
-          <Outlet />
-        </Box>
+        <Outlet />
+      </Grid>
+      <Grid item sx={{ margin: '0px 12px 12px auto' }}>
+        <AddActivity />
       </Grid>
       <Grid item>
         <BottomNavigation />

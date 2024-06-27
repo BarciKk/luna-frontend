@@ -1,6 +1,6 @@
+import { cookieKeys } from 'enums/CookiesKeys.enums';
 import { useCallback } from 'react';
 import Cookies from 'universal-cookie';
-import { cookieKeys } from '../enums/cookiesKeys.enums';
 
 type CookieOptions = {
   maxAge: number;

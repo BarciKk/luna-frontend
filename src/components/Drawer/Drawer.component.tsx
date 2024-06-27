@@ -14,6 +14,7 @@ import {
   Divider,
 } from '@mui/material';
 import { Button } from 'components/Button';
+import { currentDate } from 'constants/date.constants';
 import { format } from 'date-fns';
 import { useUser } from 'hooks';
 
@@ -33,10 +34,10 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
             LunaSync
           </Typography>
           <Typography fontSize="12px" fontWeight="bolder">
-            {format(new Date(), 'iiii')}
+            {format(currentDate, 'iiii')}
           </Typography>
           <Typography marginBottom="8px" fontSize="12px">
-            {format(new Date(), 'PPP')}
+            {format(currentDate, 'PPP')}
           </Typography>
         </Box>
         <Divider />

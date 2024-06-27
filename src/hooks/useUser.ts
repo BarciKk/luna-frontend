@@ -1,13 +1,12 @@
-import { stat } from 'fs';
 import { useNavigate } from 'react-router-dom';
-import { cookieKeys } from '../enums/cookiesKeys.enums';
-import { UnauthorizedRoutes } from '../enums/routes.enums';
 import { useCookies } from './useCookies';
 import { getCurrentUser } from 'api/user';
 import { useQuery, useQueryClient } from 'react-query';
 import { User } from 'types/User.types';
-import { QueryKeys } from 'enums/queryKeys.enums';
+import { QueryKeys } from 'enums/QueryKeys.enums';
 import { useCallback, useEffect } from 'react';
+import { cookieKeys } from 'enums/CookiesKeys.enums';
+import { UnauthorizedRoutes } from 'enums/Routes.enums';
 
 export const useUser = () => {
   const queryClient = useQueryClient();

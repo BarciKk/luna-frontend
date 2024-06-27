@@ -1,4 +1,4 @@
-import { AuthorizedRoutes } from 'enums/routes.enums';
+import { AuthorizedRoutes } from 'enums/Routes.enums';
 import { Dashboard } from 'pages/Dashboard';
 import { Today } from 'pages/Dashboard/Today/Today.page';
 import { Navigate, Route, Routes } from 'react-router-dom';
