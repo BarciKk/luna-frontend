@@ -6,11 +6,11 @@ import { LoadingAnimation } from 'animations/Loading.animation';
 export const RoutesWrapper = () => {
   const { user, isLoading } = useUser();
 
-  return (
-    <>
-      {user && <LoadingAnimation isLoading={isLoading} />}
-      {!isLoading && user && <AuthorizedAppContent />}
-      {!isLoading && !user && <UnauthorizedRoutesContent />}
-    </>
-  );
+  if (isLoading) {
+    return <LoadingAnimation />;
+  }
+  if (user) {
+    return <AuthorizedAppContent />;
+  }
+  return <UnauthorizedRoutesContent />;
 };

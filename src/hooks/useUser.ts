@@ -4,22 +4,29 @@ import { getCurrentUser } from 'api/user';
 import { useQuery, useQueryClient } from 'react-query';
 import { User } from 'types/User.types';
 import { QueryKeys } from 'enums/QueryKeys.enums';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { cookieKeys } from 'enums/CookiesKeys.enums';
 import { UnauthorizedRoutes } from 'enums/Routes.enums';
 
 export const useUser = () => {
   const queryClient = useQueryClient();
   const { getCookie, removeCookie, setCookie } = useCookies();
+  const [loading, setLoading] = useState(true);
   const user: User = getCookie(cookieKeys.user);
   const jwt: string = getCookie(cookieKeys.jwt);
   const navigate = useNavigate();
 
-  const { data, isLoading, error, status } = useQuery<User>([QueryKeys.user], {
+  const {
+    data,
+    isLoading: queryLoading,
+    status,
+    error,
+  } = useQuery<User>([QueryKeys.user], {
     queryFn: () => getCurrentUser(user._id),
     retry: 0,
     enabled: !!(user && jwt),
   });
+  const isLoading = loading || (status !== 'idle' && queryLoading);
 
   const removeUser = useCallback(() => {
     removeCookie(cookieKeys.user);
@@ -37,14 +44,19 @@ export const useUser = () => {
     queryClient.setQueryData([QueryKeys.user], data);
   };
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+
     if (error) {
       removeUser();
     }
+    return () => clearTimeout(timer);
   }, [error, removeUser]);
 
   return {
     user: data,
-    isLoading: status !== 'idle' && isLoading,
+    isLoading,
     setUser,
     jwt,
     removeUser,
