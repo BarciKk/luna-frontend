@@ -29,7 +29,7 @@ export const LoadingAnimation = () => {
         }}
       >
         <img
-          src="./src/assets//Logo/LunaSyncLogo.png"
+          src="../src/assets/Logo/LunaSyncLogo.png"
           alt="Loading"
           style={{
             width: '100%',
