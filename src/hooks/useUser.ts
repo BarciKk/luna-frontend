@@ -22,7 +22,7 @@ export const useUser = () => {
     status,
     error,
   } = useQuery<User>([QueryKeys.user], {
-    queryFn: () => getCurrentUser(user._id),
+    queryFn: () => getCurrentUser(user.id),
     retry: 0,
     enabled: !!(user && jwt),
   });

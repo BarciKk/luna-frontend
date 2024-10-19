@@ -1,9 +1,9 @@
 import { User } from 'types/User.types';
 
-type LoginValues = Pick<User, 'username' | 'password'>;
+type LoginValues = Pick<User, 'email' | 'password'>;
 
 type LoginResponse = {
-  token: string;
+  jwt: string;
   user: User;
 };
 

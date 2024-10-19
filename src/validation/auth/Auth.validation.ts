@@ -38,7 +38,7 @@ const registerSchema = z
   });
 
 const loginSchema = z.object({
-  username: validate.username,
+  email: validate.email,
   password: validate.password,
 });
 

@@ -1,8 +1,9 @@
 import axios from 'axios';
 import Cookies from 'universal-cookie';
 
-import { baseURL } from '../config';
 import { cookieKeys } from 'enums/CookiesKeys.enums';
+
+const baseURL = 'http://localhost:8080/';
 
 const axiosInstance = axios.create({ baseURL });
 

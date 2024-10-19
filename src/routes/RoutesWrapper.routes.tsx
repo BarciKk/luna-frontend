@@ -5,7 +5,6 @@ import { LoadingAnimation } from 'animations/Loading.animation';
 
 export const RoutesWrapper = () => {
   const { user, isLoading } = useUser();
-
   if (isLoading) {
     return <LoadingAnimation />;
   }

@@ -29,7 +29,7 @@ export const Login = () => {
     resolver: zodResolver(loginSchema),
     mode: 'onChange',
     defaultValues: {
-      username: '',
+      email: '',
       password: '',
     },
   });
@@ -41,15 +41,13 @@ export const Login = () => {
     {
       onSuccess: (response) => {
         const {
-          data: { token, user },
+          data: { jwt, user },
         } = response;
-
-        if (token && user) {
-          setUser(user, token);
+        if (jwt && user) {
+          setUser(user, jwt);
           navigate(`${AuthorizedRoutes.today}`);
         }
       },
-
       onError: (error: ErrorInfo) => {
         if (error.response) {
           showSnackbar({
@@ -84,7 +82,7 @@ export const Login = () => {
             sx={{ marginTop: 4, width: '100%' }}
           >
             <Input
-              name="username"
+              name="email"
               type="text"
               label={t('auth.placeholders.username')}
             />
