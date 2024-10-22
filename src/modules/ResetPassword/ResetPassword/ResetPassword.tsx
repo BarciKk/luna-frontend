@@ -14,7 +14,7 @@ import { UnauthorizedRoutes } from 'enums/Routes.enums';
 import { Button } from 'components/Button';
 import { Link } from 'components/Link';
 import { CustomSnackbar } from 'components/Snackbar';
-import { ErrorInfo } from 'types/Shared.types';
+import { ErrorInfoWithoutMessage } from 'types/Shared.types';
 import { Seo } from 'components/Seo';
 import { Input } from 'components/Input/Input.component';
 
@@ -46,10 +46,10 @@ export const ResetPassword = () => {
           severity: 'success',
         });
       },
-      onError: (err: ErrorInfo) => {
+      onError: (err: ErrorInfoWithoutMessage) => {
         if (err.response) {
           showSnackbar({
-            message: 'Something went wrong !',
+            message: err.response.data,
             duration: 5000,
             severity: 'error',
           });

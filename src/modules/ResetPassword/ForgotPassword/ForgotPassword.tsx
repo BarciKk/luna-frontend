@@ -15,6 +15,8 @@ import { CustomSnackbar } from 'components/Snackbar';
 import { useSnackbar } from 'hooks';
 import { Seo } from 'components/Seo';
 import { Input } from 'components/Input/Input.component';
+import { ErrorInfoWithoutMessage } from 'types/Shared.types';
+
 export const ForgotPassword = () => {
   const { t } = useTranslation();
   const { showSnackbar, snackbarProps } = useSnackbar();
@@ -36,12 +38,14 @@ export const ForgotPassword = () => {
       });
       reset();
     },
-    onError: () => {
-      showSnackbar({
-        message: 'Failed to send password reset link.',
-        duration: 5000,
-        severity: 'error',
-      });
+    onError: (error: ErrorInfoWithoutMessage) => {
+      if (error.response) {
+        showSnackbar({
+          message: error.response.data,
+          duration: 5000,
+          severity: 'error',
+        });
+      }
     },
   });
 
@@ -59,7 +63,7 @@ export const ForgotPassword = () => {
         <Typography fontSize="36px" textAlign="center">
           {t('auth.forgotPassword')}
         </Typography>
-        <Typography textAlign="center" variant="h2" m={2}>
+        <Typography textAlign="center" m={2}>
           {t('auth.forgotPasswordMessage')}
         </Typography>
         <FormProvider {...methods}>

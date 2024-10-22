@@ -6,9 +6,14 @@ type ErrorInfo = {
     };
   };
 };
+type ErrorInfoWithoutMessage = {
+  response: {
+    data: string;
+  };
+};
 
 type GenericResponseType = {
   message: string;
   success: boolean;
 };
-export type { ErrorInfo, GenericResponseType };
+export type { ErrorInfo, GenericResponseType, ErrorInfoWithoutMessage };

@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { format } from 'date-fns';
 import { motion } from 'framer-motion';
 import { useQueryString } from 'hooks';
@@ -10,12 +10,10 @@ type DayProps = {
 };
 
 export const Day: FC<DayProps> = ({ day, onClick }) => {
-  const { getQueryString, createQueryString } = useQueryString();
-  const selectedDate = getQueryString('date');
+  const { createQueryString } = useQueryString();
   const dayFormatted = format(day, 'yyyy-MM-dd');
   const dayName = format(day, 'eee');
   const dayNumber = format(day, 'dd');
-  const theme = useTheme();
 
   const handleClick = () => {
     onClick(day);
@@ -35,12 +33,8 @@ export const Day: FC<DayProps> = ({ day, onClick }) => {
         <Box
           padding="12px"
           borderRadius="12px"
-          sx={{
-            background:
-              dayFormatted === selectedDate
-                ? `${theme.palette.primary.dark}`
-                : 'rgba(43, 43, 43, .95)',
-          }}
+          bgcolor="rgba(43, 43, 43, .9)"
+          color="white"
         >
           <Typography>{dayName}</Typography>
           <Typography fontWeight="bolder" fontSize={18}>

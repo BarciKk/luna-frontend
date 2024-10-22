@@ -36,6 +36,7 @@ export const Header = () => {
 
   const shouldRenderLoginButton = !user && !jwt;
   const toggleOpenDrawer = () => setOpenDrawer((drawer) => !drawer);
+
   return (
     <motion.div
       animate={{ opacity: 1 }}

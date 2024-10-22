@@ -22,7 +22,7 @@ export const AddActivity = () => {
       {showBox && (
         <Box
           sx={{
-            bgcolor: 'rgba(43, 43, 43, .75)',
+            bgcolor: 'rgba(43, 43, 43, .65)',
             position: 'absolute',
             maxWidth: '400px',
             bottom: '8em',
@@ -32,7 +32,7 @@ export const AddActivity = () => {
           }}
         >
           {taskOptions.map((task, index) => (
-            <Box key={index}>
+            <Box key={index} color="white">
               <ClickAwayListener onClickAway={handleFabClick}>
                 <Box
                   display="flex"
@@ -44,7 +44,6 @@ export const AddActivity = () => {
                     ':hover': {
                       cursor: 'pointer',
                       borderRadius: '8px',
-                      bgcolor: 'rgba(53, 53, 53, .75)',
                     },
                   }}
                 >
@@ -53,9 +52,7 @@ export const AddActivity = () => {
                     <Typography fontSize={14} fontWeight="bolder">
                       {task.title}
                     </Typography>
-                    <Typography fontSize={12} color="rgb(211, 211, 211)">
-                      {task.description}
-                    </Typography>
+                    <Typography fontSize={12}>{task.description}</Typography>
                   </Box>
                   <ArrowForwardIos fontSize="small" />
                 </Box>
