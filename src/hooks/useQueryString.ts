@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-export type QueryStringName = 'date';
+export type QueryStringName = 'date' | 'activity';
 
 export const useQueryString = () => {
   const [searchParams, setSearchParams] = useSearchParams();

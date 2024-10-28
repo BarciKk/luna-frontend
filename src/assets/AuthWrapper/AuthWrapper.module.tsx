@@ -6,7 +6,7 @@ export const AuthWrapper = ({ children }: PropsWithChildren) => (
     <Paper
       elevation={10}
       sx={{
-        marginTop: '6em',
+        marginTop: '9em',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

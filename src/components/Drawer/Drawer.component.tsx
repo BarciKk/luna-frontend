@@ -30,13 +30,13 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
     <MuiDrawer open={open} onClose={onClose} anchor="left">
       <Stack spacing={0} sx={{ width: '80vw', maxWidth: '400px' }} padding={3}>
         <Box marginBottom="2em">
-          <Typography fontWeight="bolder" fontSize="18px" color="primary.main">
+          <Typography fontWeight="bolder" fontSize="20px" color="primary.main">
             LunaSync
           </Typography>
-          <Typography fontSize="12px" fontWeight="bolder">
+          <Typography fontSize="18px" fontWeight="bolder">
             {format(currentDate, 'iiii')}
           </Typography>
-          <Typography marginBottom="8px" fontSize="12px">
+          <Typography marginBottom="14px" fontSize="12px">
             {format(currentDate, 'PPP')}
           </Typography>
         </Box>

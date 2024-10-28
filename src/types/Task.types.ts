@@ -1,12 +1,13 @@
-import { TaskPriority } from 'enums/TaskPriority.enums';
+import { Category, TaskPriority } from 'enums/TaskPriority.enums';
 
 export type Task = {
   id: string;
   creatorId: string;
   title: string;
+  category: Category;
   description?: string;
   completed?: boolean;
-  created: Date; //should be the same as selected date
+  created: Date;
   priority: TaskPriority;
-  recurring?: boolean;
+  pendingTask: boolean;
 };

@@ -1,4 +1,5 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
+import { currentDate } from 'constants/date.constants';
 import { format } from 'date-fns';
 import { motion } from 'framer-motion';
 import { useQueryString } from 'hooks';
@@ -10,6 +11,7 @@ type DayProps = {
 };
 
 export const Day: FC<DayProps> = ({ day, onClick }) => {
+  const theme = useTheme();
   const { createQueryString } = useQueryString();
   const dayFormatted = format(day, 'yyyy-MM-dd');
   const dayName = format(day, 'eee');
@@ -34,7 +36,12 @@ export const Day: FC<DayProps> = ({ day, onClick }) => {
           padding="12px"
           borderRadius="12px"
           bgcolor="rgba(43, 43, 43, .9)"
-          color="white"
+          sx={{
+            color:
+              dayNumber === format(currentDate, 'dd')
+                ? theme.palette.primary.light
+                : 'white',
+          }}
         >
           <Typography>{dayName}</Typography>
           <Typography fontWeight="bolder" fontSize={18}>

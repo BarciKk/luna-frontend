@@ -13,7 +13,7 @@ export const useCookies = () => {
   const cookies = new Cookies();
 
   const cookieOptions: CookieOptions = {
-    maxAge: 36000,
+    maxAge: 360000,
     path: '/',
     secure: true,
     sameSite: 'strict' as const,

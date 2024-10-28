@@ -84,7 +84,7 @@ export const Login = () => {
             <Input
               name="email"
               type="text"
-              label={t('auth.placeholders.username')}
+              label={t('auth.placeholders.email')}
             />
             <Input
               name="password"

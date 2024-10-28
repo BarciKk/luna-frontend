@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import { BottomNavigation } from 'components/BottomNavigation/BottomNavigation.component';
-import { AddActivity } from 'components/Button/AddContent/AddActivity.component';
+import { AddActivity } from 'components/Button/AddAcitivity/AddActivity.component';
 import { Header } from 'components/Header/Header.component';
 import { Seo } from 'components/Seo';
 import { Outlet } from 'react-router-dom';

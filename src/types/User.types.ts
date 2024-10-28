@@ -1,3 +1,11 @@
+export type Category = {
+  id: string;
+  userId: string;
+  name: string;
+  icon: string;
+  createdAt: Date;
+};
+
 export type User = {
   id: string;
   email: string;
@@ -7,4 +15,5 @@ export type User = {
   isActive: boolean;
   bio: string;
   createdAt: Date;
+  categories: Category[];
 };

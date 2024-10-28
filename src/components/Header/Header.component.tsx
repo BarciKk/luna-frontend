@@ -26,7 +26,6 @@ export const Header = () => {
   const navigate = useNavigate();
   const { user, jwt } = useUser();
   const theme = useTheme();
-
   const formattedDate = dateParam ? new Date(dateParam) : currentDate;
 
   const headerDate =

@@ -6,9 +6,11 @@ import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 
 import CloseIcon from '@mui/icons-material/Close';
 import { taskOptions } from 'constants/user.constants';
+import { useModal } from 'hooks';
 
 export const AddActivity = () => {
   const [showBox, setShowBox] = useState(false);
+  const { handleOpenModal } = useModal();
 
   const handleFabClick = () => {
     setShowBox((prevShowBox) => !prevShowBox);
@@ -19,6 +21,7 @@ export const AddActivity = () => {
       <Fab color="primary" aria-label="add" onClick={handleFabClick}>
         {showBox ? <CloseIcon /> : <AddIcon />}
       </Fab>
+
       {showBox && (
         <Box
           sx={{
@@ -32,18 +35,24 @@ export const AddActivity = () => {
           }}
         >
           {taskOptions.map((task, index) => (
-            <Box key={index} color="white">
+            <Box
+              key={index}
+              color="white"
+              onClick={() => handleOpenModal('createActivity')}
+            >
               <ClickAwayListener onClickAway={handleFabClick}>
                 <Box
                   display="flex"
                   alignItems="center"
                   gap="12px"
+                  paddingY="6px"
                   sx={{
                     minHeight: '50px',
-                    height: '100%',
+                    transition: 'box-shadow 0.4s ease',
                     ':hover': {
                       cursor: 'pointer',
                       borderRadius: '8px',
+                      boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.4)',
                     },
                   }}
                 >
