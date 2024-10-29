@@ -1,75 +1,11 @@
-import {
-  Box,
-  Divider,
-  IconButton,
-  Stack,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import { Box, Divider, Stack, Typography } from '@mui/material';
 import { useModal, useUser } from 'hooks';
 import EventBusyOutlinedIcon from '@mui/icons-material/EventBusyOutlined';
 import { Button } from 'components/Button';
-import BlockIcon from '@mui/icons-material/Block';
-import { FC, ReactNode } from 'react';
-import Diversity1Icon from '@mui/icons-material/Diversity1';
-import SmokeFreeIcon from '@mui/icons-material/SmokeFree';
-import { motion } from 'framer-motion';
 
-interface Category {
-  title: string;
-  icon: ReactNode;
-  color: string;
-}
+import { BASE_CATEGORIES } from 'constants/category.constants';
+import { CategoryIcon } from 'components/CategoryIcon/CategoryIcon.component';
 
-const categories: Category[] = [
-  { title: 'Quit Smoking', icon: <BlockIcon />, color: 'lightblue' },
-  { title: 'Quit Drinking', icon: <SmokeFreeIcon />, color: 'lightcoral' },
-  { title: 'Healthy Eating', icon: <SmokeFreeIcon />, color: 'lightgreen' },
-  { title: 'Stay Fit', icon: <SmokeFreeIcon />, color: 'lightyellow' },
-  { title: 'Mental Health', icon: <SmokeFreeIcon />, color: 'lightpink' },
-  { title: 'Relations', icon: <Diversity1Icon />, color: 'lightsalmon' },
-  { title: 'Stress', icon: <SmokeFreeIcon />, color: 'lavender' },
-  { title: 'Stress', icon: <SmokeFreeIcon />, color: 'lavender' },
-  { title: 'Stress', icon: <SmokeFreeIcon />, color: 'lavender' },
-  { title: 'Stress', icon: <SmokeFreeIcon />, color: 'lavender' },
-  { title: 'Stress', icon: <SmokeFreeIcon />, color: 'lavender' },
-  { title: 'Stress', icon: <SmokeFreeIcon />, color: 'lavender' },
-  { title: 'Stress', icon: <SmokeFreeIcon />, color: 'lavender' },
-  { title: 'Stress', icon: <SmokeFreeIcon />, color: 'lavender' },
-  { title: 'Stress', icon: <SmokeFreeIcon />, color: 'lavender' },
-  { title: 'Stress', icon: <SmokeFreeIcon />, color: 'lavender' },
-  { title: 'Stress', icon: <SmokeFreeIcon />, color: 'lavender' },
-  { title: 'Stress', icon: <SmokeFreeIcon />, color: 'lavender' },
-];
-
-const CategoryIcon: FC<Category> = ({ title, icon, color }) => (
-  <motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.9 }}>
-    <Box
-      sx={{
-        width: 'fit-content',
-        maxWidth: '6em',
-        minWidth: '6em',
-        textAlign: 'center',
-      }}
-      p={2}
-    >
-      <Box
-        sx={{
-          p: 1,
-          bgcolor: color,
-          borderRadius: '8px',
-        }}
-      >
-        <Tooltip title={title} arrow>
-          <IconButton>{icon}</IconButton>
-        </Tooltip>
-      </Box>
-      <Typography mt="2px" fontWeight="bolder" textAlign="center">
-        {title}
-      </Typography>
-    </Box>
-  </motion.div>
-);
 export const Category = () => {
   const { user } = useUser();
   const { handleOpenModal } = useModal();
@@ -113,12 +49,11 @@ export const Category = () => {
             marginTop={1}
             gap="4px"
             flexWrap="wrap"
-            justifyContent="space-around"
             flexDirection="row"
             maxHeight="250px"
             overflow="auto"
           >
-            {categories.map((category, index) => (
+            {BASE_CATEGORIES.map((category, index) => (
               <CategoryIcon
                 key={index}
                 title={category.title}

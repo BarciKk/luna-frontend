@@ -1,9 +1,9 @@
+import { ReactNode } from 'react';
+
 export type Category = {
-  id: string;
-  userId: string;
-  name: string;
-  icon: string;
-  createdAt: Date;
+  title: string;
+  icon: ReactNode;
+  color: string;
 };
 
 export type User = {

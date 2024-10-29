@@ -11,16 +11,16 @@ export const App = () => {
   return (
     <ReactQueryProvider>
       <ReactQueryDevtools initialIsOpen={false} />
-      <ModalProvider>
-        <BrowserRouter>
-          <CustomFormProvider>
+      <CustomFormProvider>
+        <ModalProvider>
+          <BrowserRouter>
             <HelmetProvider>
               <CssBaseline />
               <RoutesWrapper />
             </HelmetProvider>
-          </CustomFormProvider>
-        </BrowserRouter>
-      </ModalProvider>
+          </BrowserRouter>
+        </ModalProvider>
+      </CustomFormProvider>
     </ReactQueryProvider>
   );
 };

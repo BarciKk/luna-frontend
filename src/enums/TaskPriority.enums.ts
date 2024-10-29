@@ -5,12 +5,3 @@ export enum TaskPriority {
   High = 4,
   Highest = 5,
 }
-export enum Category {
-  HEALTH = 'Health',
-  WORK = 'Work',
-  STUDY = 'Study',
-  PERSONAL = 'Personal',
-  FINANCE = 'Finance',
-  HOBBY = 'Hobby',
-  OTHER = 'Other',
-}
