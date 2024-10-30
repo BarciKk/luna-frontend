@@ -28,7 +28,7 @@ export const useCookies = () => {
   }, []);
 
   const removeCookie = useCallback((key: cookieKeys) => {
-    cookies.remove(key);
+    cookies.remove(key, { path: '/' });
   }, []);
 
   return { setCookie, getCookie, removeCookie };
