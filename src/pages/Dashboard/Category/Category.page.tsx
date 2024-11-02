@@ -9,6 +9,7 @@ import { CategoryIcon } from 'components/CategoryIcon/CategoryIcon.component';
 export const Category = () => {
   const { user } = useUser();
   const { handleOpenModal } = useModal();
+
   if (!user) return;
   return (
     <Stack marginTop="2em" justifyContent="center" alignItems="center">
@@ -28,17 +29,37 @@ export const Category = () => {
           <Typography fontWeight="bolder" fontSize="14px">
             Custom categories
           </Typography>
-          <Stack
-            alignItems="center"
-            gap={1}
-            marginY="60px"
-            sx={{ opacity: 0.7 }}
-          >
-            <EventBusyOutlinedIcon sx={{ fontSize: '40px' }} />
-            <Typography textAlign="center">
-              There are no custom categories
-            </Typography>
-          </Stack>
+          <Typography textAlign="center">
+            {user.categories.length === 0 ? (
+              <Stack
+                alignItems="center"
+                gap={1}
+                marginY="60px"
+                sx={{ opacity: 0.7 }}
+              >
+                <EventBusyOutlinedIcon sx={{ fontSize: '40px' }} />
+                <Typography>There are no custom categories</Typography>
+              </Stack>
+            ) : (
+              <Stack
+                marginTop={1}
+                gap="4px"
+                flexWrap="wrap"
+                flexDirection="row"
+                maxHeight="250px"
+                overflow="auto"
+              >
+                {user.categories.map((category, index) => (
+                  <CategoryIcon
+                    key={index}
+                    name={category.name}
+                    icon={category.icon}
+                    color={category.color}
+                  />
+                ))}
+              </Stack>
+            )}
+          </Typography>
           <Divider sx={{ marginY: '12px' }} />
           <Box>
             <Typography fontWeight="bolder" fontSize="14px">
@@ -56,7 +77,7 @@ export const Category = () => {
             {BASE_CATEGORIES.map((category, index) => (
               <CategoryIcon
                 key={index}
-                title={category.title}
+                name={category.name}
                 icon={category.icon}
                 color={category.color}
               />

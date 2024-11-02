@@ -9,18 +9,18 @@ import { ModalProvider } from 'providers';
 
 export const App = () => {
   return (
-    <ReactQueryProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
-      <CustomFormProvider>
-        <ModalProvider>
-          <BrowserRouter>
+    <BrowserRouter>
+      <ReactQueryProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+        <CustomFormProvider>
+          <ModalProvider>
             <HelmetProvider>
               <CssBaseline />
               <RoutesWrapper />
             </HelmetProvider>
-          </BrowserRouter>
-        </ModalProvider>
-      </CustomFormProvider>
-    </ReactQueryProvider>
+          </ModalProvider>
+        </CustomFormProvider>
+      </ReactQueryProvider>
+    </BrowserRouter>
   );
 };

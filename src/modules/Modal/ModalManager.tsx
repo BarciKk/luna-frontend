@@ -19,7 +19,7 @@ export const ModalManager: FC<ModalManagerProps> = ({
   if (!open || !variant) return null;
 
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open} onClose={onClose} sx={{ bottom: '12em' }}>
       {variant === ModalVariant.createActivity && <CreateActivityModal />}
       {variant === ModalVariant.createCategory && <CreateCategoryModal />}
     </Dialog>

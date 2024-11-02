@@ -1,8 +1,9 @@
 import { ReactNode } from 'react';
 
 export type Category = {
-  title: string;
+  name: string;
   icon: ReactNode;
+  userId?: string;
   color: string;
 };
 

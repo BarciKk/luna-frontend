@@ -23,6 +23,7 @@ export const useUser = () => {
     error,
   } = useQuery<User>([QueryKeys.user], {
     queryFn: () => getCurrentUser(user.id),
+
     retry: 0,
     enabled: !!(user && jwt),
   });
@@ -53,7 +54,6 @@ export const useUser = () => {
     }
     return () => clearTimeout(timer);
   }, [error, removeUser]);
-
   return {
     user: data,
     isLoading,

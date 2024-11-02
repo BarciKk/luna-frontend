@@ -1,7 +1,7 @@
 import i18next from 'i18next';
 import { z } from 'zod';
 
-const translateValidateMessage = (key: string): string => {
+export const translateValidateMessage = (key: string): string => {
   return i18next.t(`validations.${key}`);
 };
 
