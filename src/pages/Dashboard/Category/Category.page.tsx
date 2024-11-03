@@ -5,10 +5,13 @@ import { Button } from 'components/Button';
 
 import { BASE_CATEGORIES } from 'constants/category.constants';
 import { CategoryIcon } from 'components/CategoryIcon/CategoryIcon.component';
+import { MAX_CUSTOM_CATEGORIES } from 'constants/user.constants';
 
 export const Category = () => {
   const { user } = useUser();
   const { handleOpenModal } = useModal();
+  const avaliableCustomCategories = user?.categories.length || 0;
+  const categoriesLeft = MAX_CUSTOM_CATEGORIES - avaliableCustomCategories;
 
   if (!user) return;
   return (
@@ -27,7 +30,7 @@ export const Category = () => {
           </Typography>
           <Divider sx={{ marginY: '10px' }} />
           <Typography fontWeight="bolder" fontSize="14px">
-            Custom categories
+            Custom categories: {categoriesLeft} left
           </Typography>
           <Typography textAlign="center">
             {user.categories.length === 0 ? (

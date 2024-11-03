@@ -4,6 +4,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import { TaskPriority } from 'enums/TaskPriority.enums';
 
 export const DEFAULT_USER_IMAGE = 'https://i.imgur.com/uhaRENv.png';
+export const MAX_CUSTOM_CATEGORIES = 5;
 
 export const taskOptions = [
   {

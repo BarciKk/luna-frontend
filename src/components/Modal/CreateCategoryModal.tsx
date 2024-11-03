@@ -80,6 +80,7 @@ export const CreateCategoryModal = () => {
     }
   };
 
+  if (!user) return null;
   return (
     <FormProvider {...methods}>
       <Box padding={1} component="form" onSubmit={handleSubmit(onSubmit)}>
@@ -105,10 +106,15 @@ export const CreateCategoryModal = () => {
           </Box>
         </DialogContent>
         <DialogActions sx={{ paddingX: '3em' }}>
-          <Button text="CREATE CATEGORY" fullWidth />
+          <Button
+            text="CREATE CATEGORY"
+            fullWidth
+            disabled={user.categories.length >= 5}
+          />
         </DialogActions>
         <CustomSnackbar {...snackbarProps} />
       </Box>
     </FormProvider>
   );
 };
+//
