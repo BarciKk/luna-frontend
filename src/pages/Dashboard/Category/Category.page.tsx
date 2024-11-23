@@ -1,11 +1,12 @@
 import { Box, Divider, Stack, Typography } from '@mui/material';
-import { useModal, useUser } from 'hooks';
+import { useUser } from 'hooks';
 import EventBusyOutlinedIcon from '@mui/icons-material/EventBusyOutlined';
 import { Button } from 'components/Button';
 
 import { BASE_CATEGORIES } from 'constants/category.constants';
 import { CategoryIcon } from 'components/CategoryIcon/CategoryIcon.component';
 import { MAX_CUSTOM_CATEGORIES } from 'constants/user.constants';
+import { useModal } from 'providers/ModalProvider';
 
 export const Category = () => {
   const { user } = useUser();
@@ -32,7 +33,7 @@ export const Category = () => {
           <Typography fontWeight="bolder" fontSize="14px">
             Custom categories: {categoriesLeft} left
           </Typography>
-          <Typography textAlign="center">
+          <Box textAlign="center">
             {user.categories.length === 0 ? (
               <Stack
                 alignItems="center"
@@ -54,6 +55,7 @@ export const Category = () => {
               >
                 {user.categories.map((category, index) => (
                   <CategoryIcon
+                    id={category.id}
                     key={index}
                     name={category.name}
                     icon={category.icon}
@@ -62,7 +64,7 @@ export const Category = () => {
                 ))}
               </Stack>
             )}
-          </Typography>
+          </Box>
           <Divider sx={{ marginY: '12px' }} />
           <Box>
             <Typography fontWeight="bolder" fontSize="14px">
@@ -83,6 +85,7 @@ export const Category = () => {
                 name={category.name}
                 icon={category.icon}
                 color={category.color}
+                id={category.id}
               />
             ))}
           </Stack>

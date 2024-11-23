@@ -5,6 +5,7 @@ import {
   ReactNode,
   PropsWithChildren,
   FC,
+  useContext,
 } from 'react';
 import { ModalVariantType } from 'types/Modal.types';
 
@@ -44,4 +45,12 @@ export const ModalProvider: FC<ModalProviderProps> = ({
       <ModalManager open={open} variant={variant} onClose={handleCloseModal} />
     </ModalContext.Provider>
   );
+};
+// eslint-disable-next-line react-refresh/only-export-components
+export const useModal = () => {
+  const context = useContext(ModalContext);
+  if (!context) {
+    throw new Error('Context must be initialized inside provider');
+  }
+  return context;
 };

@@ -1,29 +1,27 @@
 import { MuiColorInput } from 'mui-color-input';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
 import { ErrorMessage } from 'components/ErrorMessage';
 import { getErrorMessage } from 'utils/getErrorMessage';
 
 type ColorInputProps = {
   name: string;
-  hex?: string;
+  value: string;
   onColorChange: (color: string) => void;
 };
 
 export const ColorInput: FC<ColorInputProps> = ({
   name,
+  value,
   onColorChange,
-  hex = '#1b75de',
   ...props
 }) => {
   const {
     control,
     formState: { errors },
   } = useFormContext();
-  const [color, setColor] = useState<string>(hex);
 
   const handleChangeColor = (updatedColor: string) => {
-    setColor(updatedColor);
     onColorChange(updatedColor);
   };
 
@@ -39,7 +37,7 @@ export const ColorInput: FC<ColorInputProps> = ({
             id={name}
             error={!!errors[name]}
             name={name}
-            value={color}
+            value={value}
             onChange={handleChangeColor}
             variant="outlined"
             format="hex"

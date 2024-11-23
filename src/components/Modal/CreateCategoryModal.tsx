@@ -9,7 +9,6 @@ import {
 import { Button } from 'components/Button';
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import { Input } from 'components/Input';
-import { useState } from 'react';
 import { ColorInput } from 'components/ColorInput';
 import { createCategorySchema } from 'validation/auth/Category.validation';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
@@ -19,32 +18,40 @@ import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { CustomSnackbar } from 'components/Snackbar';
 import { ErrorInfo } from 'types/Shared.types';
 import { useMutation } from 'react-query';
-import { useSnackbar, useUser } from 'hooks';
+import { useQueryString, useSnackbar, useUser } from 'hooks';
 import { createCategory } from 'api/category';
+import { DeleteCategory } from 'modules/Category/DeleteCategory';
 
 export const CreateCategoryModal = () => {
-  const [selectedColor, setSelectedColor] = useState('#1b75de');
+  const { getQueryString } = useQueryString();
+
   const { showSnackbar, snackbarProps } = useSnackbar();
   const { user } = useUser();
+
+  const categoryId = getQueryString('id');
+
+  const category = user?.categories.find(
+    (category) => category.id === categoryId,
+  );
 
   const methods = useForm<Category>({
     resolver: zodResolver(createCategorySchema),
     mode: 'onChange',
     defaultValues: {
-      name: '',
-      color: selectedColor,
+      name: categoryId ? category?.name : '',
+      color: categoryId ? category?.color : '#1b75de',
       userId: user?.id ?? '',
       icon: <AutoAwesomeIcon />,
     },
   });
-  const { handleSubmit, setValue } = methods;
+
+  const { handleSubmit, setValue, watch } = methods;
 
   const handleColorChange = (color: string) => {
-    setSelectedColor(color);
     setValue('color', color);
   };
 
-  const { mutate } = useMutation(
+  const { mutate, isLoading } = useMutation(
     (values: Category) =>
       createCategory({
         name: values.name,
@@ -81,6 +88,7 @@ export const CreateCategoryModal = () => {
   };
 
   if (!user) return null;
+
   return (
     <FormProvider {...methods}>
       <Box padding={1} component="form" onSubmit={handleSubmit(onSubmit)}>
@@ -93,21 +101,30 @@ export const CreateCategoryModal = () => {
           padding={0}
         >
           <Typography fontSize="22px" fontWeight="bolder">
-            New category
+            {categoryId ? 'Edit' : 'New category'}
           </Typography>
-          <IconButton>
-            <WidgetsIcon />
-          </IconButton>
+          {categoryId ? (
+            <DeleteCategory />
+          ) : (
+            <IconButton>
+              <WidgetsIcon />
+            </IconButton>
+          )}
         </DialogTitle>
-        <DialogContent sx={{ minWidth: '550px', padding: 0 }} dividers>
+        <DialogContent dividers>
           <Box marginTop="18px">
             <Input name="name" type="text" label="Category name" />
-            <ColorInput onColorChange={handleColorChange} name="color" />
+            <ColorInput
+              name="color"
+              value={watch('color')}
+              onColorChange={handleColorChange}
+            />
           </Box>
         </DialogContent>
         <DialogActions sx={{ paddingX: '3em' }}>
           <Button
-            text="CREATE CATEGORY"
+            isLoading={isLoading}
+            text={categoryId ? 'UPDATE' : 'CREATE CATEGORY'}
             fullWidth
             disabled={user.categories.length >= 5}
           />
@@ -117,4 +134,3 @@ export const CreateCategoryModal = () => {
     </FormProvider>
   );
 };
-//

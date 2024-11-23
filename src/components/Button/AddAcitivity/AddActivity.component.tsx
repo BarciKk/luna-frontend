@@ -6,7 +6,7 @@ import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 
 import CloseIcon from '@mui/icons-material/Close';
 import { taskOptions } from 'constants/user.constants';
-import { useModal } from 'hooks';
+import { useModal } from 'providers/ModalProvider';
 
 export const AddActivity = () => {
   const [showBox, setShowBox] = useState(false);
