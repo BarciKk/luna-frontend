@@ -19,7 +19,7 @@ import { CustomSnackbar } from 'components/Snackbar';
 import { ErrorInfo } from 'types/Shared.types';
 import { useMutation, useQueryClient } from 'react-query';
 import { useQueryString, useSnackbar, useUser } from 'hooks';
-import { createCategory } from 'api/category';
+import { createCategory, editCategory } from 'api/category';
 import { DeleteCategory } from 'modules/Category/DeleteCategory';
 import { QueryKeys } from 'enums/QueryKeys.enums';
 
@@ -56,8 +56,8 @@ export const CreateCategoryModal = () => {
     setValue('color', color);
   };
 
-  const { mutate, isLoading } = useMutation(
-    (values: Category) =>
+  const { mutate: createCategoryMutate, isLoading } = useMutation(
+    (values: Omit<Category, 'id'>) =>
       createCategory({
         name: values.name,
         color: values.color,
@@ -85,9 +85,55 @@ export const CreateCategoryModal = () => {
     },
   );
 
+  const { mutate: editCategoryMutate } = useMutation(
+    (values: Category) =>
+      editCategory({
+        id: categoryId,
+        name: values.name,
+        color: values.color,
+        userId: user?.id ?? '',
+        icon: 'AutoAwesomeIcon',
+      }),
+    {
+      onSuccess: () => {
+        showSnackbar({
+          message: 'Category updated successfully!',
+          duration: 3000,
+          severity: 'success',
+        });
+        queryClient.invalidateQueries([QueryKeys.category, user?.id]);
+      },
+      onError: (error: ErrorInfo) => {
+        if (error.response) {
+          showSnackbar({
+            message: error.response.data.message,
+            duration: 3000,
+            severity: 'error',
+          });
+        }
+      },
+    },
+  );
+
   const onSubmit: SubmitHandler<Category> = async (data) => {
     try {
-      mutate(data);
+      if (categoryId) {
+        const hasChanges =
+          data.name.trim() !== category?.name ||
+          data.color.trim() !== category?.color;
+
+        if (!hasChanges) {
+          showSnackbar({
+            message: 'No changes detected to update',
+            severity: 'info',
+            duration: 3000,
+          });
+          return;
+        }
+        editCategoryMutate(data);
+      } else {
+        createCategoryMutate(data);
+      }
     } catch (err) {
       console.error('Something went wrong!');
     }

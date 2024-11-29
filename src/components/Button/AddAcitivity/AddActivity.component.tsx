@@ -45,14 +45,14 @@ export const AddActivity = () => {
                   display="flex"
                   alignItems="center"
                   gap="12px"
-                  paddingY="6px"
+                  p="12px"
                   sx={{
                     minHeight: '50px',
-                    transition: 'box-shadow 0.4s ease',
+                    transition: 'box-shadow 0.6s ease',
                     ':hover': {
                       cursor: 'pointer',
                       borderRadius: '8px',
-                      boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.4)',
+                      boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
                     },
                   }}
                 >
