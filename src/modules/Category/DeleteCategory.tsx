@@ -2,14 +2,17 @@ import { Delete } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import { deleteCategory } from 'api/category';
 import { CustomSnackbar } from 'components/Snackbar';
-import { useQueryString, useSnackbar } from 'hooks';
-import { useMutation } from 'react-query';
+import { QueryKeys } from 'enums/QueryKeys.enums';
+import { useQueryString, useSnackbar, useUser } from 'hooks';
+import { useMutation, useQueryClient } from 'react-query';
 import { ErrorInfo } from 'types/Shared.types';
 
 export const DeleteCategory = () => {
   const { getQueryString } = useQueryString();
   const { showSnackbar, snackbarProps } = useSnackbar();
   const categoryId = getQueryString('id');
+  const { user } = useUser();
+  const queryClient = useQueryClient();
 
   const { mutate } = useMutation(deleteCategory, {
     onSuccess: () => {
@@ -18,6 +21,7 @@ export const DeleteCategory = () => {
         duration: 3000,
         severity: 'success',
       });
+      queryClient.invalidateQueries([QueryKeys.category, user?.id]);
     },
     onError: (error: ErrorInfo) => {
       if (error.response) {

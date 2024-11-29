@@ -19,7 +19,17 @@ export const ModalManager: FC<ModalManagerProps> = ({
   if (!open || !variant) return null;
 
   return (
-    <Dialog open={open} onClose={onClose} sx={{ bottom: '12em' }}>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      sx={{
+        '& .MuiDialog-paper': {
+          minWidth: '340px',
+          width: '100%',
+        },
+        bottom: '12em',
+      }}
+    >
       {variant === ModalVariant.createActivity && <CreateActivityModal />}
       {variant === ModalVariant.createCategory && <CreateCategoryModal />}
     </Dialog>

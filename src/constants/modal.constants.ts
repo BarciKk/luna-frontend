@@ -1,4 +1,4 @@
-import { ModalVariantType } from 'providers/ModalProvider';
+import { ModalVariantType } from 'types/Modal.types';
 
 export const ModalVariant: {
   createActivity: ModalVariantType;

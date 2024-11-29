@@ -17,21 +17,26 @@ import { Category } from 'types/User.types';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { CustomSnackbar } from 'components/Snackbar';
 import { ErrorInfo } from 'types/Shared.types';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { useQueryString, useSnackbar, useUser } from 'hooks';
 import { createCategory } from 'api/category';
 import { DeleteCategory } from 'modules/Category/DeleteCategory';
+import { QueryKeys } from 'enums/QueryKeys.enums';
 
 export const CreateCategoryModal = () => {
   const { getQueryString } = useQueryString();
-
+  const queryClient = useQueryClient();
   const { showSnackbar, snackbarProps } = useSnackbar();
-  const { user } = useUser();
-
   const categoryId = getQueryString('id');
+  const { user } = useUser();
+  const categories = queryClient.getQueryData<Category[]>([
+    QueryKeys.category,
+    user?.id,
+  ]);
 
-  const category = user?.categories.find(
-    (category) => category.id === categoryId,
+  if (!categories) return [];
+  const category = categories.find(
+    (category: Category) => category.id === categoryId,
   );
 
   const methods = useForm<Category>({
@@ -66,6 +71,7 @@ export const CreateCategoryModal = () => {
           duration: 3000,
           severity: 'success',
         });
+        queryClient.invalidateQueries([QueryKeys.category, user?.id]);
       },
       onError: (error: ErrorInfo) => {
         if (error.response) {
@@ -126,7 +132,7 @@ export const CreateCategoryModal = () => {
             isLoading={isLoading}
             text={categoryId ? 'UPDATE' : 'CREATE CATEGORY'}
             fullWidth
-            disabled={user.categories.length >= 5}
+            disabled={user.categories.length >= 5 && !categoryId}
           />
         </DialogActions>
         <CustomSnackbar {...snackbarProps} />
