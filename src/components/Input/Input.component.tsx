@@ -25,7 +25,7 @@ export const Input: FC<CustomTextFieldProps> = ({ name, type, ...props }) => {
   const theme = useTheme();
 
   return (
-    <Box sx={{ mb: 2 }}>
+    <Box sx={{ mb: 1 }}>
       <Controller
         name={name}
         control={control}

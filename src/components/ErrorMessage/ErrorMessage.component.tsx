@@ -9,7 +9,7 @@ export const ErrorMessage = ({
       textAlign="center"
       fontSize="14px"
       color="error"
-      mt={2}
+      mt={1}
       {...props}
     >
       {message}

@@ -1,9 +1,11 @@
 import { Typography, Grid, Button } from '@mui/material';
 import { Seo } from 'components/Seo';
 import { Link } from 'react-router-dom';
-import { UnauthorizedRoutes } from 'enums/Routes.enums';
+import { AuthorizedRoutes, UnauthorizedRoutes } from 'enums/Routes.enums';
+import { useUser } from 'hooks';
 
 export const Page404 = () => {
+  const user = useUser();
   return (
     <>
       <Seo title={'Something went wrong !'} description={'page 404'} />
@@ -22,7 +24,7 @@ export const Page404 = () => {
           <Button
             variant="contained"
             component={Link}
-            to={UnauthorizedRoutes.login}
+            to={user ? AuthorizedRoutes.dashboard : UnauthorizedRoutes.login}
           >
             Back to homepage
           </Button>

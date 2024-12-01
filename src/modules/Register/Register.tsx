@@ -103,7 +103,7 @@ export const Register = () => {
               isLoading={isLoading}
               sx={{ mt: 4, mb: '10px' }}
             />
-            <Typography style={{ textAlign: 'center' }} mt={2}>
+            <Typography style={{ textAlign: 'center' }}>
               {t('auth.haveAccount')}{' '}
               <Link
                 to={UnauthorizedRoutes.login}
