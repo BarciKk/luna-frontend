@@ -16,7 +16,9 @@ import {
 import { Button } from 'components/Button';
 import { currentDate } from 'constants/date.constants';
 import { format } from 'date-fns';
+import { AuthorizedRoutes } from 'enums/Routes.enums';
 import { useUser } from 'hooks';
+import { useNavigate } from 'react-router-dom';
 
 type DrawerProps = {
   open: boolean;
@@ -25,7 +27,7 @@ type DrawerProps = {
 
 export const Drawer = ({ open, onClose }: DrawerProps) => {
   const { user, jwt, removeUser } = useUser();
-
+  const navigate = useNavigate();
   return (
     <MuiDrawer open={open} onClose={onClose} anchor="left">
       <Stack spacing={0} sx={{ width: '80vw', maxWidth: '400px' }} padding={3}>
@@ -42,11 +44,19 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
         </Box>
         <Divider />
         <Stack spacing={2} marginTop="8px" marginBottom="3em">
-          <Button icon={<Home />} text="Home" variant="text" alignLeft />
+          <Button
+            icon={<Home />}
+            text="Home"
+            onClick={() => navigate(AuthorizedRoutes.today)}
+            variant="text"
+            alignLeft
+          />
+
           <Button
             text="Categories"
             icon={<Category />}
             variant="text"
+            onClick={() => navigate(AuthorizedRoutes.categories)}
             alignLeft
           />
           <Button

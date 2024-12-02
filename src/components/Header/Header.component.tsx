@@ -13,7 +13,7 @@ import { Drawer } from 'components/Drawer/Drawer.component';
 import { currentDate } from 'constants/date.constants';
 import { DEFAULT_USER_IMAGE } from 'constants/user.constants';
 import { format } from 'date-fns';
-import { UnauthorizedRoutes } from 'enums/Routes.enums';
+import { AuthorizedRoutes, UnauthorizedRoutes } from 'enums/Routes.enums';
 import { motion } from 'framer-motion';
 import { useQueryString, useUser } from 'hooks';
 import { useState } from 'react';
@@ -75,7 +75,12 @@ export const Header = () => {
                 duration: 1,
               }}
             >
-              <Typography fontSize={18} fontWeight="bolder">
+              <Typography
+                fontSize={18}
+                fontWeight="bolder"
+                onClick={() => navigate(AuthorizedRoutes.today)}
+                sx={{ cursor: 'pointer' }}
+              >
                 {headerDate}
               </Typography>
             </motion.div>
