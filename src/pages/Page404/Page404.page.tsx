@@ -33,4 +33,3 @@ export const Page404 = () => {
     </>
   );
 };
-//translations

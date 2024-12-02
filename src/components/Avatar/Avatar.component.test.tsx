@@ -2,7 +2,6 @@ import { screen, waitFor } from 'tests';
 import { CustomAvatar } from './Avatar.component';
 import { render } from 'utils/tests/Mocks';
 import { TEST_AVATAR, TEST_USER } from 'utils/tests/constants/auth.constants';
-import { vi } from 'vitest';
 
 describe('Avatar component', () => {
   it('it should render component with provided src', () => {

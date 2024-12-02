@@ -36,6 +36,7 @@ export const Category = () => {
 
   if (!categoryData) return null;
   const categoriesLeft = MAX_CUSTOM_CATEGORIES - categoryData?.length;
+
   return (
     <Stack marginTop="2em" justifyContent="center" alignItems="center">
       <Box

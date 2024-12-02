@@ -1,6 +1,5 @@
 import axios from 'axios';
 import Cookies from 'universal-cookie';
-
 import { cookieKeys } from 'enums/CookiesKeys.enums';
 
 const baseURL = 'http://localhost:8080/';

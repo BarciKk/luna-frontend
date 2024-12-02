@@ -7,7 +7,7 @@
 postcss.config.cjs
 global.d.ts
 config.ts
-
+.env
 # testing
 /coverage
 

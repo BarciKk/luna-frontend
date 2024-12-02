@@ -1,11 +1,4 @@
-import {
-  Box,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  Typography,
-} from '@mui/material';
+import { DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { Button } from 'components/Button';
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import { Input } from 'components/Input';
@@ -14,7 +7,6 @@ import { createCategorySchema } from 'validation/auth/Category.validation';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Category } from 'types/User.types';
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { CustomSnackbar } from 'components/Snackbar';
 import { ErrorInfo } from 'types/Shared.types';
 import { useMutation, useQueryClient } from 'react-query';
@@ -22,6 +14,9 @@ import { useQueryString, useSnackbar, useUser } from 'hooks';
 import { createCategory, editCategory } from 'api/category';
 import { DeleteCategory } from 'modules/Category/DeleteCategory';
 import { QueryKeys } from 'enums/QueryKeys.enums';
+import { Typography } from 'components/Typography';
+import { Box, IconButton } from '@mui/material';
+import { IconPicker } from 'components/IconPicker/IconPicker.component';
 
 export const CreateCategoryModal = () => {
   const { getQueryString } = useQueryString();
@@ -46,15 +41,19 @@ export const CreateCategoryModal = () => {
       name: categoryId ? category?.name : '',
       color: categoryId ? category?.color : '#1b75de',
       userId: user?.id ?? '',
-      icon: <AutoAwesomeIcon />,
+      icon: '',
     },
   });
-
   const { handleSubmit, setValue, watch } = methods;
 
   const handleColorChange = (color: string) => {
     setValue('color', color);
   };
+  const handleIconSelect = (iconId: string) => {
+    setValue('icon', iconId);
+  };
+
+  const selectedIcon = watch('icon');
 
   const { mutate: createCategoryMutate, isLoading } = useMutation(
     (values: Omit<Category, 'id'>) =>
@@ -62,7 +61,7 @@ export const CreateCategoryModal = () => {
         name: values.name,
         color: values.color,
         userId: user?.id ?? '',
-        icon: 'AutoAwesomeIcon',
+        icon: selectedIcon || 'autoawesome',
       }),
     {
       onSuccess: () => {
@@ -92,7 +91,7 @@ export const CreateCategoryModal = () => {
         name: values.name,
         color: values.color,
         userId: user?.id ?? '',
-        icon: 'AutoAwesomeIcon',
+        icon: selectedIcon === '' ? category?.icon : selectedIcon,
       }),
     {
       onSuccess: () => {
@@ -120,7 +119,8 @@ export const CreateCategoryModal = () => {
       if (categoryId) {
         const hasChanges =
           data.name.trim() !== category?.name ||
-          data.color.trim() !== category?.color;
+          data.color.trim() !== category?.color ||
+          selectedIcon !== '';
 
         if (!hasChanges) {
           showSnackbar({
@@ -152,9 +152,12 @@ export const CreateCategoryModal = () => {
           gap={0}
           padding={0}
         >
-          <Typography fontSize="22px" fontWeight="bolder">
-            {categoryId ? 'Edit' : 'New category'}
-          </Typography>
+          <Typography
+            fontSize="22px"
+            fontWeight="bolder"
+            text={categoryId ? 'Edit' : 'New category'}
+            maxLength={15}
+          ></Typography>
           {categoryId ? (
             <DeleteCategory />
           ) : (
@@ -166,6 +169,10 @@ export const CreateCategoryModal = () => {
         <DialogContent dividers>
           <Box marginTop="18px">
             <Input name="name" type="text" label="Category name" />
+            <IconPicker
+              onIconSelect={handleIconSelect}
+              name={category ? category.icon : 'autoawesome'}
+            />
             <ColorInput
               name="color"
               value={watch('color')}

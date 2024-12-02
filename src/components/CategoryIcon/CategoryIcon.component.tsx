@@ -1,13 +1,15 @@
 import { Box, IconButton, Tooltip } from '@mui/material';
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { FC, useEffect } from 'react';
-
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { motion } from 'framer-motion';
 import { Category } from 'types/User.types';
 import { Typography } from 'components/Typography';
 import { useModal } from 'providers/ModalProvider';
 import { useQueryString } from 'hooks';
-import { BASE_CATEGORIES } from 'constants/category.constants';
+import {
+  BASE_CATEGORIES,
+  CUSTOM_CATEGORIES,
+} from 'constants/category.constants';
 
 export const CategoryIcon: FC<Category> = ({ id, name, icon, color }) => {
   const { handleOpenModal, open } = useModal();
@@ -31,6 +33,10 @@ export const CategoryIcon: FC<Category> = ({ id, name, icon, color }) => {
     }
   }, [open, removeQueryString]);
 
+  const selectedIcon = isBaseCategory
+    ? BASE_CATEGORIES.find((category) => category.name === name)?.icon
+    : CUSTOM_CATEGORIES.find((category) => category.name === icon)?.icon;
+
   return (
     <motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.9 }}>
       <Box
@@ -51,7 +57,7 @@ export const CategoryIcon: FC<Category> = ({ id, name, icon, color }) => {
         >
           <Tooltip id={id} title={name} arrow>
             <IconButton onClick={handleSelectCategory}>
-              {icon === 'AutoAwesomeIcon' ? <AutoAwesomeIcon /> : icon}
+              {selectedIcon || <AutoAwesomeIcon />}
             </IconButton>
           </Tooltip>
         </Box>

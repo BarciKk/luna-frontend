@@ -2,7 +2,7 @@ import { randomUUID } from 'crypto';
 import { User } from 'types/User.types';
 
 export const TEST_USER: User = {
-  _id: randomUUID(),
+  id: randomUUID(),
   email: 'testUser321@gmail.com',
   username: 'testUser',
   password: '**********',
@@ -10,6 +10,7 @@ export const TEST_USER: User = {
   isActive: true,
   bio: '',
   createdAt: new Date(),
+  categories: [],
 };
 export const TEST_AVATAR = {
   label: 'Test Label',
