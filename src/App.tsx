@@ -6,6 +6,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import CustomFormProvider from 'providers/FormProvider';
 import { ModalProvider } from 'providers';
+import { DateProvider } from 'providers/DateProvider';
 
 export const App = () => {
   return (
@@ -13,12 +14,14 @@ export const App = () => {
       <ReactQueryProvider>
         <ReactQueryDevtools initialIsOpen={false} />
         <CustomFormProvider>
-          <ModalProvider>
-            <HelmetProvider>
-              <CssBaseline />
-              <RoutesWrapper />
-            </HelmetProvider>
-          </ModalProvider>
+          <DateProvider>
+            <ModalProvider>
+              <HelmetProvider>
+                <CssBaseline />
+                <RoutesWrapper />
+              </HelmetProvider>
+            </ModalProvider>
+          </DateProvider>
         </CustomFormProvider>
       </ReactQueryProvider>
     </BrowserRouter>

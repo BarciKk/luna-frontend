@@ -1,1 +1,4 @@
-export type ModalVariantType = 'createActivity' | 'createCategory';
+export type ModalVariantType =
+  | 'createActivity'
+  | 'createCategory'
+  | 'createTask';

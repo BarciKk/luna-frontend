@@ -17,6 +17,7 @@ import { QueryKeys } from 'enums/QueryKeys.enums';
 import { Typography } from 'components/Typography';
 import { Box, IconButton } from '@mui/material';
 import { IconPicker } from 'components/IconPicker/IconPicker.component';
+import { CUSTOM_CATEGORIES } from 'constants/category.constants';
 
 export const CreateCategoryModal = () => {
   const { getQueryString } = useQueryString();
@@ -157,7 +158,7 @@ export const CreateCategoryModal = () => {
             fontWeight="bolder"
             text={categoryId ? 'Edit' : 'New category'}
             maxLength={15}
-          ></Typography>
+          />
           {categoryId ? (
             <DeleteCategory />
           ) : (
@@ -170,6 +171,7 @@ export const CreateCategoryModal = () => {
           <Box marginTop="18px">
             <Input name="name" type="text" label="Category name" />
             <IconPicker
+              iconData={CUSTOM_CATEGORIES}
               onIconSelect={handleIconSelect}
               name={category ? category.icon : 'autoawesome'}
             />

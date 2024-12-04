@@ -1,8 +1,13 @@
 import { useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
-import { Fab, Box, Typography, Divider } from '@mui/material';
+import {
+  Fab,
+  Box,
+  Typography,
+  Divider,
+  ClickAwayListener,
+} from '@mui/material';
 import { ArrowForwardIos } from '@mui/icons-material';
-import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 
 import CloseIcon from '@mui/icons-material/Close';
 import { taskOptions } from 'constants/user.constants';
@@ -11,9 +16,22 @@ import { useModal } from 'providers/ModalProvider';
 export const AddActivity = () => {
   const [showBox, setShowBox] = useState(false);
   const { handleOpenModal } = useModal();
-
   const handleFabClick = () => {
     setShowBox((prevShowBox) => !prevShowBox);
+  };
+
+  //Also  this is solution for now later one of them will open Recuring task or im gonna modify current createTask
+  const openModalHandler = (index: number) => {
+    switch (index) {
+      case 0:
+        return handleOpenModal('createActivity');
+      case 1:
+        return handleOpenModal('createTask');
+      case 2:
+        return handleOpenModal('createTask');
+      default:
+        return;
+    }
   };
 
   return (
@@ -38,7 +56,7 @@ export const AddActivity = () => {
             <Box
               key={index}
               color="white"
-              onClick={() => handleOpenModal('createActivity')}
+              onClick={() => openModalHandler(index)}
             >
               <ClickAwayListener onClickAway={handleFabClick}>
                 <Box

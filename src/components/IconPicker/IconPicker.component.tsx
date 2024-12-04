@@ -2,14 +2,25 @@ import { IconButton, Box, Popover, Grid } from '@mui/material';
 import { FC, ReactNode, useState, MouseEvent } from 'react';
 
 import { Typography } from 'components/Typography';
-import { CUSTOM_CATEGORIES } from 'constants/category.constants';
+import { Star } from '@mui/icons-material';
+
+interface IconData {
+  name: string;
+  icon: ReactNode;
+  color?: string;
+}
 
 interface IconPickerProps {
   name: string | ReactNode;
   onIconSelect: (iconId: string) => void;
+  iconData: IconData[];
 }
 
-export const IconPicker: FC<IconPickerProps> = ({ onIconSelect, name }) => {
+export const IconPicker: FC<IconPickerProps> = ({
+  onIconSelect,
+  name,
+  iconData,
+}) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [selectedIconName, setSelectedIconName] = useState<string | ReactNode>(
     name,
@@ -42,11 +53,13 @@ export const IconPicker: FC<IconPickerProps> = ({ onIconSelect, name }) => {
         }}
         onClick={handleBoxClick}
       >
+        {/* well that is a hack i should figure out this later but for now im leaving this like that */}
         <IconButton>
-          {
-            CUSTOM_CATEGORIES.find((icon) => icon.name === selectedIconName)
-              ?.icon
-          }
+          {selectedIconName === 'create-task-icons' ? (
+            <Star />
+          ) : (
+            iconData.find((icon) => icon.name === selectedIconName)?.icon
+          )}
         </IconButton>
         <Typography text="Select category" maxLength={15} />
       </Box>
@@ -56,10 +69,11 @@ export const IconPicker: FC<IconPickerProps> = ({ onIconSelect, name }) => {
         anchorEl={anchorEl}
         onClose={() => setAnchorEl(null)}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        sx={{ maxHeight: 220 }}
       >
-        <Box p={2} maxWidth="300px">
+        <Box p={2} maxWidth="320px">
           <Grid container spacing={2}>
-            {CUSTOM_CATEGORIES.map((item) => (
+            {iconData.map((item) => (
               <Grid item xs={3} key={item.name}>
                 <IconButton
                   onClick={() => handleIconSelect(item.name)}

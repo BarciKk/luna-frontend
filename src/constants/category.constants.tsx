@@ -58,3 +58,5 @@ export const CUSTOM_CATEGORIES = [
   { name: 'airplaneTicket', icon: <AirplaneTicketIcon /> },
   { name: 'album', icon: <AlbumIcon /> },
 ];
+
+export const CONCATED_CATEGORIES = [...BASE_CATEGORIES, ...CUSTOM_CATEGORIES];

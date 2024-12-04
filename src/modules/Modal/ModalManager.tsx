@@ -1,6 +1,7 @@
 import { Dialog } from '@mui/material';
 import { CreateActivityModal } from 'components/Modal';
 import { CreateCategoryModal } from 'components/Modal/CreateCategoryModal';
+import { CreateTaskModal } from 'components/Modal/CreateTaskModal';
 import { ModalVariant } from 'constants/modal.constants';
 import { FC } from 'react';
 import { ModalVariantType } from 'types/Modal.types';
@@ -32,6 +33,7 @@ export const ModalManager: FC<ModalManagerProps> = ({
     >
       {variant === ModalVariant.createActivity && <CreateActivityModal />}
       {variant === ModalVariant.createCategory && <CreateCategoryModal />}
+      {variant === ModalVariant.createTask && <CreateTaskModal />}
     </Dialog>
   );
 };
