@@ -32,13 +32,13 @@ export const CreateTaskModal = () => {
     mode: 'onChange',
   });
 
-  const { handleSubmit, setValue, watch } = methods;
+  const { handleSubmit, setValue, watch, reset } = methods;
 
   const handleIconSelect = (iconId: string) => {
     setValue('icon', iconId);
   };
   const selectedIcon = watch('icon');
-  const { mutate } = useMutation(
+  const { mutate, isLoading } = useMutation(
     (values: CreateTaskType) =>
       createTask({
         name: values.name,
@@ -55,6 +55,7 @@ export const CreateTaskModal = () => {
           duration: 3000,
           severity: 'success',
         });
+        reset();
       },
       onError: (error: ErrorInfo) => {
         if (error.response) {
@@ -127,7 +128,7 @@ export const CreateTaskModal = () => {
               color="inherit"
               fullWidth
             />
-            <Button text="ADD" fullWidth />
+            <Button text="ADD" isLoading={isLoading} fullWidth />
           </Box>
         </DialogContent>
       </Box>
