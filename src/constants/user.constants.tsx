@@ -1,7 +1,7 @@
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import RepeatIcon from '@mui/icons-material/Repeat';
 import CheckIcon from '@mui/icons-material/Check';
-import { TaskPriority } from 'enums/TaskPriority.enums';
+import { TaskPriority } from 'enums/Task.enums';
 
 export const DEFAULT_USER_IMAGE = 'https://i.imgur.com/uhaRENv.png';
 export const MAX_CUSTOM_CATEGORIES = 5;

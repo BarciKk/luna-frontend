@@ -5,3 +5,10 @@ export enum TaskPriority {
   High = 4,
   Highest = 5,
 }
+
+export enum TaskStatus {
+  PENDING,
+  IN_PROGRESS,
+  COMPLETED,
+  CANCELED,
+}

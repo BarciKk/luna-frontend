@@ -1,4 +1,6 @@
 import { ReactNode } from 'react';
+import { Task } from './Task.types';
+
 export type Category = {
   id?: string;
   name: string;
@@ -17,4 +19,5 @@ export type User = {
   bio: string;
   createdAt: Date;
   categories: Category[];
+  tasks: Task[];
 };

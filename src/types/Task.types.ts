@@ -1,19 +1,19 @@
-import { TaskPriority } from 'enums/TaskPriority.enums';
-
-type Category = {
-  name: string;
-  icon: string;
-  color: string;
-};
+import { TaskStatus, TaskPriority } from 'enums/Task.enums';
 
 export type Task = {
   id: string;
-  creatorId: string;
-  title: string;
-  category: Category[];
-  description?: string;
-  completed?: boolean;
-  created: Date;
+  name: string;
+  date: Date | string;
+  icon: string;
+  createdAt: Date;
   priority: TaskPriority;
-  pendingTask: boolean;
+  description?: string;
+  status: TaskStatus;
+  reccurringTask: boolean;
+  userId: string;
 };
+
+export type CreateTaskType = Pick<
+  Task,
+  'name' | 'date' | 'priority' | 'description' | 'userId' | 'icon'
+>;

@@ -18,5 +18,4 @@ export const DatePicker = ({
     />
   );
 };
-
 //idea for now is that user canoot add task futher than 1month from now

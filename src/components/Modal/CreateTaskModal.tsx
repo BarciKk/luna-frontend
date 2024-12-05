@@ -10,67 +10,128 @@ import { currentDate } from 'constants/date.constants';
 import { Priority } from 'components/Priority/Priority.component';
 import { useModal } from 'providers/ModalProvider';
 import { useState } from 'react';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { createTaskSchema } from 'validation/auth/Task.validation';
+import { createTask } from 'api/task';
+import { useMutation } from 'react-query';
+import { useSnackbar, useUser } from 'hooks';
+import { CreateTaskType, Task } from 'types/Task.types';
+import { CustomSnackbar } from 'components/Snackbar';
+import { ErrorInfo } from 'types/Shared.types';
 
 export const CreateTaskModal = () => {
   const { handleCloseModal } = useModal();
+  const { user } = useUser();
   const [selectedDate, setSelectedDate] = useState<Date>(currentDate);
-  const [value, setValue] = useState(1);
+  const [priority, setPriority] = useState(1);
+  const { showSnackbar, snackbarProps } = useSnackbar();
 
-  const handleIncrement = () => {
-    setValue((prevValue) => Math.min(prevValue + 1, 5));
-  };
+  const methods = useForm<Task>({
+    resolver: zodResolver(createTaskSchema),
+    mode: 'onChange',
+  });
 
-  const handleDecrement = () => {
-    setValue((prevValue) => Math.max(prevValue - 1, 1));
+  const { handleSubmit, setValue, watch } = methods;
+
+  const handleIconSelect = (iconId: string) => {
+    setValue('icon', iconId);
   };
+  const selectedIcon = watch('icon');
+  const { mutate } = useMutation(
+    (values: CreateTaskType) =>
+      createTask({
+        name: values.name,
+        icon: selectedIcon ?? 'star',
+        date: selectedDate.toISOString(),
+        priority: priority,
+        userId: user?.id ?? '',
+        description: values.description ?? '',
+      }),
+    {
+      onSuccess: () => {
+        showSnackbar({
+          message: 'Single task created successfully!',
+          duration: 3000,
+          severity: 'success',
+        });
+      },
+      onError: (error: ErrorInfo) => {
+        if (error.response) {
+          showSnackbar({
+            message: error.response.data.message,
+            duration: 3000,
+            severity: 'error',
+          });
+        }
+      },
+    },
+  );
 
   const handleDateChange = (newDate: Date | null) => {
     if (newDate) {
       setSelectedDate(newDate);
     }
   };
+  const onSubmit: SubmitHandler<CreateTaskType> = async (data) => {
+    try {
+      mutate(data);
+    } catch (err) {
+      console.error('Something went wrong!');
+    }
+  };
 
+  const handleIncrement = () => {
+    setPriority((prevValue) => Math.min(prevValue + 1, 5));
+  };
+
+  const handleDecrement = () => {
+    setPriority((prevValue) => Math.max(prevValue - 1, 1));
+  };
   return (
-    <Box p={1}>
-      <DialogTitle
-        id="create-task-dialog-title"
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        gap={0}
-        padding={0}
-      >
-        <Typography
-          text="New task"
-          fontSize="22px"
-          fontWeight="bolder"
-          maxLength={12}
-        />
-      </DialogTitle>
-      <DialogContent dividers sx={{ p: 3 }}>
-        <Input name="name" label="Task" />
-        <IconPicker
-          name="create-task-icons"
-          iconData={CONCATED_CATEGORIES}
-          onIconSelect={(iconId) => iconId}
-        />
-        <DatePicker value={selectedDate} onDateChange={handleDateChange} />
-        <Priority
-          value={value}
-          onIncrement={handleIncrement}
-          onDecrement={handleDecrement}
-        />
-        <TextArea name="description" label="Description" rows={4} />
-        <Box display="flex" gap="2em">
-          <Button
-            text="CANCEL"
-            onClick={handleCloseModal}
-            color="inherit"
-            fullWidth
+    <FormProvider {...methods}>
+      <Box p={1} component="form" onSubmit={handleSubmit(onSubmit)}>
+        <DialogTitle
+          id="create-task-dialog-title"
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          gap={0}
+          padding={0}
+        >
+          <Typography
+            text="New task"
+            fontSize="22px"
+            fontWeight="bolder"
+            maxLength={12}
           />
-          <Button text="ADD" fullWidth />
-        </Box>
-      </DialogContent>
-    </Box>
+        </DialogTitle>
+        <DialogContent dividers sx={{ p: 3 }}>
+          <Input name="name" label="Task" />
+          <IconPicker
+            name="create-task-icons"
+            iconData={CONCATED_CATEGORIES}
+            onIconSelect={handleIconSelect}
+          />
+          <DatePicker value={selectedDate} onDateChange={handleDateChange} />
+          <Priority
+            value={priority}
+            onIncrement={handleIncrement}
+            onDecrement={handleDecrement}
+          />
+          <TextArea name="description" label="Description" rows={4} />
+          <Box display="flex" gap="2em">
+            <Button
+              text="CANCEL"
+              onClick={handleCloseModal}
+              color="inherit"
+              fullWidth
+            />
+            <Button text="ADD" fullWidth />
+          </Box>
+        </DialogContent>
+      </Box>
+      <CustomSnackbar {...snackbarProps} />
+    </FormProvider>
   );
 };
