@@ -15,7 +15,7 @@ import { CustomSnackbar } from 'components/Snackbar';
 import { useSnackbar } from 'hooks';
 import { Seo } from 'components/Seo';
 import { Input } from 'components/Input/Input.component';
-import { ErrorInfoWithoutMessage } from 'types/Shared.types';
+import { ErrorInfo } from 'types/Shared.types';
 
 export const ForgotPassword = () => {
   const { t } = useTranslation();
@@ -38,10 +38,10 @@ export const ForgotPassword = () => {
       });
       reset();
     },
-    onError: (error: ErrorInfoWithoutMessage) => {
+    onError: (error: ErrorInfo) => {
       if (error.response) {
         showSnackbar({
-          message: error.response.data,
+          message: error.response.data.message,
           duration: 5000,
           severity: 'error',
         });
