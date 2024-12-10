@@ -36,6 +36,7 @@ export const lightTheme = createTheme({
         size: 'medium',
       },
     },
+
     MuiButton: {
       styleOverrides: {
         root: {

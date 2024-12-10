@@ -25,7 +25,7 @@ export const Register = () => {
 
   const methods = useForm<RegisterValues>({
     resolver: zodResolver(registerSchema),
-    mode: 'onChange',
+    mode: 'onBlur',
     criteriaMode: 'all',
     defaultValues: {
       email: '',
@@ -118,5 +118,3 @@ export const Register = () => {
     </AuthAnimation>
   );
 };
-
-//please update labels with translations

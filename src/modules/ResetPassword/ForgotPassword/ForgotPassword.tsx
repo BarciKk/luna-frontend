@@ -22,7 +22,7 @@ export const ForgotPassword = () => {
   const { showSnackbar, snackbarProps } = useSnackbar();
   const methods = useForm<ForgotPasswordForm>({
     resolver: zodResolver(resetPasswordEmailSchema),
-    mode: 'onChange',
+    mode: 'onBlur',
     defaultValues: {
       email: '',
     },
@@ -45,6 +45,7 @@ export const ForgotPassword = () => {
           duration: 5000,
           severity: 'error',
         });
+        reset();
       }
     },
   });

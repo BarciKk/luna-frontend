@@ -25,16 +25,16 @@ export const Login = () => {
   const { showSnackbar, snackbarProps } = useSnackbar();
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const methods = useForm<LoginValues>({
+  const methods = useForm({
     resolver: zodResolver(loginSchema),
-    mode: 'onChange',
+    mode: 'onBlur',
     defaultValues: {
       email: '',
       password: '',
     },
   });
 
-  const { handleSubmit } = methods;
+  const { handleSubmit, resetField } = methods;
 
   const { mutate, isLoading, isError } = useMutation(
     (values: LoginValues) => login(values),
@@ -56,6 +56,7 @@ export const Login = () => {
             severity: 'error',
           });
         }
+        resetField('password');
       },
     },
   );
@@ -104,7 +105,7 @@ export const Login = () => {
               fullWidth
               isLoading={isLoading}
             />
-            <Typography variant="body2" textAlign="center" mt={2}>
+            <Typography fontSize="14px" textAlign="center" mt={2}>
               {t('auth.firstPartOfRegisterMessage')}{' '}
               <Link
                 to={UnauthorizedRoutes.register}

@@ -4,7 +4,6 @@ import { CssBaseline } from '@mui/material';
 import { ReactQueryProvider } from './providers/ReactQueryProvider';
 import { HelmetProvider } from 'react-helmet-async';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import CustomFormProvider from 'providers/FormProvider';
 import { ModalProvider } from 'providers';
 import { DateProvider } from 'providers/DateProvider';
 
@@ -13,17 +12,17 @@ export const App = () => {
     <BrowserRouter>
       <ReactQueryProvider>
         <ReactQueryDevtools initialIsOpen={false} />
-        <CustomFormProvider>
-          <DateProvider>
-            <ModalProvider>
-              <HelmetProvider>
-                <CssBaseline />
-                <RoutesWrapper />
-              </HelmetProvider>
-            </ModalProvider>
-          </DateProvider>
-        </CustomFormProvider>
+        <DateProvider>
+          <ModalProvider>
+            <HelmetProvider>
+              <CssBaseline />
+              <RoutesWrapper />
+            </HelmetProvider>
+          </ModalProvider>
+        </DateProvider>
       </ReactQueryProvider>
     </BrowserRouter>
   );
 };
+
+//To be honest whole mui theme must be rewritten and whole app should be checked

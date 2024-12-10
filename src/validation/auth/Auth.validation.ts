@@ -1,57 +1,61 @@
-import i18next from 'i18next';
+import { translateValidateMessage } from 'utils/translation/translateValidateMessage';
 import { z } from 'zod';
 
-export const translateValidateMessage = (key: string): string => {
-  return i18next.t(`validations.${key}`);
-};
+const emailSchema = z
+  .string()
+  .email({ message: translateValidateMessage('emailValidFormat') })
+  .min(3, { message: translateValidateMessage('minEmailLength') })
+  .max(64, { message: translateValidateMessage('maxEmailLength') })
+  .trim();
 
-const validate = {
-  email: z
-    .string()
-    .email(translateValidateMessage('emailValidFormat'))
-    .min(3)
-    .max(64),
-  username: z
-    .string()
-    .min(4, translateValidateMessage('minUsernameLength'))
-    .max(32),
-  password: z.string().min(8, translateValidateMessage('minPasswordLength')),
-  confirmPassword: z
-    .string()
-    .min(8, translateValidateMessage('confirmPassword')),
-  terms: z.literal(true, {
-    errorMap: () => ({ message: 'You must accept Terms and Conditions' }),
+const usernameSchema = z
+  .string()
+  .min(4, { message: translateValidateMessage('minUsernameLength') })
+  .max(32, { message: translateValidateMessage('maxUsernameLength') })
+  .trim();
+
+const passwordSchema = z
+  .string()
+  .min(8, { message: translateValidateMessage('minPasswordLength') });
+
+const repeatPasswordSchema = z.string().refine((value) => value.length >= 8, {
+  message: translateValidateMessage('confirmPassword'),
+});
+
+const termsSchema = z.literal(true, {
+  errorMap: () => ({
+    message: 'Im sorry u have to accept our terms and conditions',
   }),
-};
+});
 
 const registerSchema = z
   .object({
-    email: validate.email,
-    username: validate.username,
-    password: validate.password,
-    repeatPassword: validate.confirmPassword,
-    terms: validate.terms,
+    email: emailSchema,
+    username: usernameSchema,
+    password: passwordSchema,
+    repeatPassword: repeatPasswordSchema,
+    terms: termsSchema,
   })
-  .refine(({ password, repeatPassword }) => password === repeatPassword, {
+  .refine((data) => data.password === data.repeatPassword, {
     message: "Passwords don't match",
     path: ['repeatPassword'],
   });
 
 const loginSchema = z.object({
-  email: validate.email,
-  password: validate.password,
+  email: emailSchema,
+  password: passwordSchema,
 });
 
 const resetPasswordEmailSchema = z.object({
-  email: validate.email,
+  email: emailSchema,
 });
 
 const updatePasswordSchema = z
   .object({
-    password: validate.password,
-    confirmPassword: validate.confirmPassword,
+    password: passwordSchema,
+    confirmPassword: repeatPasswordSchema,
   })
-  .refine(({ password, confirmPassword }) => password === confirmPassword, {
+  .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords must match!',
     path: ['confirmPassword'],
   });

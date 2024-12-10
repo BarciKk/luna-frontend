@@ -9,12 +9,10 @@ import { Dashboard } from 'pages/Dashboard';
 import { authorizedRoutes, unauthorizedRoutes } from './Route.utils';
 
 export const RoutesWrapper = () => (
-  //Unauthorized routes
   <Routes>
     {unauthorizedRoutes.map((route, index) => (
       <Route key={index} path={route.path} element={route.element} />
     ))}
-    {/* Authorized routes  */}
     <Route element={<RouteGuard isAuthorized />}>
       <Route path={AuthorizedRoutes.dashboard} element={<Dashboard />}>
         {authorizedRoutes.map(

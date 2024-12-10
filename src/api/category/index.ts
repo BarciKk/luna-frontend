@@ -2,7 +2,7 @@ import { GenericResponseType } from 'types/Shared.types';
 import { axiosInstance as axios } from '../axios.config';
 import { Category } from 'types/User.types';
 
-export const getAllCategories = async (userId: string) => {
+export const getAllCategories = async (userId?: string) => {
   const res = await axios.post<Category[]>('/categories', { userId });
   return res.data;
 };

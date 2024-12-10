@@ -30,7 +30,7 @@ export const ResetPassword = () => {
       confirmPassword: '',
     },
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, reset } = methods;
   if (!token) return null;
   const { mutate, isLoading } = useMutation(
     (resetFormValues: ResetPasswordForm) =>
@@ -45,6 +45,7 @@ export const ResetPassword = () => {
           duration: 5000,
           severity: 'success',
         });
+        reset();
       },
       onError: (err: ErrorInfo) => {
         if (err.response) {
@@ -53,6 +54,7 @@ export const ResetPassword = () => {
             duration: 5000,
             severity: 'error',
           });
+          reset();
         }
       },
     },

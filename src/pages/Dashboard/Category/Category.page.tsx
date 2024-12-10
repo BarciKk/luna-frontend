@@ -16,15 +16,18 @@ export const Category = () => {
   const { user } = useUser();
   const { handleOpenModal } = useModal();
   const { showSnackbar, snackbarProps } = useSnackbar();
-  if (!user) return;
   const {
     data: categoryData,
     isLoading,
     error,
-  } = useQuery([QueryKeys.category, user.id], () => getAllCategories(user.id), {
-    staleTime: 30000,
-    enabled: !!user,
-  });
+  } = useQuery(
+    [QueryKeys.category, user?.id],
+    () => getAllCategories(user?.id),
+    {
+      staleTime: 30000,
+      enabled: !!user,
+    },
+  );
 
   if (error) {
     showSnackbar({
@@ -34,8 +37,7 @@ export const Category = () => {
     });
   }
 
-  if (!categoryData) return null;
-  const categoriesLeft = MAX_CUSTOM_CATEGORIES - categoryData?.length;
+  const categoriesLeft = MAX_CUSTOM_CATEGORIES - (categoryData?.length ?? 0);
 
   return (
     <Stack marginTop="2em" justifyContent="center" alignItems="center">
@@ -56,7 +58,7 @@ export const Category = () => {
             Custom categories: {categoriesLeft} left
           </Typography>
           <Box textAlign="center">
-            {categoryData.length === 0 && (
+            {!categoryData && (
               <Stack
                 alignItems="center"
                 gap={1}
@@ -91,7 +93,7 @@ export const Category = () => {
                   <Skeleton variant="text" animation="wave" />
                 </Box>
               )}
-              {categoryData.map((category, index) => (
+              {categoryData?.map((category, index) => (
                 <CategoryIcon
                   id={category.id}
                   key={index}

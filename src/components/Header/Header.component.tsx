@@ -1,12 +1,5 @@
 import { Segment } from '@mui/icons-material';
-import {
-  AppBar,
-  Toolbar,
-  Box,
-  IconButton,
-  Typography,
-  useTheme,
-} from '@mui/material';
+import { AppBar, Toolbar, Box, IconButton, Typography } from '@mui/material';
 import { CustomAvatar } from 'components/Avatar/Avatar.component';
 import { Button } from 'components/Button/Button.component';
 import { Drawer } from 'components/Drawer/Drawer.component';
@@ -25,7 +18,6 @@ export const Header = () => {
   const dateParam = getQueryString('date');
   const navigate = useNavigate();
   const { user, jwt } = useUser();
-  const theme = useTheme();
   const formattedDate = dateParam ? new Date(dateParam) : currentDate;
 
   const headerDate =
@@ -61,7 +53,7 @@ export const Header = () => {
               aria-label="menu"
               sx={{
                 mr: 2,
-                color: theme.palette.mode === 'dark' ? 'primary.main' : 'white',
+                color: 'white',
               }}
               onClick={toggleOpenDrawer}
             >
@@ -77,6 +69,7 @@ export const Header = () => {
             >
               <Typography
                 fontSize={18}
+                color="white"
                 fontWeight="bolder"
                 onClick={() => navigate(AuthorizedRoutes.today)}
                 sx={{ cursor: 'pointer' }}

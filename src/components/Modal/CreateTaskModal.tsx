@@ -29,7 +29,7 @@ export const CreateTaskModal = () => {
 
   const methods = useForm<Task>({
     resolver: zodResolver(createTaskSchema),
-    mode: 'onChange',
+    mode: 'onBlur',
   });
 
   const { handleSubmit, setValue, watch, reset } = methods;

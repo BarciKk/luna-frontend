@@ -30,14 +30,13 @@ export const CreateCategoryModal = () => {
     user?.id,
   ]);
 
-  if (!categories) return [];
-  const category = categories.find(
+  const category = categories?.find(
     (category: Category) => category.id === categoryId,
   );
 
   const methods = useForm<Category>({
     resolver: zodResolver(createCategorySchema),
-    mode: 'onChange',
+    mode: 'onBlur',
     defaultValues: {
       name: categoryId ? category?.name : '',
       color: categoryId ? category?.color : '#1b75de',
@@ -61,7 +60,7 @@ export const CreateCategoryModal = () => {
       createCategory({
         name: values.name,
         color: values.color,
-        userId: user?.id ?? '',
+        userId: user?.id,
         icon: selectedIcon || 'autoawesome',
       }),
     {
@@ -91,7 +90,7 @@ export const CreateCategoryModal = () => {
         id: categoryId,
         name: values.name,
         color: values.color,
-        userId: user?.id ?? '',
+        userId: user?.id,
         icon: selectedIcon === '' ? category?.icon : selectedIcon,
       }),
     {
@@ -140,8 +139,6 @@ export const CreateCategoryModal = () => {
     }
   };
 
-  if (!user) return null;
-
   return (
     <FormProvider {...methods}>
       <Box padding={1} component="form" onSubmit={handleSubmit(onSubmit)}>
@@ -187,7 +184,7 @@ export const CreateCategoryModal = () => {
             isLoading={isLoading}
             text={categoryId ? 'UPDATE' : 'CREATE CATEGORY'}
             fullWidth
-            disabled={user.categories.length >= 5 && !categoryId}
+            disabled={(user?.categories.length ?? 0) >= 5 && !categoryId}
           />
         </DialogActions>
         <CustomSnackbar {...snackbarProps} />

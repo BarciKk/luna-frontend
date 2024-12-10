@@ -8,16 +8,15 @@ type CookieOptions = {
   secure: boolean;
   sameSite: 'strict';
 };
+const cookieOptions: CookieOptions = {
+  maxAge: 3600000,
+  path: '/',
+  secure: true,
+  sameSite: 'strict' as const,
+};
 
 export const useCookies = () => {
   const cookies = new Cookies();
-
-  const cookieOptions: CookieOptions = {
-    maxAge: 10000,
-    path: '/',
-    secure: true,
-    sameSite: 'strict' as const,
-  };
 
   const setCookie = useCallback((key: cookieKeys, value: unknown) => {
     cookies.set(key, value, cookieOptions);
