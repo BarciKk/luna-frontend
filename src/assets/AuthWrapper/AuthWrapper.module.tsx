@@ -10,7 +10,7 @@ export const AuthWrapper = ({ children }: PropsWithChildren) => (
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: '32px 40px 32px 40px',
+        padding: '32px 40px ',
       }}
     >
       {children}

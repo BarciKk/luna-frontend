@@ -1,5 +1,6 @@
-import { Box, Typography, useTheme } from '@mui/material';
-import { currentDate } from 'constants/date.constants';
+import { Box } from '@mui/material';
+import { Typography } from 'components/Typography';
+import { currentDayNumber } from 'constants/date.constants';
 import { format } from 'date-fns';
 import { motion } from 'framer-motion';
 import { useQueryString } from 'hooks';
@@ -11,7 +12,6 @@ type DayProps = {
 };
 
 export const Day: FC<DayProps> = ({ day, onClick }) => {
-  const theme = useTheme();
   const { createQueryString } = useQueryString();
   const dayFormatted = format(day, 'yyyy-MM-dd');
   const dayName = format(day, 'eee');
@@ -22,31 +22,39 @@ export const Day: FC<DayProps> = ({ day, onClick }) => {
     createQueryString('date', dayFormatted);
   };
 
+  console.log(currentDayNumber);
   return (
     <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
       <Box
-        textAlign="center"
-        minWidth="4em"
+        display="flex"
+        flexDirection="column"
         style={{
           cursor: 'pointer',
         }}
+        minWidth="4em"
+        textAlign="center"
         onClick={handleClick}
+        borderRadius="12px"
+        bgcolor={
+          currentDayNumber === dayNumber
+            ? 'primary.dark'
+            : 'rgba(43, 43, 43, .85)'
+        }
       >
+        <Typography color="primary.contrastText" text={dayName} mt={1} />
         <Box
-          padding="12px"
-          borderRadius="12px"
-          bgcolor="rgba(43, 43, 43, .9)"
-          sx={{
-            color:
-              dayNumber === format(currentDate, 'dd')
-                ? theme.palette.primary.light
-                : 'white',
-          }}
+          bgcolor="rgba(43, 43, 43, .2)"
+          borderRadius="16px"
+          padding="8px"
+          position="relative"
+          top="1px"
         >
-          <Typography>{dayName}</Typography>
-          <Typography fontWeight="bolder" fontSize={18}>
-            {dayNumber}
-          </Typography>
+          <Typography
+            color="primary.contrastText"
+            fontWeight="bolder"
+            fontSize={18}
+            text={dayNumber}
+          />
         </Box>
       </Box>
     </motion.div>

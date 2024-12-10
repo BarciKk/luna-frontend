@@ -4,15 +4,18 @@ import {
   Checkbox as MuiCheckBox,
 } from '@mui/material';
 import { ErrorMessage } from 'components/ErrorMessage';
+import { Typography } from 'components/Typography';
 import { FC } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { getErrorMessage } from 'utils/getErrorMessage';
 
+// Define prop types for the custom checkbox
 type CustomCheckboxProps = CheckboxProps & {
   name: string;
   label: string;
 };
 
+// Main Checkbox component definition
 export const Checkbox: FC<CustomCheckboxProps> = ({
   name,
   label,
@@ -37,13 +40,17 @@ export const Checkbox: FC<CustomCheckboxProps> = ({
                   {...props}
                   checked={field.value || false}
                   sx={{
-                    color: errors[name] ? 'error.main' : 'none',
+                    color: errors[name] ? 'error.main' : 'inherit',
+                    alignItems: 'center',
                   }}
                 />
               }
-              label={label}
+              label={<Typography text={label} fontSize="14px" maxLength={32} />}
             />
-            <ErrorMessage message={getErrorMessage(errors[name])} />
+            <ErrorMessage
+              message={getErrorMessage(errors[name])}
+              style={{ fontSize: 14, marginLeft: '8px' }}
+            />
           </>
         )}
       />

@@ -15,7 +15,7 @@ export const DatePicker = ({
       sx={{ width: '100%' }}
       defaultValue={currentDate}
       maxDate={maxDate}
+      disablePast
     />
   );
 };
-//idea for now is that user canoot add task futher than 1month from now

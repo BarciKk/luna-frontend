@@ -1,4 +1,4 @@
-import { Box, Divider, Skeleton, Stack, Typography } from '@mui/material';
+import { Box, Divider, Skeleton, Stack } from '@mui/material';
 import { useSnackbar, useUser } from 'hooks';
 import EventBusyOutlinedIcon from '@mui/icons-material/EventBusyOutlined';
 import { Button } from 'components/Button';
@@ -11,6 +11,7 @@ import { useQuery } from 'react-query';
 import { getAllCategories } from 'api/category';
 import { QueryKeys } from 'enums/QueryKeys.enums';
 import { CustomSnackbar } from 'components/Snackbar';
+import { Typography } from 'components/Typography';
 
 export const Category = () => {
   const { user } = useUser();
@@ -44,19 +45,28 @@ export const Category = () => {
       <Box
         width="50%"
         minWidth="360px"
+        maxWidth={800}
         sx={{ bgcolor: 'rgba(43, 43, 43, .65)' }}
         color="white"
         borderRadius="12px"
-        p={2}
+        p={3}
       >
         <Box>
-          <Typography fontWeight="bolder" fontSize="18px">
-            Categories
-          </Typography>
+          <Typography
+            fontWeight="bolder"
+            fontSize="18px"
+            color="primary.contrastText"
+            text="Categories"
+          />
+
           <Divider sx={{ marginY: '10px' }} />
-          <Typography fontWeight="bolder" fontSize="14px">
-            Custom categories: {categoriesLeft} left
-          </Typography>
+          <Typography
+            fontWeight="bolder"
+            fontSize="14px"
+            color="primary.contrastText"
+            text={`Custom categories: ${categoriesLeft} left`}
+          />
+
           <Box textAlign="center">
             {!categoryData && (
               <Stack
@@ -66,7 +76,10 @@ export const Category = () => {
                 sx={{ opacity: 0.7 }}
               >
                 <EventBusyOutlinedIcon sx={{ fontSize: '40px' }} />
-                <Typography>There are no custom categories</Typography>
+                <Typography
+                  color="primary.contrastText"
+                  text="There are no custom categories"
+                />
               </Stack>
             )}
             <Stack
@@ -86,7 +99,7 @@ export const Category = () => {
                       minWidth: '4em',
                       maxWidth: '4em',
                       padding: '28px',
-                      borderRadius: '8px',
+                      borderRadius: (theme) => theme.shape.borderRadius,
                     }}
                     variant="rounded"
                   />
@@ -106,9 +119,12 @@ export const Category = () => {
           </Box>
           <Divider sx={{ marginY: '12px' }} />
           <Box>
-            <Typography fontWeight="bolder" fontSize="14px">
-              Default categories
-            </Typography>
+            <Typography
+              fontWeight="bolder"
+              fontSize="14px"
+              color="primary.contrastText"
+              text="Default categories"
+            />
           </Box>
           <Stack
             marginTop={1}

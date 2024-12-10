@@ -24,7 +24,7 @@ const repeatPasswordSchema = z.string().refine((value) => value.length >= 8, {
 
 const termsSchema = z.literal(true, {
   errorMap: () => ({
-    message: 'Im sorry u have to accept our terms and conditions',
+    message: 'Terms & conditions are required',
   }),
 });
 

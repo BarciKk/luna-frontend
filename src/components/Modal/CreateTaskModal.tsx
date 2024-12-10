@@ -91,7 +91,7 @@ export const CreateTaskModal = () => {
   };
   return (
     <FormProvider {...methods}>
-      <Box p={1} component="form" onSubmit={handleSubmit(onSubmit)}>
+      <Box p={3} component="form" onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle
           id="create-task-dialog-title"
           display="flex"

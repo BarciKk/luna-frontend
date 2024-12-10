@@ -70,7 +70,7 @@ export const Register = () => {
     <AuthAnimation>
       <Seo title="LunaSync - Register" description="Auth register" />
       <AuthWrapper>
-        <Typography fontSize="36px" m={1} mb={4}>
+        <Typography fontSize="36px" m={1} mb={2}>
           {t('auth.signUp')}
         </Typography>
 
@@ -103,13 +103,9 @@ export const Register = () => {
               isLoading={isLoading}
               sx={{ mt: 4, mb: '10px' }}
             />
-            <Typography style={{ textAlign: 'center' }}>
+            <Typography fontSize="14px" style={{ textAlign: 'center' }}>
               {t('auth.haveAccount')}{' '}
-              <Link
-                to={UnauthorizedRoutes.login}
-                style={{ display: 'inline-block' }}
-                text={t('auth.login')}
-              />
+              <Link to={UnauthorizedRoutes.login} text={t('auth.login')} />
             </Typography>
           </Box>
         </FormProvider>

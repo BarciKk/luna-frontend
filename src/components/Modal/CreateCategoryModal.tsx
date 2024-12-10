@@ -141,7 +141,7 @@ export const CreateCategoryModal = () => {
 
   return (
     <FormProvider {...methods}>
-      <Box padding={1} component="form" onSubmit={handleSubmit(onSubmit)}>
+      <Box padding={3} component="form" onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle
           id="create-category-dialog-title"
           display="flex"
@@ -159,7 +159,7 @@ export const CreateCategoryModal = () => {
           {categoryId ? (
             <DeleteCategory />
           ) : (
-            <IconButton>
+            <IconButton color="primary">
               <WidgetsIcon />
             </IconButton>
           )}

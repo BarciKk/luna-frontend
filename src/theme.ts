@@ -2,7 +2,7 @@ import { createTheme } from '@mui/material';
 
 export const lightTheme = createTheme({
   shape: {
-    borderRadius: 8,
+    borderRadius: 3,
   },
   spacing: [0, 4, 8, 16, 32, 64],
   breakpoints: {
@@ -19,6 +19,7 @@ export const lightTheme = createTheme({
     primary: {
       main: '#1976d2',
       dark: '#2276d2',
+      contrastText: '#fffcfc',
     },
     error: {
       main: '#ff3333',
@@ -34,6 +35,7 @@ export const lightTheme = createTheme({
     MuiTextField: {
       defaultProps: {
         size: 'medium',
+        margin: 'dense',
       },
     },
 
@@ -60,6 +62,7 @@ export const lightTheme = createTheme({
         },
       },
     },
+
     MuiCssBaseline: {
       styleOverrides: {
         a: {

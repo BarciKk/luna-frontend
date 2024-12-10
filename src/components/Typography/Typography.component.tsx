@@ -3,12 +3,12 @@ import { FC } from 'react';
 
 type CustomTypographyProps = TypographyProps & {
   text: string;
-  maxLength: number;
+  maxLength?: number;
 };
 
 export const Typography: FC<CustomTypographyProps> = ({
   text,
-  maxLength,
+  maxLength = 32,
   ...props
 }) => {
   const truncatedText =

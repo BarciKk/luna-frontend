@@ -30,7 +30,7 @@ export const Priority: FC<CustomPriorityProps> = ({
       }}
     >
       <Box display="flex" alignItems="center">
-        <IconButton>
+        <IconButton color="primary">
           <Flag />
         </IconButton>
         <Typography>Priority</Typography>

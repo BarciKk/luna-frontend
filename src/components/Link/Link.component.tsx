@@ -12,6 +12,7 @@ export const Link = ({ to, text, ...props }: CustomLinkProps) => (
     <Typography
       maxLength={24}
       component="span"
+      color="primary"
       fontSize="14px"
       {...props}
       text={text}

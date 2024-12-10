@@ -3,15 +3,16 @@ import AddIcon from '@mui/icons-material/Add';
 import {
   Fab,
   Box,
-  Typography,
   Divider,
   ClickAwayListener,
+  IconButton,
 } from '@mui/material';
 import { ArrowForwardIos } from '@mui/icons-material';
 
 import CloseIcon from '@mui/icons-material/Close';
 import { taskOptions } from 'constants/user.constants';
 import { useModal } from 'providers/ModalProvider';
+import { Typography } from 'components/Typography';
 
 export const AddActivity = () => {
   const [showBox, setShowBox] = useState(false);
@@ -48,7 +49,7 @@ export const AddActivity = () => {
             maxWidth: '400px',
             bottom: '8em',
             right: '1em',
-            borderRadius: '8px',
+            borderRadius: (theme) => theme.shape.borderRadius,
             padding: '14px',
           }}
         >
@@ -69,17 +70,24 @@ export const AddActivity = () => {
                     transition: 'box-shadow 0.6s ease',
                     ':hover': {
                       cursor: 'pointer',
-                      borderRadius: '8px',
+                      borderRadius: (theme) => theme.shape.borderRadius,
                       boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
                     },
                   }}
                 >
-                  {task.icon}
-                  <Box flex={1}>
-                    <Typography fontSize={14} fontWeight="bolder">
-                      {task.title}
-                    </Typography>
-                    <Typography fontSize={12}>{task.description}</Typography>
+                  <IconButton>{task.icon}</IconButton>
+                  <Box display="flex" flexDirection="column">
+                    <Typography
+                      fontWeight="bolder"
+                      color="primary.contrastText"
+                      text={task.title}
+                    />
+                    <Typography
+                      fontSize={12}
+                      color="primary.contrastText"
+                      maxLength={64}
+                      text={task.description}
+                    />
                   </Box>
                   <ArrowForwardIos fontSize="small" />
                 </Box>

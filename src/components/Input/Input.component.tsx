@@ -5,7 +5,6 @@ import {
   InputAdornment,
   TextFieldProps,
   Box,
-  useTheme,
 } from '@mui/material';
 import { useFormContext, Controller } from 'react-hook-form';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -22,10 +21,9 @@ export const Input: FC<CustomTextFieldProps> = ({ name, type, ...props }) => {
     formState: { errors },
   } = useFormContext();
   const [showPassword, setShowPassword] = useState(false);
-  const theme = useTheme();
 
   return (
-    <Box sx={{ mb: 1 }}>
+    <Box>
       <Controller
         name={name}
         control={control}
@@ -40,7 +38,7 @@ export const Input: FC<CustomTextFieldProps> = ({ name, type, ...props }) => {
               error={!!errors[name]}
               variant="outlined"
               InputLabelProps={{
-                color: theme.palette.mode === 'dark' ? 'info' : 'primary',
+                color: 'primary',
               }}
               fullWidth
               InputProps={{

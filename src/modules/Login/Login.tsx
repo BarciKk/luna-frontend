@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { SubmitHandler, useForm, FormProvider } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { useTranslation } from 'react-i18next';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography as MuiTypography } from '@mui/material';
 import { AuthorizedRoutes, UnauthorizedRoutes } from 'enums/Routes.enums';
 import { Link } from 'components/Link/Link.component';
 import { AuthWrapper } from 'assets/AuthWrapper';
@@ -19,6 +19,7 @@ import { Input } from 'components/Input/Input.component';
 import { useSnackbar, useUser } from 'hooks';
 import { ErrorInfo } from 'types/Shared.types';
 import { CustomSnackbar } from 'components/Snackbar';
+import { Typography } from 'components/Typography';
 
 export const Login = () => {
   const { setUser } = useUser();
@@ -49,6 +50,7 @@ export const Login = () => {
         }
       },
       onError: (error: ErrorInfo) => {
+        console.log(error);
         if (error.response) {
           showSnackbar({
             message: error.response.data.message,
@@ -73,9 +75,13 @@ export const Login = () => {
     <AuthAnimation>
       <Seo title="LunaSync - Login" description="Auth login" />
       <AuthWrapper>
-        <Typography textAlign="center" fontSize="36px" m={1}>
-          {t('auth.signIn')}
-        </Typography>
+        <Typography
+          textAlign="center"
+          fontSize="36px"
+          m={1}
+          text={t('auth.signIn')}
+        />
+
         <FormProvider {...methods}>
           <Box
             component="form"
@@ -105,13 +111,13 @@ export const Login = () => {
               fullWidth
               isLoading={isLoading}
             />
-            <Typography fontSize="14px" textAlign="center" mt={2}>
+            <MuiTypography fontSize="14px" textAlign="center" mt={2}>
               {t('auth.firstPartOfRegisterMessage')}{' '}
               <Link
                 to={UnauthorizedRoutes.register}
                 text={t('auth.register')}
               />
-            </Typography>
+            </MuiTypography>
             <Copyright />
           </Box>
         </FormProvider>

@@ -54,7 +54,7 @@ export const IconPicker: FC<IconPickerProps> = ({
         onClick={handleBoxClick}
       >
         {/* well that is a hack i should figure out this later but for now im leaving this like that */}
-        <IconButton>
+        <IconButton color="primary">
           {selectedIconName === 'create-task-icons' ? (
             <Star />
           ) : (

@@ -53,7 +53,7 @@ export const Header = () => {
               aria-label="menu"
               sx={{
                 mr: 2,
-                color: 'white',
+                color: 'primary.contrastText',
               }}
               onClick={toggleOpenDrawer}
             >
@@ -69,7 +69,7 @@ export const Header = () => {
             >
               <Typography
                 fontSize={18}
-                color="white"
+                color="primary.contrastText"
                 fontWeight="bolder"
                 onClick={() => navigate(AuthorizedRoutes.today)}
                 sx={{ cursor: 'pointer' }}

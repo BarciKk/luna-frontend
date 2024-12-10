@@ -42,8 +42,7 @@ export const CategoryIcon: FC<Category> = ({ id, name, icon, color }) => {
       <Box
         sx={{
           width: 'fit-content',
-          maxWidth: '6em',
-          minWidth: '6em',
+          minWidth: '5em',
           textAlign: 'center',
         }}
         p={2}
@@ -52,7 +51,7 @@ export const CategoryIcon: FC<Category> = ({ id, name, icon, color }) => {
           sx={{
             p: 1,
             bgcolor: color,
-            borderRadius: '8px',
+            borderRadius: (theme) => theme.shape.borderRadius,
           }}
         >
           <Tooltip id={id} title={name} arrow>
@@ -62,7 +61,7 @@ export const CategoryIcon: FC<Category> = ({ id, name, icon, color }) => {
           </Tooltip>
         </Box>
 
-        <Typography text={name} maxLength={6} />
+        <Typography color="primary.contrastText" text={name} maxLength={6} />
       </Box>
     </motion.div>
   );
