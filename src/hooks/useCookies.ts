@@ -12,7 +12,7 @@ const cookieOptions: CookieOptions = {
   maxAge: 3600000,
   path: '/',
   secure: true,
-  sameSite: 'strict' as const,
+  sameSite: 'strict',
 };
 
 export const useCookies = () => {

@@ -61,7 +61,7 @@ export const CategoryIcon: FC<Category> = ({ id, name, icon, color }) => {
           </Tooltip>
         </Box>
 
-        <Typography color="primary.contrastText" text={name} maxLength={6} />
+        <Typography color="primary.contrastText" text={name} maxLength={8} />
       </Box>
     </motion.div>
   );

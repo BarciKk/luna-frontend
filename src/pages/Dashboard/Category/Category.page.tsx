@@ -37,114 +37,130 @@ export const Category = () => {
       severity: 'error',
     });
   }
-
   const categoriesLeft = MAX_CUSTOM_CATEGORIES - (categoryData?.length ?? 0);
 
   return (
     <Stack marginTop="2em" justifyContent="center" alignItems="center">
       <Box
-        width="50%"
-        minWidth="360px"
-        maxWidth={800}
+        minWidth="300px"
+        width={{ xs: '80%', sm: '600px', md: '800px' }}
         sx={{ bgcolor: 'rgba(43, 43, 43, .65)' }}
         color="white"
         borderRadius="12px"
         p={3}
       >
-        <Box>
-          <Typography
-            fontWeight="bolder"
-            fontSize="18px"
-            color="primary.contrastText"
-            text="Categories"
-          />
+        <Typography
+          fontWeight="bolder"
+          fontSize="18px"
+          color="primary.contrastText"
+          text="Categories"
+        />
+        <Divider sx={{ marginY: '10px' }} />
 
-          <Divider sx={{ marginY: '10px' }} />
-          <Typography
-            fontWeight="bolder"
-            fontSize="14px"
-            color="primary.contrastText"
-            text={`Custom categories: ${categoriesLeft} left`}
-          />
+        <Typography
+          fontWeight="bolder"
+          fontSize="14px"
+          color="primary.contrastText"
+          text={`Custom categories: ${categoriesLeft} left`}
+        />
 
-          <Box textAlign="center">
-            {!categoryData && (
-              <Stack
-                alignItems="center"
-                gap={1}
-                marginY="60px"
-                sx={{ opacity: 0.7 }}
-              >
-                <EventBusyOutlinedIcon sx={{ fontSize: '40px' }} />
-                <Typography
-                  color="primary.contrastText"
-                  text="There are no custom categories"
-                />
-              </Stack>
-            )}
+        <Box textAlign="center">
+          {isLoading ? (
             <Stack
-              marginTop={1}
-              gap="4px"
+              marginTop={2}
+              gap={2}
               flexWrap="wrap"
               flexDirection="row"
-              maxHeight="250px"
-              overflow="auto"
+              justifyContent="start"
+              aria-label="Loading categories"
             >
-              {/* !NOTE: Please take it out into separe file or create generic skeleton componentn for handling loading states */}
-              {isLoading && (
-                <Box mt={2}>
+              {Array.from({ length: 5 }).map((_, index) => (
+                <Box key={index} textAlign="center">
                   <Skeleton
                     animation="wave"
                     sx={{
-                      minWidth: '4em',
-                      maxWidth: '4em',
-                      padding: '28px',
+                      width: '4em',
+                      height: '4em',
                       borderRadius: (theme) => theme.shape.borderRadius,
                     }}
                     variant="rounded"
                   />
-                  <Skeleton variant="text" animation="wave" />
+                  <Skeleton
+                    animation="wave"
+                    variant="text"
+                    sx={{ marginTop: '0.5em', width: '4em' }}
+                  />
                 </Box>
-              )}
-              {categoryData?.map((category, index) => (
-                <CategoryIcon
-                  id={category.id}
-                  key={index}
-                  name={category.name}
-                  icon={category.icon}
-                  color={category.color}
-                />
               ))}
             </Stack>
-          </Box>
-          <Divider sx={{ marginY: '12px' }} />
-          <Box>
-            <Typography
-              fontWeight="bolder"
-              fontSize="14px"
-              color="primary.contrastText"
-              text="Default categories"
-            />
-          </Box>
-          <Stack
-            marginTop={1}
-            gap="4px"
-            flexWrap="wrap"
-            flexDirection="row"
-            maxHeight="250px"
-            overflow="auto"
-          >
-            {BASE_CATEGORIES.map((category, index) => (
-              <CategoryIcon
-                key={index}
-                name={category.name}
-                icon={category.icon}
-                color={category.color}
-                id={category.id}
-              />
-            ))}
-          </Stack>
+          ) : (
+            <>
+              {categoryData?.length === 0 || !categoryData ? (
+                <Stack
+                  alignItems="center"
+                  gap={1}
+                  marginY="60px"
+                  sx={{ opacity: 0.7 }}
+                >
+                  <EventBusyOutlinedIcon sx={{ fontSize: '40px' }} />
+                  <Typography
+                    color="primary.contrastText"
+                    text="There are no custom categories"
+                  />
+                </Stack>
+              ) : (
+                <Stack
+                  marginTop={1}
+                  gap="2px"
+                  flexWrap="wrap"
+                  flexDirection="row"
+                  maxHeight="250px"
+                  overflow="hidden"
+                  aria-label="Custom categories"
+                >
+                  {categoryData?.map((category, index) => (
+                    <CategoryIcon
+                      id={category.id}
+                      key={index}
+                      name={category.name}
+                      icon={category.icon}
+                      color={category.color}
+                    />
+                  ))}
+                </Stack>
+              )}
+            </>
+          )}
         </Box>
+
+        <Divider sx={{ marginY: '12px' }} />
+        <Box>
+          <Typography
+            fontWeight="bolder"
+            fontSize="14px"
+            color="primary.contrastText"
+            text="Default categories"
+          />
+        </Box>
+        <Stack
+          marginTop={1}
+          flexWrap="wrap"
+          flexDirection="row"
+          maxHeight="250px"
+          overflow="hidden"
+          aria-label="Default categories"
+        >
+          {BASE_CATEGORIES.map((category, index) => (
+            <CategoryIcon
+              key={index}
+              name={category.name}
+              icon={category.icon}
+              color={category.color}
+              id={category.id}
+            />
+          ))}
+        </Stack>
+
         <Button
           disabled={categoriesLeft === 0}
           text="NEW CATEGORY"

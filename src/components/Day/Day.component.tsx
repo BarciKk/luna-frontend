@@ -22,7 +22,6 @@ export const Day: FC<DayProps> = ({ day, onClick }) => {
     createQueryString('date', dayFormatted);
   };
 
-  console.log(currentDayNumber);
   return (
     <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
       <Box
@@ -37,7 +36,7 @@ export const Day: FC<DayProps> = ({ day, onClick }) => {
         borderRadius="12px"
         bgcolor={
           currentDayNumber === dayNumber
-            ? 'primary.dark'
+            ? 'primary.main'
             : 'rgba(43, 43, 43, .85)'
         }
       >

@@ -33,4 +33,3 @@ export const taskPriorityIcons: Record<TaskPriority, React.ReactNode> = {
   [TaskPriority.Low]: '💡',
   [TaskPriority.Default]: '🔅',
 };
-//update this with actual icons XD

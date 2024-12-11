@@ -35,7 +35,7 @@ export const Login = () => {
     },
   });
 
-  const { handleSubmit, resetField } = methods;
+  const { handleSubmit, resetField, watch } = methods;
 
   const { mutate, isLoading, isError } = useMutation(
     (values: LoginValues) => login(values),
@@ -81,7 +81,6 @@ export const Login = () => {
           m={1}
           text={t('auth.signIn')}
         />
-
         <FormProvider {...methods}>
           <Box
             component="form"
@@ -102,7 +101,7 @@ export const Login = () => {
               text={t('auth.forgotPassword')}
               to={UnauthorizedRoutes.forgotPassword}
             />
-            {isError && (
+            {isError && watch('password') === '' && (
               <ErrorMessage message={t('errors.incorrectLoginOrPassword')} />
             )}
             <Button

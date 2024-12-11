@@ -8,17 +8,26 @@ import { Outlet } from 'react-router-dom';
 export const Dashboard = () => {
   return (
     <Grid container direction="column" style={{ height: '100vh' }}>
-      <Seo title="LunaSync - Dashboard" description="auth forgot password" />
-      <Grid item>
+      <Seo title="LunaSync - Dashboard" description="Dashboard" />
+      <Grid item sx={{ flexShrink: 0 }}>
         <Header />
       </Grid>
-      <Grid item xs>
+
+      <Grid item sx={{ flexGrow: 1, overflow: 'auto' }}>
         <Outlet />
       </Grid>
-      <Grid item sx={{ margin: '0px 12px 12px auto' }}>
+      <Grid
+        item
+        sx={{
+          position: 'fixed',
+          bottom: 80,
+          right: 16,
+          zIndex: 10,
+        }}
+      >
         <AddActivity />
       </Grid>
-      <Grid item>
+      <Grid item sx={{ flexShrink: 0 }}>
         <BottomNavigation />
       </Grid>
     </Grid>

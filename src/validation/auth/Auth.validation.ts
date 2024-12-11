@@ -12,6 +12,7 @@ const usernameSchema = z
   .string()
   .min(4, { message: translateValidateMessage('minUsernameLength') })
   .max(32, { message: translateValidateMessage('maxUsernameLength') })
+  .regex(/^\S*$/, { message: translateValidateMessage('minUsernameLength') })
   .trim();
 
 const passwordSchema = z

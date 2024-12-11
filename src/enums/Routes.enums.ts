@@ -2,9 +2,9 @@ enum UnauthorizedRoutes {
   welcome = '/',
   login = '/accounts/login',
   register = '/accounts/register',
-  forgotPassword = '/accounts/forgotPassword',
-  termsAndConditions = '/termsAndConditions',
-  resetPassword = '/accounts/resetPassword',
+  forgotPassword = '/accounts/forgot-password',
+  termsAndConditions = '/terms-and-conditions',
+  resetPassword = '/accounts/reset-password',
 }
 enum AuthorizedRoutes {
   dashboard = '/',
@@ -12,7 +12,7 @@ enum AuthorizedRoutes {
   today = '/today',
   tasks = '/tasks',
   habits = '/habits',
-  termsAndConditions = '/termsAndConditions',
+  termsAndConditions = '/terms-and-conditions',
 }
 
 export { AuthorizedRoutes, UnauthorizedRoutes };

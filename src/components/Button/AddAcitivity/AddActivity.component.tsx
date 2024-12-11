@@ -46,8 +46,7 @@ export const AddActivity = () => {
           sx={{
             bgcolor: 'rgba(43, 43, 43, .65)',
             position: 'absolute',
-            maxWidth: '400px',
-            bottom: '8em',
+            bottom: '5em',
             right: '1em',
             borderRadius: (theme) => theme.shape.borderRadius,
             padding: '14px',
@@ -76,7 +75,13 @@ export const AddActivity = () => {
                   }}
                 >
                   <IconButton>{task.icon}</IconButton>
-                  <Box display="flex" flexDirection="column">
+                  <Box
+                    display="flex"
+                    flexDirection="column"
+                    width={{ xs: '100%', sm: '300px', md: '340px' }}
+                    minWidth="200px"
+                    flexGrow={1}
+                  >
                     <Typography
                       fontWeight="bolder"
                       color="primary.contrastText"
