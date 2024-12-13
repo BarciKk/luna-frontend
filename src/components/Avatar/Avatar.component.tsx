@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, MouseEvent } from 'react';
 import {
   Avatar as MuiAvatar,
   AvatarProps,
@@ -26,7 +26,7 @@ export const CustomAvatar = ({
 
   const [anchorElement, setAnchorElement] = useState<null | HTMLElement>(null);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorElement(event.currentTarget);
   };
 
@@ -51,6 +51,8 @@ export const CustomAvatar = ({
           data-testid="avatar-menu"
           MenuListProps={{ sx: { padding: '12px' } }}
           anchorEl={anchorElement}
+          color="background"
+          sx={{ color: 'red' }}
           open={Boolean(anchorElement)}
           onClose={handleClose}
           anchorOrigin={{

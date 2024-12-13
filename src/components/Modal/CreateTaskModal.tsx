@@ -125,7 +125,7 @@ export const CreateTaskModal = () => {
             <Button
               text="CANCEL"
               onClick={handleCloseModal}
-              color="inherit"
+              color="info"
               fullWidth
             />
             <Button text="ADD" isLoading={isLoading} fullWidth />

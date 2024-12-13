@@ -26,6 +26,8 @@ export const themeSharedConfig: ThemeOptions = {
       styleOverrides: {
         root: {
           backgroundColor: '#ffffff',
+          border: '1px solid #c9c7c7',
+          borderRadius: '8px',
         },
       },
     },
@@ -143,14 +145,14 @@ export const darkTheme = createTheme({
       contrastText: '#ffffff',
     },
     info: {
-      light: '#6e6e6e',
+      light: '#d9d9d9',
       main: '#4F4F4F',
       dark: '#2e2e2e',
       contrastText: '#ffffff',
     },
     background: {
       default: '#6e6e6e',
-      paper: '#ffffff',
+      paper: '#d9d9d9',
     },
     text: {
       primary: '#333333',

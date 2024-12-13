@@ -1,16 +1,11 @@
-import { Stack, Box, Divider, Switch, IconButton } from '@mui/material';
+import { Stack, Box, Divider, IconButton } from '@mui/material';
 import { Typography } from 'components/Typography';
 import Brightness1RoundedIcon from '@mui/icons-material/Brightness1Rounded';
 import SentimentVeryDissatisfiedRoundedIcon from '@mui/icons-material/SentimentVeryDissatisfiedRounded';
 import { useThemeContext } from 'providers/ThemeProvider';
-
-const colorOptions = [
-  { name: 'Red', color: '#f44336' },
-  { name: 'Blue', color: '#1976d2' },
-  { name: 'Green', color: '#4caf50' },
-  { name: 'Orange', color: '#ff9800' },
-  { name: 'Purple', color: '#5b1166' },
-];
+import { StyledSwitch } from 'styles/CustomSwitch';
+import { motion } from 'framer-motion';
+import { colorOptions } from 'constants/user.constants';
 
 export const Customize = () => {
   const { changePrimaryColor, toggleMode, mode } = useThemeContext();
@@ -42,13 +37,21 @@ export const Customize = () => {
             fontWeight="bolder"
             fontSize="14px"
           />
-          <Switch onChange={toggleMode} checked={mode === 'dark'} />
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <StyledSwitch onChange={toggleMode} checked={mode === 'dark'} />
+          </motion.div>
         </Box>
         <Divider sx={{ marginY: '10px' }} />
         <Box
           mt="1em"
           display="flex"
           alignItems="center"
+          gap="4px"
           justifyContent="space-between"
         >
           <Typography

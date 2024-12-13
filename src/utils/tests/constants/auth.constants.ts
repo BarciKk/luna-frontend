@@ -11,6 +11,7 @@ export const TEST_USER: User = {
   bio: '',
   createdAt: new Date(),
   categories: [],
+  tasks: [],
 };
 export const TEST_AVATAR = {
   label: 'Test Label',

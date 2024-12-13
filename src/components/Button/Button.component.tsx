@@ -27,6 +27,10 @@ export const Button: FC<CustomButtonProps> = ({
     startIcon={icon}
     variant={variant}
     sx={{
+      ':hover': {
+        backgroundColor: 'primary.main',
+        color: 'white',
+      },
       marginY: 3,
       ...(alignLeft && {
         width: '100%',

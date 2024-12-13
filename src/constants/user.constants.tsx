@@ -2,6 +2,7 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import RepeatIcon from '@mui/icons-material/Repeat';
 import CheckIcon from '@mui/icons-material/Check';
 import { TaskPriority } from 'enums/Task.enums';
+import { ReactNode } from 'react';
 
 export const DEFAULT_USER_IMAGE = 'https://i.imgur.com/uhaRENv.png';
 export const MAX_CUSTOM_CATEGORIES = 5;
@@ -26,7 +27,14 @@ export const taskOptions = [
   },
 ];
 
-export const taskPriorityIcons: Record<TaskPriority, React.ReactNode> = {
+export const colorOptions = [
+  { name: 'Red', color: '#f44336' },
+  { name: 'Blue', color: '#1976d2' },
+  { name: 'Green', color: '#4caf50' },
+  { name: 'Orange', color: '#ff9800' },
+  { name: 'Purple', color: '#ae21c4' },
+];
+export const taskPriorityIcons: Record<TaskPriority, ReactNode> = {
   [TaskPriority.Highest]: '👹',
   [TaskPriority.High]: '🔥',
   [TaskPriority.Medium]: '⚡',

@@ -26,23 +26,24 @@ export const Priority: FC<CustomPriorityProps> = ({
       sx={{
         cursor: 'pointer',
         border: '1px solid #c9c7c7',
-        ':hover': { border: '1px solid black' },
+        backgroundColor: 'primary.contrastText',
+        ':hover': { border: '1px solid #c9c7c7' },
       }}
     >
-      <Box display="flex" alignItems="center">
+      <Box display="flex" alignItems="center" color="red">
         <IconButton color="primary">
           <Flag />
         </IconButton>
         <Typography>Priority</Typography>
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <IconButton onClick={onDecrement} disabled={value === 1}>
+        <IconButton onClick={onDecrement} disabled={value === 1} color="info">
           <RemoveIcon />
         </IconButton>
         <Typography sx={{ mx: 2, fontWeight: 'bolder', fontSize: '18px' }}>
           {value}
         </Typography>
-        <IconButton onClick={onIncrement} disabled={value === 5}>
+        <IconButton onClick={onIncrement} disabled={value === 5} color="info">
           <AddIcon />
         </IconButton>
       </Box>

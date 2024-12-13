@@ -49,6 +49,7 @@ export const IconPicker: FC<IconPickerProps> = ({
         sx={{
           cursor: 'pointer',
           border: '1px solid #c9c7c7',
+          backgroundColor: 'primary.contrastText',
           ':hover': { border: '1px solid black' },
         }}
         onClick={handleBoxClick}
@@ -71,13 +72,17 @@ export const IconPicker: FC<IconPickerProps> = ({
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         sx={{ maxHeight: 220 }}
       >
-        <Box p={2} maxWidth="320px">
+        <Box p={2} maxWidth="320px" bgcolor="info.contrastText">
           <Grid container spacing={2}>
             {iconData.map((item) => (
               <Grid item xs={3} key={item.name}>
                 <IconButton
                   onClick={() => handleIconSelect(item.name)}
-                  sx={{ border: '1px solid #c9c7c7', borderRadius: '4px' }}
+                  sx={{
+                    border: '1px solid #c9c7c7',
+                    borderRadius: '4px',
+                    color: 'primary.main',
+                  }}
                 >
                   {item.icon}
                 </IconButton>
