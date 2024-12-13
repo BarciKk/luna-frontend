@@ -86,6 +86,7 @@ export const CreateCategoryModal = () => {
 
   const { mutate: editCategoryMutate } = useMutation(
     (values: Category) =>
+      //brother u know that u can just pass to the request anything that changed ? dont have to pass everything
       editCategory({
         id: categoryId,
         name: values.name,

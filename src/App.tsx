@@ -1,16 +1,18 @@
 import { BrowserRouter } from 'react-router-dom';
 import { RoutesWrapper } from './routes/RoutesWrapper.routes';
-import { CssBaseline, ThemeProvider } from '@mui/material';
-import { ReactQueryProvider } from './providers/ReactQueryProvider';
+import { CssBaseline } from '@mui/material';
 import { HelmetProvider } from 'react-helmet-async';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { ModalProvider } from 'providers';
-import { DateProvider } from 'providers/DateProvider';
-import { lightTheme } from 'theme';
+import {
+  ModalProvider,
+  ThemeProvider,
+  DateProvider,
+  ReactQueryProvider,
+} from 'providers';
 
 export const App = () => {
   return (
-    <ThemeProvider theme={lightTheme}>
+    <ThemeProvider>
       <BrowserRouter>
         <ReactQueryProvider>
           <ReactQueryDevtools initialIsOpen={false} />

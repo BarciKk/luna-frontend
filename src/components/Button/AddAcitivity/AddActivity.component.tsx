@@ -37,7 +37,16 @@ export const AddActivity = () => {
 
   return (
     <Box>
-      <Fab color="primary" aria-label="add" onClick={handleFabClick}>
+      <Fab
+        color="primary"
+        sx={{
+          ':hover': {
+            backgroundColor: 'primary.main',
+          },
+        }}
+        aria-label="add"
+        onClick={handleFabClick}
+      >
         {showBox ? <CloseIcon /> : <AddIcon />}
       </Fab>
 

@@ -9,6 +9,7 @@ enum UnauthorizedRoutes {
 enum AuthorizedRoutes {
   dashboard = '/',
   categories = '/categories',
+  customize = '/customize',
   today = '/today',
   tasks = '/tasks',
   habits = '/habits',

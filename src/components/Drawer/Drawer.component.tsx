@@ -63,6 +63,7 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
             text="Customize"
             icon={<AutoAwesome />}
             variant="text"
+            onClick={() => navigate(AuthorizedRoutes.customize)}
             alignLeft
           />
           <Divider sx={{ marginY: '8px' }} />

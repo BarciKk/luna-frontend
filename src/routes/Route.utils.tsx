@@ -2,6 +2,7 @@ import { AuthorizedRoutes, UnauthorizedRoutes } from 'enums/Routes.enums';
 import { Login } from 'modules/Login';
 import { Register } from 'modules/Register';
 import { ForgotPassword, ResetPassword } from 'modules/ResetPassword';
+import { Customize } from 'pages/Customize/Customize.page';
 import { Dashboard } from 'pages/Dashboard';
 import { Category } from 'pages/Dashboard/Category/Category.page';
 import { Today } from 'pages/Dashboard/Today/Today.page';
@@ -27,6 +28,7 @@ const authorizedRoutes = [
   { path: AuthorizedRoutes.habits, element: null },
   { path: AuthorizedRoutes.today, element: <Today /> },
   { path: AuthorizedRoutes.tasks, element: null },
+  { path: AuthorizedRoutes.customize, element: <Customize /> },
 ];
 
 export { authorizedRoutes, unauthorizedRoutes };

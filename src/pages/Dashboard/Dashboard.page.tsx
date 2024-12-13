@@ -13,7 +13,11 @@ export const Dashboard = () => {
         <Header />
       </Grid>
 
-      <Grid item sx={{ flexGrow: 1, overflow: 'auto' }}>
+      <Grid
+        item
+        sx={{ flexGrow: 1, overflow: 'auto' }}
+        bgcolor="background.defualt"
+      >
         <Outlet />
       </Grid>
       <Grid

@@ -34,7 +34,7 @@ export const Header = () => {
       initial={{ opacity: 0 }}
       transition={{ duration: 1.6 }}
     >
-      <AppBar sx={{ position: 'sticky' }}>
+      <AppBar sx={{ position: 'sticky', backgroundColor: 'primary.main' }}>
         <Toolbar
           sx={{
             display: 'flex',
