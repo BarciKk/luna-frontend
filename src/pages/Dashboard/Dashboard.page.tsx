@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import { BottomNavigation } from 'components/BottomNavigation/BottomNavigation.component';
-import { AddActivity } from 'components/Button/AddAcitivity/AddActivity.component';
+import { AddActivity } from 'components/Button/AddActivity/AddActivity.component';
 import { Header } from 'components/Header/Header.component';
 import { Seo } from 'components/Seo';
 import { Outlet } from 'react-router-dom';
@@ -16,7 +16,7 @@ export const Dashboard = () => {
       <Grid
         item
         sx={{ flexGrow: 1, overflow: 'auto' }}
-        bgcolor="background.defualt"
+        bgcolor="background.default"
       >
         <Outlet />
       </Grid>

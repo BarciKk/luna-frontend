@@ -21,7 +21,6 @@ export const AddActivity = () => {
     setShowBox((prevShowBox) => !prevShowBox);
   };
 
-  //Also  this is solution for now later one of them will open Recuring task or im gonna modify current createTask
   const openModalHandler = (index: number) => {
     switch (index) {
       case 0:
@@ -49,14 +48,13 @@ export const AddActivity = () => {
       >
         {showBox ? <CloseIcon /> : <AddIcon />}
       </Fab>
-
       {showBox && (
         <Box
           sx={{
             bgcolor: 'rgba(43, 43, 43, .65)',
             position: 'absolute',
             bottom: '5em',
-            right: '1em',
+            right: '0px',
             borderRadius: (theme) => theme.shape.borderRadius,
             padding: '14px',
           }}
@@ -64,7 +62,7 @@ export const AddActivity = () => {
           {taskOptions.map((task, index) => (
             <Box
               key={index}
-              color="white"
+              color="info.contrastText"
               onClick={() => openModalHandler(index)}
             >
               <ClickAwayListener onClickAway={handleFabClick}>
@@ -89,7 +87,6 @@ export const AddActivity = () => {
                     flexDirection="column"
                     width={{ xs: '100%', sm: '300px', md: '340px' }}
                     minWidth="200px"
-                    flexGrow={1}
                   >
                     <Typography
                       fontWeight="bolder"

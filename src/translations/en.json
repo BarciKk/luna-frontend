@@ -8,10 +8,15 @@
     "firstPartOfTermsMessage": "By signing up, you agree to our ",
     "terms": "Terms & Conditions",
     "sendEmail": "Send Email",
-
+    "backLogin": "Back to login",
     "acceptTerms": "Accept Terms & Conditions",
     "registerMotivationMessage": "Level up your fitness journey! Sign up now to track workouts, conquer challenges, and crush goals with your exercise crew. Let's sweat together!",
     "firstPartOfRegisterMessage": "You don't have account? ",
+    "registerSuccessMessage": "Registration complete now u can login into your account",
+    "forgotPasswordSuccessMessage": "Password reset link sent!",
+    "resetPasswordSuccessMessage": "Password updated correctly !",
+    "updatePasswordLong": "Update your password",
+    "updatePasswordShort": "Update password",
     "register": "Register right there!",
     "login": "Login",
     "forgotPassword": "Forgot password?",
@@ -26,9 +31,52 @@
       "repeatPassword": "Confirm the password"
     }
   },
-
+  "category": {
+    "categoryName": "Category name",
+    "deleteCategorySuccessMessage": "Category deleted successfully!",
+    "createCategory": "CREATE CATEGORY",
+    "categories": "Categories",
+    "customCategories": "Custom categories",
+    "defaultCategories": "Default categories",
+    "newCategory": "New category",
+    "selectCategory": "Select category",
+    "accentColor": "Free accent colors",
+    "categoryCreateSuccessMessage": "Category created successfully!",
+    "categoryEditSuccessMessage": "Category created successfully!"
+  },
+  "dashboard": {
+    "createTaskMessage": "Task created successfully!",
+    "newTask": "New task",
+    "priority": "Priority",
+    "task": "Task",
+    "premiumUserMessage": "Available for Premium Users Only",
+    "customizationOptionsMessage": "More customization options will be updated shortly."
+  },
+  "shared": {
+    "generalErrorMessage": "Something went wrong. Please try again later. If the issue persists, contact your administrator for assistance.",
+    "cancel": "CANCEL",
+    "add": "ADD",
+    "description": "Description",
+    "update": "UPDATE",
+    "edit": "Edit",
+    "customize": "Customize",
+    "premium": "Get premium",
+    "settings": "Settings",
+    "contact": "Contact us",
+    "logout": "Logout",
+    "home": "Home",
+    "lunaSync": "LunaSync",
+    "profile": "Profile",
+    "today": "Today",
+    "habits": "Habits",
+    "theme": "Theme",
+    "tasks": "Tasks",
+    "noChangesMessage": "No changes detected to update."
+  },
   "errors": {
-    "incorrectLoginOrPassword": "Login or password are incorrect!"
+    "incorrectLoginOrPassword": "Login or password are incorrect!",
+    "categoriesNotFound": "Something went wrong we couldn't find any categories!",
+    "customCategoriesNotFound": "There are no custom categories"
   },
   "validations": {
     "emailValidFormat": "Please enter a valid email address (e.g., name@example.com).",

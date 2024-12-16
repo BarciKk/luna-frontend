@@ -19,8 +19,10 @@ import { useSnackbar, useUser } from 'hooks';
 import { CreateTaskType, Task } from 'types/Task.types';
 import { CustomSnackbar } from 'components/Snackbar';
 import { ErrorInfo } from 'types/Shared.types';
+import { useTranslation } from 'react-i18next';
 
 export const CreateTaskModal = () => {
+  const { t } = useTranslation();
   const { handleCloseModal } = useModal();
   const { user } = useUser();
   const [selectedDate, setSelectedDate] = useState<Date>(currentDate);
@@ -51,7 +53,7 @@ export const CreateTaskModal = () => {
     {
       onSuccess: () => {
         showSnackbar({
-          message: 'Single task created successfully!',
+          message: t('dashboard.createTaskMessage'),
           duration: 3000,
           severity: 'success',
         });
@@ -91,7 +93,7 @@ export const CreateTaskModal = () => {
   };
   return (
     <FormProvider {...methods}>
-      <Box p={3} component="form" onSubmit={handleSubmit(onSubmit)}>
+      <Box p={2} component="form" onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle
           id="create-task-dialog-title"
           display="flex"
@@ -101,14 +103,14 @@ export const CreateTaskModal = () => {
           padding={0}
         >
           <Typography
-            text="New task"
+            text={t('dashboard.newTask')}
             fontSize="22px"
             fontWeight="bolder"
             maxLength={12}
           />
         </DialogTitle>
         <DialogContent dividers sx={{ p: 3 }}>
-          <Input name="name" label="Task" />
+          <Input name="name" label={t('dashboard.task')} />
           <IconPicker
             name="create-task-icons"
             iconData={CONCATED_CATEGORIES}
@@ -120,15 +122,19 @@ export const CreateTaskModal = () => {
             onIncrement={handleIncrement}
             onDecrement={handleDecrement}
           />
-          <TextArea name="description" label="Description" rows={4} />
+          <TextArea
+            name="description"
+            label={t('shared.description')}
+            rows={4}
+          />
           <Box display="flex" gap="2em">
             <Button
-              text="CANCEL"
+              text={t('shared.cancel')}
               onClick={handleCloseModal}
               color="info"
               fullWidth
             />
-            <Button text="ADD" isLoading={isLoading} fullWidth />
+            <Button text={t('shared.add')} isLoading={isLoading} fullWidth />
           </Box>
         </DialogContent>
       </Box>

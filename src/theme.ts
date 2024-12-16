@@ -23,6 +23,7 @@ export const themeSharedConfig: ThemeOptions = {
         size: 'medium',
         margin: 'dense',
       },
+
       styleOverrides: {
         root: {
           backgroundColor: '#ffffff',
@@ -150,6 +151,7 @@ export const darkTheme = createTheme({
       dark: '#2e2e2e',
       contrastText: '#ffffff',
     },
+
     background: {
       default: '#6e6e6e',
       paper: '#d9d9d9',

@@ -80,6 +80,7 @@ export const Login = () => {
           fontSize="36px"
           m={1}
           text={t('auth.signIn')}
+          color="text.primary"
         />
         <FormProvider {...methods}>
           <Box
@@ -110,7 +111,12 @@ export const Login = () => {
               fullWidth
               isLoading={isLoading}
             />
-            <MuiTypography fontSize="14px" textAlign="center" mt={2}>
+            <MuiTypography
+              fontSize="14px"
+              textAlign="center"
+              mt={2}
+              color="text.primary"
+            >
               {t('auth.firstPartOfRegisterMessage')}{' '}
               <Link
                 to={UnauthorizedRoutes.register}

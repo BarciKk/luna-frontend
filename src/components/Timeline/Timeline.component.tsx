@@ -1,6 +1,6 @@
 import { FC, useState, useEffect } from 'react';
 import { format, addDays, subDays } from 'date-fns';
-import { Badge, Box, useMediaQuery, useTheme } from '@mui/material';
+import { Box, IconButton, useMediaQuery, useTheme } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Day } from '../Day';
 import { ArrowForwardIos } from '@mui/icons-material';
@@ -52,9 +52,9 @@ export const Timeline: FC = () => {
       }}
     >
       <motion.div whileHover={{ scale: 1.5 }} whileTap={{ scale: 0.9 }}>
-        <Badge color="secondary" onClick={handlePrevDay}>
+        <IconButton color="info" onClick={handlePrevDay}>
           <ArrowBackIosIcon />
-        </Badge>
+        </IconButton>
       </motion.div>
       <Box display="flex" justifyContent="center" alignItems="center" gap="8px">
         {days.map((day) => (
@@ -66,13 +66,9 @@ export const Timeline: FC = () => {
         ))}
       </Box>
       <motion.div whileHover={{ scale: 1.5 }} whileTap={{ scale: 0.9 }}>
-        <Badge
-          color="secondary"
-          onClick={handleNextDay}
-          sx={{ cursor: 'pointer' }}
-        >
+        <IconButton color="info" onClick={handleNextDay}>
           <ArrowForwardIos />
-        </Badge>
+        </IconButton>
       </motion.div>
     </Box>
   );

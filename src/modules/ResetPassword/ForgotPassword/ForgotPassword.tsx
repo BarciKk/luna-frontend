@@ -32,7 +32,7 @@ export const ForgotPassword = () => {
   const { mutate, isLoading } = useMutation(forgotPassword, {
     onSuccess() {
       showSnackbar({
-        message: 'Password reset link sent!',
+        message: t('auth.forgotPasswordSuccessMessage'),
         duration: 5000,
         severity: 'success',
       });
@@ -61,10 +61,15 @@ export const ForgotPassword = () => {
         description="auth forgot password"
       />
       <AuthWrapper>
-        <Typography fontSize="36px" textAlign="center">
+        <Typography fontSize="36px" textAlign="center" color="text.primary">
           {t('auth.forgotPassword')}
         </Typography>
-        <Typography textAlign="center" fontSize="14px" m={2}>
+        <Typography
+          textAlign="center"
+          fontSize="14px"
+          m={2}
+          color="text.secondary"
+        >
           {t('auth.forgotPasswordMessage')}
         </Typography>
         <FormProvider {...methods}>
@@ -89,11 +94,11 @@ export const ForgotPassword = () => {
             <Typography textAlign="end" mt={4}>
               <Link
                 to={UnauthorizedRoutes.login}
-                style={{
+                sx={{
+                  color: 'text.secondary',
                   display: 'inline-block',
-                  color: 'gray',
                 }}
-                text={'Back to login'}
+                text={t('auth.backLogin')}
               />
             </Typography>
           </Box>

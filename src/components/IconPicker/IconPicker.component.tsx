@@ -1,5 +1,6 @@
 import { IconButton, Box, Popover, Grid } from '@mui/material';
 import { FC, ReactNode, useState, MouseEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Typography } from 'components/Typography';
 import { Star } from '@mui/icons-material';
@@ -21,14 +22,13 @@ export const IconPicker: FC<IconPickerProps> = ({
   name,
   iconData,
 }) => {
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const { t } = useTranslation();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedIconName, setSelectedIconName] = useState<string | ReactNode>(
     name,
   );
 
-  //Idk bro about that type
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const handleBoxClick = (event: MouseEvent<HTMLButtonElement | any>) => {
+  const handleBoxClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -62,7 +62,7 @@ export const IconPicker: FC<IconPickerProps> = ({
             iconData.find((icon) => icon.name === selectedIconName)?.icon
           )}
         </IconButton>
-        <Typography text="Select category" maxLength={15} />
+        <Typography text={t('category.selectCategory')} maxLength={15} />
       </Box>
 
       <Popover

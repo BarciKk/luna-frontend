@@ -12,8 +12,10 @@ import { getAllCategories } from 'api/category';
 import { QueryKeys } from 'enums/QueryKeys.enums';
 import { CustomSnackbar } from 'components/Snackbar';
 import { Typography } from 'components/Typography';
+import { useTranslation } from 'react-i18next';
 
 export const Category = () => {
+  const { t } = useTranslation();
   const { user } = useUser();
   const { handleOpenModal } = useModal();
   const { showSnackbar, snackbarProps } = useSnackbar();
@@ -32,7 +34,7 @@ export const Category = () => {
 
   if (error) {
     showSnackbar({
-      message: 'Something went wrong we couldnt find any categories!',
+      message: t('errors.categoriesNotFound'),
       duration: 3000,
       severity: 'error',
     });
@@ -53,7 +55,7 @@ export const Category = () => {
           fontWeight="bolder"
           fontSize="18px"
           color="primary.contrastText"
-          text="Categories"
+          text={t('category.categories')}
         />
         <Divider sx={{ marginY: '10px' }} />
 
@@ -105,7 +107,7 @@ export const Category = () => {
                   <EventBusyOutlinedIcon sx={{ fontSize: '40px' }} />
                   <Typography
                     color="primary.contrastText"
-                    text="There are no custom categories"
+                    text={t('errors.customCategoriesNotFound')}
                   />
                 </Stack>
               ) : (
@@ -116,7 +118,7 @@ export const Category = () => {
                   flexDirection="row"
                   maxHeight="250px"
                   overflow="hidden"
-                  aria-label="Custom categories"
+                  aria-label={t('category.customCategories')}
                 >
                   {categoryData?.map((category, index) => (
                     <CategoryIcon
@@ -139,7 +141,7 @@ export const Category = () => {
             fontWeight="bolder"
             fontSize="14px"
             color="primary.contrastText"
-            text="Default categories"
+            text={t('category.defaultCategories')}
           />
         </Box>
         <Stack
@@ -148,7 +150,7 @@ export const Category = () => {
           flexDirection="row"
           maxHeight="250px"
           overflow="hidden"
-          aria-label="Default categories"
+          aria-label={t('category.defaultCategories')}
         >
           {BASE_CATEGORIES.map((category, index) => (
             <CategoryIcon
@@ -163,7 +165,7 @@ export const Category = () => {
 
         <Button
           disabled={categoriesLeft === 0}
-          text="NEW CATEGORY"
+          text={t('category.newCategory')}
           fullWidth
           onClick={() => handleOpenModal('createCategory')}
         />

@@ -1,8 +1,10 @@
 import { Flag } from '@mui/icons-material';
-import { Box, IconButton, Typography } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { FC } from 'react';
+import { Typography } from 'components/Typography';
+import { useTranslation } from 'react-i18next';
 
 interface CustomPriorityProps {
   value: number;
@@ -15,6 +17,7 @@ export const Priority: FC<CustomPriorityProps> = ({
   onIncrement,
   onDecrement,
 }) => {
+  const { t } = useTranslation();
   return (
     <Box
       my={1}
@@ -34,15 +37,19 @@ export const Priority: FC<CustomPriorityProps> = ({
         <IconButton color="primary">
           <Flag />
         </IconButton>
-        <Typography>Priority</Typography>
+        <Typography text={t('dashboard.priority')} />
       </Box>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <IconButton onClick={onDecrement} disabled={value === 1} color="info">
           <RemoveIcon />
         </IconButton>
-        <Typography sx={{ mx: 2, fontWeight: 'bolder', fontSize: '18px' }}>
-          {value}
-        </Typography>
+        <Typography
+          fontSize="18px"
+          marginX={2}
+          fontWeight="bold"
+          color="text.primary"
+          text={String(value)}
+        />
         <IconButton onClick={onIncrement} disabled={value === 5} color="info">
           <AddIcon />
         </IconButton>

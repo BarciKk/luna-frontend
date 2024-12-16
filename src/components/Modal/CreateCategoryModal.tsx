@@ -18,8 +18,10 @@ import { Typography } from 'components/Typography';
 import { Box, IconButton } from '@mui/material';
 import { IconPicker } from 'components/IconPicker/IconPicker.component';
 import { CUSTOM_CATEGORIES } from 'constants/category.constants';
+import { useTranslation } from 'react-i18next';
 
 export const CreateCategoryModal = () => {
+  const { t } = useTranslation();
   const { getQueryString } = useQueryString();
   const queryClient = useQueryClient();
   const { showSnackbar, snackbarProps } = useSnackbar();
@@ -66,7 +68,7 @@ export const CreateCategoryModal = () => {
     {
       onSuccess: () => {
         showSnackbar({
-          message: 'Category created successfully!',
+          message: t('category.categoryCreateSuccessMessage'),
           duration: 3000,
           severity: 'success',
         });
@@ -86,7 +88,7 @@ export const CreateCategoryModal = () => {
 
   const { mutate: editCategoryMutate } = useMutation(
     (values: Category) =>
-      //brother u know that u can just pass to the request anything that changed ? dont have to pass everything
+      //!NOTE: brother u know that u can just pass to the request anything that changed ? dont have to pass everything
       editCategory({
         id: categoryId,
         name: values.name,
@@ -97,7 +99,7 @@ export const CreateCategoryModal = () => {
     {
       onSuccess: () => {
         showSnackbar({
-          message: 'Category updated successfully!',
+          message: t('category.categoryEditSuccessMessage'),
           duration: 3000,
           severity: 'success',
         });
@@ -125,7 +127,7 @@ export const CreateCategoryModal = () => {
 
         if (!hasChanges) {
           showSnackbar({
-            message: 'No changes detected to update',
+            message: t('shared.noChangesMessage'),
             severity: 'info',
             duration: 3000,
           });
@@ -142,7 +144,7 @@ export const CreateCategoryModal = () => {
 
   return (
     <FormProvider {...methods}>
-      <Box padding={3} component="form" onSubmit={handleSubmit(onSubmit)}>
+      <Box padding={2} component="form" onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle
           id="create-category-dialog-title"
           display="flex"
@@ -154,7 +156,7 @@ export const CreateCategoryModal = () => {
           <Typography
             fontSize="22px"
             fontWeight="bolder"
-            text={categoryId ? 'Edit' : 'New category'}
+            text={categoryId ? t('shared.edit') : t('category.newCategory')}
             maxLength={15}
           />
           {categoryId ? (
@@ -167,7 +169,7 @@ export const CreateCategoryModal = () => {
         </DialogTitle>
         <DialogContent dividers>
           <Box marginTop="18px">
-            <Input name="name" type="text" label="Category name" />
+            <Input name="name" type="text" label={t('category.categoryName')} />
             <IconPicker
               iconData={CUSTOM_CATEGORIES}
               onIconSelect={handleIconSelect}
@@ -183,7 +185,9 @@ export const CreateCategoryModal = () => {
         <DialogActions sx={{ paddingX: '3em' }}>
           <Button
             isLoading={isLoading}
-            text={categoryId ? 'UPDATE' : 'CREATE CATEGORY'}
+            text={
+              categoryId ? t('shared.update') : t('category.createCategory')
+            }
             fullWidth
             disabled={(user?.categories.length ?? 0) >= 5 && !categoryId}
           />

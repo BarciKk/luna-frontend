@@ -10,10 +10,12 @@ import { AuthorizedRoutes, UnauthorizedRoutes } from 'enums/Routes.enums';
 import { motion } from 'framer-motion';
 import { useQueryString, useUser } from 'hooks';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 export const Header = () => {
   const [openDrawer, setOpenDrawer] = useState(false);
+  const { t } = useTranslation();
   const { getQueryString } = useQueryString();
   const dateParam = getQueryString('date');
   const navigate = useNavigate();
@@ -81,14 +83,14 @@ export const Header = () => {
           <Drawer open={openDrawer} onClose={toggleOpenDrawer} />
           {shouldRenderLoginButton ? (
             <Button
-              text="Login"
+              text={t('shared.login')}
               variant="text"
               onClick={() => navigate(`${UnauthorizedRoutes.login}`)}
             />
           ) : (
             <CustomAvatar
               src={user?.avatar ?? DEFAULT_USER_IMAGE}
-              label="Open settings"
+              label={t('shared.settings')}
               showMenu
             />
           )}

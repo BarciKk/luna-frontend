@@ -6,5 +6,5 @@ export const createCategorySchema = z.object({
     .min(3, 'Category name should have at least 3 characters')
     .max(32, "Category name shouldn't be that long!")
     .trim(),
-  color: z.string(),
+  color: z.string().nullable(),
 });

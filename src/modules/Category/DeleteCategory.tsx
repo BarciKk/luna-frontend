@@ -4,10 +4,12 @@ import { deleteCategory } from 'api/category';
 import { CustomSnackbar } from 'components/Snackbar';
 import { QueryKeys } from 'enums/QueryKeys.enums';
 import { useQueryString, useSnackbar, useUser } from 'hooks';
+import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 import { ErrorInfo } from 'types/Shared.types';
 
 export const DeleteCategory = () => {
+  const { t } = useTranslation();
   const { getQueryString } = useQueryString();
   const { showSnackbar, snackbarProps } = useSnackbar();
   const categoryId = getQueryString('id');
@@ -17,7 +19,7 @@ export const DeleteCategory = () => {
   const { mutate } = useMutation(deleteCategory, {
     onSuccess: () => {
       showSnackbar({
-        message: 'Category deleted successfully!',
+        message: t('category.deleteCategorySuccessMessage'),
         duration: 3000,
         severity: 'success',
       });
@@ -38,7 +40,7 @@ export const DeleteCategory = () => {
     try {
       if (!categoryId) {
         showSnackbar({
-          message: 'Category ID is missing.',
+          message: t('shared.generalErrorMessage'),
           duration: 3000,
           severity: 'error',
         });

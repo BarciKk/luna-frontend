@@ -1,5 +1,5 @@
 import { Box, IconButton, Tooltip } from '@mui/material';
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { motion } from 'framer-motion';
 import { Category } from 'types/User.types';
@@ -15,27 +15,31 @@ export const CategoryIcon: FC<Category> = ({ id, name, icon, color }) => {
   const { handleOpenModal, open } = useModal();
   const { createQueryString, removeQueryString } = useQueryString();
 
-  const isBaseCategory = BASE_CATEGORIES.some(
-    (baseCategory) => baseCategory.name === name,
-  );
+  const isBase = BASE_CATEGORIES.some((category) => category.name === name);
+
+  const matchedCategory = isBase
+    ? BASE_CATEGORIES.find((category) => category.name === name)
+    : CUSTOM_CATEGORIES.find((category) => category.name === icon);
+
+  const categoryData = useMemo(() => {
+    return {
+      isBase,
+      selectedIcon: matchedCategory?.icon || <AutoAwesomeIcon />,
+    };
+  }, [name, icon]);
 
   const handleSelectCategory = () => {
-    if (!isBaseCategory) {
+    if (!categoryData.isBase) {
       handleOpenModal('createCategory');
-    }
-    if (!open && !isBaseCategory) {
-      createQueryString('id', `${id}`);
+      if (!open) createQueryString('id', `${id}`);
     }
   };
+
   useEffect(() => {
     if (!open) {
       removeQueryString('id');
     }
   }, [open, removeQueryString]);
-
-  const selectedIcon = isBaseCategory
-    ? BASE_CATEGORIES.find((category) => category.name === name)?.icon
-    : CUSTOM_CATEGORIES.find((category) => category.name === icon)?.icon;
 
   return (
     <motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.9 }}>
@@ -44,8 +48,8 @@ export const CategoryIcon: FC<Category> = ({ id, name, icon, color }) => {
           width: 'fit-content',
           minWidth: '5em',
           textAlign: 'center',
+          p: 2,
         }}
-        p={2}
       >
         <Box
           sx={{
@@ -54,9 +58,9 @@ export const CategoryIcon: FC<Category> = ({ id, name, icon, color }) => {
             borderRadius: (theme) => theme.shape.borderRadius,
           }}
         >
-          <Tooltip id={id} title={name} arrow>
+          <Tooltip title={name} arrow>
             <IconButton onClick={handleSelectCategory}>
-              {selectedIcon || <AutoAwesomeIcon />}
+              {categoryData.selectedIcon}
             </IconButton>
           </Tooltip>
         </Box>

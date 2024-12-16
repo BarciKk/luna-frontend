@@ -9,13 +9,11 @@ import { FC } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { getErrorMessage } from 'utils/getErrorMessage';
 
-// Define prop types for the custom checkbox
 type CustomCheckboxProps = CheckboxProps & {
   name: string;
   label: string;
 };
 
-// Main Checkbox component definition
 export const Checkbox: FC<CustomCheckboxProps> = ({
   name,
   label,
@@ -40,17 +38,14 @@ export const Checkbox: FC<CustomCheckboxProps> = ({
                   {...props}
                   checked={field.value || false}
                   sx={{
-                    color: errors[name] ? 'error.main' : 'inherit',
+                    color: errors[name] ? 'error.main' : 'text.secondary',
                     alignItems: 'center',
                   }}
                 />
               }
               label={<Typography text={label} fontSize="14px" maxLength={32} />}
             />
-            <ErrorMessage
-              message={getErrorMessage(errors[name])}
-              style={{ fontSize: 14, marginLeft: '8px' }}
-            />
+            <ErrorMessage message={getErrorMessage(errors[name])} />
           </>
         )}
       />

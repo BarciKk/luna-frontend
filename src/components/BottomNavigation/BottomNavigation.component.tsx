@@ -9,8 +9,10 @@ import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 export const BottomNavigation = () => {
+  const { t } = useTranslation();
   const location = useLocation();
   const theme = useTheme();
 
@@ -28,32 +30,32 @@ export const BottomNavigation = () => {
         sx={{
           width: '100%',
           position: 'sticky',
-          backgroundColor: 'rgba(43, 43, 43, .95)',
+          backgroundColor: 'rgba(43, 43, 43, .65)',
         }}
       >
         <BottomNavigationAction
-          label="Today"
+          label={t('shared.today')}
           sx={{ color: getColor('/today') }}
           component={Link}
           to="/today"
           icon={<CalendarMonthIcon />}
         />
         <BottomNavigationAction
-          label="Habits"
+          label={t('shared.habits')}
           sx={{ color: getColor('/habits') }}
           component={Link}
           to="/habits"
           icon={<WorkspacePremiumIcon />}
         />
         <BottomNavigationAction
-          label="Tasks"
+          label={t('shared.tasks')}
           sx={{ color: getColor('/tasks') }}
           component={Link}
           to="/tasks"
           icon={<TaskAltIcon />}
         />
         <BottomNavigationAction
-          label="Categories"
+          label={t('category.categories')}
           sx={{ color: getColor('/categories') }}
           component={Link}
           to="/categories"

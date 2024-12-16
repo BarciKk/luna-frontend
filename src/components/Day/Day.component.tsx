@@ -17,7 +17,7 @@ export const Day: FC<DayProps> = ({ day, onClick }) => {
   const dayName = format(day, 'eee');
   const dayNumber = format(day, 'dd');
 
-  const handleClick = () => {
+  const handleDateChange = () => {
     onClick(day);
     createQueryString('date', dayFormatted);
   };
@@ -32,7 +32,7 @@ export const Day: FC<DayProps> = ({ day, onClick }) => {
         }}
         minWidth="4em"
         textAlign="center"
-        onClick={handleClick}
+        onClick={handleDateChange}
         borderRadius="12px"
         bgcolor={
           currentDayNumber === dayNumber

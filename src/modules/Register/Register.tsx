@@ -42,7 +42,7 @@ export const Register = () => {
     {
       onSuccess: () => {
         showSnackbar({
-          message: 'Registration complete now u can login into your account',
+          message: t('auth.registerSuccessMessage'),
           duration: 3000,
           severity: 'success',
         });
@@ -70,7 +70,7 @@ export const Register = () => {
     <AuthAnimation>
       <Seo title="LunaSync - Register" description="Auth register" />
       <AuthWrapper>
-        <Typography fontSize="36px" m={1} mb={2}>
+        <Typography fontSize="36px" m={1} mb={2} color="text.primary">
           {t('auth.signUp')}
         </Typography>
 
@@ -85,7 +85,11 @@ export const Register = () => {
               type="text"
               name="email"
             />
-            <Input label="Username" name="username" type="text" />
+            <Input
+              label={t('auth.placeholders.username')}
+              name="username"
+              type="text"
+            />
             <Input
               label={t('auth.placeholders.password')}
               name="password"
@@ -103,7 +107,11 @@ export const Register = () => {
               isLoading={isLoading}
               sx={{ mt: 4, mb: '10px' }}
             />
-            <Typography fontSize="14px" style={{ textAlign: 'center' }}>
+            <Typography
+              fontSize="14px"
+              textAlign="center"
+              color="text.secondary"
+            >
               {t('auth.haveAccount')}{' '}
               <Link to={UnauthorizedRoutes.login} text={t('auth.login')} />
             </Typography>

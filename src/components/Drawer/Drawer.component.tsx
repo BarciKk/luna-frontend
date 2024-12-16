@@ -6,18 +6,17 @@ import {
   Settings,
   WorkspacePremium,
 } from '@mui/icons-material';
-import {
-  Typography,
-  Drawer as MuiDrawer,
-  Stack,
-  Box,
-  Divider,
-} from '@mui/material';
+import { Drawer as MuiDrawer, Stack, Box, Divider } from '@mui/material';
 import { Button } from 'components/Button';
-import { currentDate } from 'constants/date.constants';
-import { format } from 'date-fns';
+import { Typography } from 'components/Typography';
+import {
+  currentDayName,
+  currentLongDateFormat,
+} from 'constants/date.constants';
+
 import { AuthorizedRoutes } from 'enums/Routes.enums';
 import { useUser } from 'hooks';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 type DrawerProps = {
@@ -26,41 +25,52 @@ type DrawerProps = {
 };
 
 export const Drawer = ({ open, onClose }: DrawerProps) => {
+  const { t } = useTranslation();
   const { user, jwt, removeUser } = useUser();
   const navigate = useNavigate();
   return (
     <MuiDrawer open={open} onClose={onClose} anchor="left">
       <Stack spacing={0} sx={{ width: '80vw', maxWidth: '400px' }} padding={3}>
         <Box marginBottom="2em">
-          <Typography fontWeight="bolder" fontSize="20px" color="primary.main">
-            LunaSync
-          </Typography>
-          <Typography fontSize="18px" fontWeight="bolder">
-            {format(currentDate, 'iiii')}
-          </Typography>
-          <Typography marginBottom="14px" fontSize="12px">
-            {format(currentDate, 'PPP')}
-          </Typography>
+          <Typography
+            text={t('shared.lunaSync')}
+            fontWeight="bolder"
+            fontSize="20px"
+            color="primary.main"
+            display="block"
+          />
+          <Typography
+            text={currentDayName}
+            fontWeight="bolder"
+            fontSize="16px"
+            color="text.primary"
+            display="block"
+          />
+          <Typography
+            text={currentLongDateFormat}
+            fontSize="14px"
+            color="text.secondary"
+          />
         </Box>
         <Divider />
         <Stack spacing={2} marginTop="8px" marginBottom="3em">
           <Button
             icon={<Home />}
-            text="Home"
+            text={t('shared.home')}
             onClick={() => navigate(AuthorizedRoutes.today)}
             variant="text"
             alignLeft
           />
 
           <Button
-            text="Categories"
+            text={t('category.categories')}
             icon={<Category />}
             variant="text"
             onClick={() => navigate(AuthorizedRoutes.categories)}
             alignLeft
           />
           <Button
-            text="Customize"
+            text={t('shared.customize')}
             icon={<AutoAwesome />}
             variant="text"
             onClick={() => navigate(AuthorizedRoutes.customize)}
@@ -68,26 +78,28 @@ export const Drawer = ({ open, onClose }: DrawerProps) => {
           />
           <Divider sx={{ marginY: '8px' }} />
           <Button
-            text="Get Premium"
+            text={t('shared.premium')}
             icon={<WorkspacePremium />}
             variant="text"
             alignLeft
           />
           <Button
-            text="Settings"
+            text={t('shared.settings')}
             icon={<Settings />}
             variant="text"
             alignLeft
           />
           <Button
-            text="Contact us"
+            text={t('shared.contact')}
             icon={<ContactMail />}
             variant="text"
             alignLeft
           />
           <Divider sx={{ marginY: '8px' }} />
         </Stack>
-        {user && jwt && <Button onClick={removeUser} text="Logout" />}
+        {user && jwt && (
+          <Button onClick={removeUser} text={t('shared.logout')} />
+        )}
       </Stack>
     </MuiDrawer>
   );

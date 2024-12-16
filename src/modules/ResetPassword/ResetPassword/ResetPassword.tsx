@@ -17,10 +17,12 @@ import { CustomSnackbar } from 'components/Snackbar';
 import { ErrorInfo } from 'types/Shared.types';
 import { Seo } from 'components/Seo';
 import { Input } from 'components/Input/Input.component';
+import { useTranslation } from 'react-i18next';
 
 export const ResetPassword = () => {
   const { token } = useParams<{ token: string }>();
   const { showSnackbar, snackbarProps } = useSnackbar();
+  const { t } = useTranslation();
 
   const methods = useForm<ResetPasswordForm>({
     resolver: zodResolver(updatePasswordSchema),
@@ -41,7 +43,7 @@ export const ResetPassword = () => {
     {
       onSuccess() {
         showSnackbar({
-          message: 'Password updated correctly !',
+          message: t('auth.resetPasswordSuccessMessage'),
           duration: 5000,
           severity: 'success',
         });
@@ -71,9 +73,10 @@ export const ResetPassword = () => {
         description="auth reset password"
       />
       <AuthWrapper>
-        <Typography fontSize="36px" m={1} mb={4}>
-          Update your password
+        <Typography fontSize="36px" m={1} mb={4} color="text.primary">
+          {t('auth.updatePasswordLong')}
         </Typography>
+
         <FormProvider {...methods}>
           <Box
             component="form"
@@ -83,27 +86,27 @@ export const ResetPassword = () => {
             <Input
               type="password"
               name="password"
-              label="Enter the new password"
+              label={t('auth.placeholders.password')}
             />
             <Input
               type="password"
               name="confirmPassword"
-              label="Repeat the new password"
+              label={t('auth.placeholders.repeatPassword')}
             />
             <Button
               sx={{ mt: 4, mb: 2 }}
-              text={'Update password'}
+              text={t('auth.updatePasswordShort')}
               isLoading={isLoading}
               fullWidth
             />
             <Typography textAlign="end" mt={4}>
               <Link
                 to={UnauthorizedRoutes.login}
-                style={{
+                sx={{
                   display: 'inline-block',
-                  color: 'gray',
+                  color: 'text.secondary',
                 }}
-                text={'Back to login'}
+                text={t('auth.backLogin')}
               />
             </Typography>
           </Box>

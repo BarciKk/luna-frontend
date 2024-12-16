@@ -49,6 +49,7 @@ export const Input: FC<CustomTextFieldProps> = ({ name, type, ...props }) => {
                         aria-label="toggle password visibility"
                         onClick={() => setShowPassword((visible) => !visible)}
                         edge="end"
+                        sx={{ color: 'text.secondary' }}
                         size="large"
                       >
                         {!showPassword ? <VisibilityOff /> : <Visibility />}
