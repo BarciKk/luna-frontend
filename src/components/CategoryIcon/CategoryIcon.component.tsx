@@ -11,7 +11,17 @@ import {
   CUSTOM_CATEGORIES,
 } from 'constants/category.constants';
 
-export const CategoryIcon: FC<Category> = ({ id, name, icon, color }) => {
+type CustomCategoryIconProps = Category & {
+  withoutLabel?: boolean;
+};
+
+export const CategoryIcon: FC<CustomCategoryIconProps> = ({
+  id,
+  name,
+  icon,
+  color,
+  withoutLabel = false,
+}) => {
   const { handleOpenModal, open } = useModal();
   const { createQueryString, removeQueryString } = useQueryString();
 
@@ -65,7 +75,9 @@ export const CategoryIcon: FC<Category> = ({ id, name, icon, color }) => {
           </Tooltip>
         </Box>
 
-        <Typography color="primary.contrastText" text={name} maxLength={8} />
+        {!withoutLabel && (
+          <Typography color="primary.contrastText" text={name} maxLength={8} />
+        )}
       </Box>
     </motion.div>
   );

@@ -6,4 +6,5 @@ export const createTaskSchema = z.object({
     .min(3, 'Task name should have at least 3 characters')
     .max(32, "Task name shouldn't be that long!")
     .trim(),
+  description: z.string().optional(),
 });

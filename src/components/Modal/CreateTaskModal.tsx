@@ -1,7 +1,8 @@
-import { Box, DialogContent, DialogTitle } from '@mui/material';
+import { Box, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import { Button } from 'components/Button';
 import { DatePicker } from 'components/DatePicker/DatePicker.component';
 import { IconPicker } from 'components/IconPicker';
+import EventNoteIcon from '@mui/icons-material/EventNote';
 import { Input } from 'components/Input';
 import { TextArea } from 'components/TextArea';
 import { Typography } from 'components/Typography';
@@ -20,6 +21,7 @@ import { CreateTaskType, Task } from 'types/Task.types';
 import { CustomSnackbar } from 'components/Snackbar';
 import { ErrorInfo } from 'types/Shared.types';
 import { useTranslation } from 'react-i18next';
+import { Checkbox } from 'components/Checkbox';
 
 export const CreateTaskModal = () => {
   const { t } = useTranslation();
@@ -27,7 +29,12 @@ export const CreateTaskModal = () => {
   const { user } = useUser();
   const [selectedDate, setSelectedDate] = useState<Date>(currentDate);
   const [priority, setPriority] = useState(1);
+  const [recurringTask, setRecurringTask] = useState(false);
   const { showSnackbar, snackbarProps } = useSnackbar();
+
+  const handleRecurringTask = () => {
+    setRecurringTask(!recurringTask);
+  };
 
   const methods = useForm<Task>({
     resolver: zodResolver(createTaskSchema),
@@ -37,18 +44,20 @@ export const CreateTaskModal = () => {
   const { handleSubmit, setValue, watch, reset } = methods;
 
   const handleIconSelect = (iconId: string) => {
-    setValue('icon', iconId);
+    setValue('iconName', iconId);
   };
-  const selectedIcon = watch('icon');
+  const selectedIcon = watch('iconName');
+
   const { mutate, isLoading } = useMutation(
     (values: CreateTaskType) =>
       createTask({
         name: values.name,
-        icon: selectedIcon ?? 'star',
+        iconName: selectedIcon ?? 'star',
         date: selectedDate.toISOString(),
         priority: priority,
         userId: user?.id ?? '',
-        description: values.description ?? '',
+        description: values.description,
+        recurringTask: recurringTask,
       }),
     {
       onSuccess: () => {
@@ -93,7 +102,12 @@ export const CreateTaskModal = () => {
   };
   return (
     <FormProvider {...methods}>
-      <Box p={2} component="form" onSubmit={handleSubmit(onSubmit)}>
+      <Box
+        p={2}
+        component="form"
+        onSubmit={handleSubmit(onSubmit)}
+        sx={{ overflow: 'hidden' }}
+      >
         <DialogTitle
           id="create-task-dialog-title"
           display="flex"
@@ -122,11 +136,50 @@ export const CreateTaskModal = () => {
             onIncrement={handleIncrement}
             onDecrement={handleDecrement}
           />
+          <Box
+            p={1}
+            display="flex"
+            margin="dense"
+            justifyContent="space-between"
+            alignItems="center"
+            borderRadius="6px"
+            sx={{
+              cursor: 'pointer',
+              border: '1px solid #c9c7c7',
+              backgroundColor: 'primary.contrastText',
+              ':hover': { border: '1px solid #c9c7c7' },
+            }}
+          >
+            <Box display="flex" alignItems="center" color="red">
+              <IconButton color="primary">
+                <EventNoteIcon />
+              </IconButton>
+              <Box>
+                <Typography text={t('dashboard.pending')} />
+                <Typography
+                  color="text.secondary"
+                  fontSize={12}
+                  text={t('dashboard.pendingTaskMessage')}
+                  maxLength={42}
+                  display="block"
+                />
+              </Box>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Checkbox
+                name={'recurringTask'}
+                checked={recurringTask}
+                onClick={handleRecurringTask}
+                label={''}
+              />
+            </Box>
+          </Box>
           <TextArea
             name="description"
             label={t('shared.description')}
-            rows={4}
+            rows={3}
           />
+
           <Box display="flex" gap="2em">
             <Button
               text={t('shared.cancel')}

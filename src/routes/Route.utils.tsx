@@ -5,6 +5,7 @@ import { ForgotPassword, ResetPassword } from 'modules/ResetPassword';
 import { Customize } from 'pages/Customize/Customize.page';
 import { Dashboard } from 'pages/Dashboard';
 import { Category } from 'pages/Dashboard/Category/Category.page';
+import { Tasks } from 'pages/Dashboard/Tasks';
 import { Today } from 'pages/Dashboard/Today/Today.page';
 import { TermsAndConditions } from 'pages/TermsAndConditions';
 
@@ -27,7 +28,7 @@ const authorizedRoutes = [
   { path: AuthorizedRoutes.categories, element: <Category /> },
   { path: AuthorizedRoutes.habits, element: null },
   { path: AuthorizedRoutes.today, element: <Today /> },
-  { path: AuthorizedRoutes.tasks, element: null },
+  { path: AuthorizedRoutes.tasks, element: <Tasks /> },
   { path: AuthorizedRoutes.customize, element: <Customize /> },
 ];
 

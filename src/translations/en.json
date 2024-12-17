@@ -47,6 +47,8 @@
   "dashboard": {
     "createTaskMessage": "Task created successfully!",
     "newTask": "New task",
+    "pending": "Pending task",
+    "pendingTaskMessage": "It will be shown each day until completed.",
     "priority": "Priority",
     "task": "Task",
     "premiumUserMessage": "Available for Premium Users Only",

@@ -7,8 +7,8 @@ export enum TaskPriority {
 }
 
 export enum TaskStatus {
-  PENDING,
-  IN_PROGRESS,
-  COMPLETED,
-  CANCELED,
+  PENDING = 'Pending',
+  IN_PROGRESS = 'In progress',
+  COMPLETED = 'Completed',
+  CANCELED = 'Canceled',
 }
