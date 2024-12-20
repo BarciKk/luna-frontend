@@ -39,7 +39,7 @@ export const CategoryIcon: FC<CustomCategoryIconProps> = ({
   }, [name, icon]);
 
   const handleSelectCategory = () => {
-    if (!categoryData.isBase) {
+    if (!categoryData.isBase && !withoutLabel) {
       handleOpenModal('createCategory');
       if (!open) createQueryString('id', `${id}`);
     }
@@ -68,7 +68,7 @@ export const CategoryIcon: FC<CustomCategoryIconProps> = ({
             borderRadius: (theme) => theme.shape.borderRadius,
           }}
         >
-          <Tooltip title={name} arrow>
+          <Tooltip title={withoutLabel ? '' : name} arrow>
             <IconButton onClick={handleSelectCategory}>
               {categoryData.selectedIcon}
             </IconButton>

@@ -15,13 +15,14 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createTaskSchema } from 'validation/auth/Task.validation';
 import { createTask } from 'api/task';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { useSnackbar, useUser } from 'hooks';
 import { CreateTaskType, Task } from 'types/Task.types';
 import { CustomSnackbar } from 'components/Snackbar';
 import { ErrorInfo } from 'types/Shared.types';
 import { useTranslation } from 'react-i18next';
 import { Checkbox } from 'components/Checkbox';
+import { QueryKeys } from 'enums/QueryKeys.enums';
 
 export const CreateTaskModal = () => {
   const { t } = useTranslation();
@@ -31,6 +32,7 @@ export const CreateTaskModal = () => {
   const [priority, setPriority] = useState(1);
   const [recurringTask, setRecurringTask] = useState(false);
   const { showSnackbar, snackbarProps } = useSnackbar();
+  const queryClient = useQueryClient();
 
   const handleRecurringTask = () => {
     setRecurringTask(!recurringTask);
@@ -52,7 +54,7 @@ export const CreateTaskModal = () => {
     (values: CreateTaskType) =>
       createTask({
         name: values.name,
-        iconName: selectedIcon ?? 'star',
+        iconName: selectedIcon ?? 'Quit smoking',
         date: selectedDate.toISOString(),
         priority: priority,
         userId: user?.id ?? '',
@@ -66,7 +68,9 @@ export const CreateTaskModal = () => {
           duration: 3000,
           severity: 'success',
         });
+
         reset();
+        queryClient.invalidateQueries(QueryKeys.tasks);
       },
       onError: (error: ErrorInfo) => {
         if (error.response) {

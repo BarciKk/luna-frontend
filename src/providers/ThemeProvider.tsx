@@ -32,9 +32,7 @@ const ThemeContext = createContext<ThemeContextType>({
 
 export const ThemeProvider = ({ children }: PropsWithChildren) => {
   const { setCookie, getCookie } = useCookies();
-  const [mode, setMode] = useState<ThemeVariants>(
-    getCookie(cookieKeys.theme || 'light'),
-  );
+  const [mode, setMode] = useState<ThemeVariants>('light');
   const [primaryColor, setPrimaryColor] = useState(
     getCookie(cookieKeys.themeColor || lightTheme.palette.primary.main),
   );

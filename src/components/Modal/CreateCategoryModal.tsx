@@ -35,6 +35,10 @@ export const CreateCategoryModal = () => {
   const category = categories?.find(
     (category: Category) => category.id === categoryId,
   );
+  const filteredCustomCategories = CUSTOM_CATEGORIES.filter(
+    (customCategory) =>
+      !categories?.some((category) => category.icon === customCategory.name),
+  );
 
   const methods = useForm<Category>({
     resolver: zodResolver(createCategorySchema),
@@ -88,7 +92,6 @@ export const CreateCategoryModal = () => {
 
   const { mutate: editCategoryMutate } = useMutation(
     (values: Category) =>
-      //!NOTE: brother u know that u can just pass to the request anything that changed ? dont have to pass everything
       editCategory({
         id: categoryId,
         name: values.name,
@@ -171,7 +174,7 @@ export const CreateCategoryModal = () => {
           <Box marginTop="18px">
             <Input name="name" type="text" label={t('category.categoryName')} />
             <IconPicker
-              iconData={CUSTOM_CATEGORIES}
+              iconData={filteredCustomCategories}
               onIconSelect={handleIconSelect}
               name={category ? category.icon : 'autoawesome'}
             />
