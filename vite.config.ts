@@ -5,4 +5,5 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   server: { port: 8000, open: true },
+  base: '/luna-sync',
 });
