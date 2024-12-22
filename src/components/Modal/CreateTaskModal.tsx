@@ -6,7 +6,7 @@ import EventNoteIcon from '@mui/icons-material/EventNote';
 import { Input } from 'components/Input';
 import { TextArea } from 'components/TextArea';
 import { Typography } from 'components/Typography';
-import { CONCATED_CATEGORIES } from 'constants/category.constants';
+import { BASE_CATEGORIES, CUSTOM_ICON_MAP } from 'constants/category.constants';
 import { currentDate } from 'constants/date.constants';
 import { Priority } from 'components/Priority/Priority.component';
 import { useModal } from 'providers/ModalProvider';
@@ -23,6 +23,7 @@ import { ErrorInfo } from 'types/Shared.types';
 import { useTranslation } from 'react-i18next';
 import { Checkbox } from 'components/Checkbox';
 import { QueryKeys } from 'enums/QueryKeys.enums';
+import { Star } from '@mui/icons-material';
 
 export const CreateTaskModal = () => {
   const { t } = useTranslation();
@@ -41,6 +42,9 @@ export const CreateTaskModal = () => {
   const methods = useForm<Task>({
     resolver: zodResolver(createTaskSchema),
     mode: 'onBlur',
+    defaultValues: {
+      iconName: 'Highlights',
+    },
   });
 
   const { handleSubmit, setValue, watch, reset } = methods;
@@ -54,7 +58,7 @@ export const CreateTaskModal = () => {
     (values: CreateTaskType) =>
       createTask({
         name: values.name,
-        iconName: selectedIcon ?? 'Quit smoking',
+        iconName: selectedIcon ?? 'Highlights',
         date: selectedDate.toISOString(),
         priority: priority,
         userId: user?.id ?? '',
@@ -104,6 +108,16 @@ export const CreateTaskModal = () => {
   const handleDecrement = () => {
     setPriority((prevValue) => Math.max(prevValue - 1, 1));
   };
+
+  const processedCategories =
+    user?.categories?.map((category) => ({
+      ...category,
+      icon: CUSTOM_ICON_MAP[category.icon as keyof typeof CUSTOM_ICON_MAP] || (
+        <Star />
+      ),
+    })) ?? [];
+
+  const CATEGORIES_CONTENT = [...processedCategories, ...BASE_CATEGORIES];
   return (
     <FormProvider {...methods}>
       <Box
@@ -130,8 +144,8 @@ export const CreateTaskModal = () => {
         <DialogContent dividers sx={{ p: 3 }}>
           <Input name="name" label={t('dashboard.task')} />
           <IconPicker
-            name="create-task-icons"
-            iconData={CONCATED_CATEGORIES}
+            name="Highlights"
+            iconData={CATEGORIES_CONTENT}
             onIconSelect={handleIconSelect}
           />
           <DatePicker value={selectedDate} onDateChange={handleDateChange} />

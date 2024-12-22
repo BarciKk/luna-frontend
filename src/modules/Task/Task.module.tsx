@@ -21,10 +21,15 @@ export const Task: FC<TaskProps> = ({
   const { user } = useUser();
 
   const formattedDate = format(date, 'dd MMM yyyy');
-  const category = user?.categories.find((cat) => cat.icon === iconName)?.name;
-  const baseCategory = BASE_CATEGORIES.find(
+  const customCategoryName = user?.categories.find(
     (cat) => cat.name === iconName,
   )?.name;
+  const baseCategoryName = BASE_CATEGORIES.find(
+    (cat) => cat.name === iconName,
+  )?.name;
+  const categoryIcon = user?.categories.find(
+    (category) => category.name === iconName,
+  )?.icon;
 
   return (
     <Box
@@ -41,7 +46,7 @@ export const Task: FC<TaskProps> = ({
       <Stack direction="row" spacing={2} alignItems="center">
         <CategoryIcon
           name={iconName}
-          icon={iconName}
+          icon={categoryIcon}
           color="primary.main"
           withoutLabel
         />
@@ -52,13 +57,14 @@ export const Task: FC<TaskProps> = ({
           width="100%"
         >
           <Box marginTop="10px">
-            {(category || baseCategory) && (
+            {(customCategoryName || baseCategoryName) && (
               <Typography
                 color="primary.main"
                 fontSize={12}
                 fontWeight="bold"
+                maxLength={42}
                 sx={{ cursor: 'pointer' }}
-                text={`#${category ?? baseCategory}`}
+                text={`#${customCategoryName ?? baseCategoryName}`}
               />
             )}
             <Typography

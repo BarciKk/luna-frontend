@@ -1,6 +1,5 @@
 import { Box, IconButton, Tooltip } from '@mui/material';
 import { FC, useEffect, useMemo } from 'react';
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import { motion } from 'framer-motion';
 import { Category } from 'types/User.types';
 import { Typography } from 'components/Typography';
@@ -10,6 +9,7 @@ import {
   BASE_CATEGORIES,
   CUSTOM_CATEGORIES,
 } from 'constants/category.constants';
+import { Star } from '@mui/icons-material';
 
 type CustomCategoryIconProps = Category & {
   withoutLabel?: boolean;
@@ -34,7 +34,7 @@ export const CategoryIcon: FC<CustomCategoryIconProps> = ({
   const categoryData = useMemo(() => {
     return {
       isBase,
-      selectedIcon: matchedCategory?.icon || <AutoAwesomeIcon />,
+      selectedIcon: matchedCategory?.icon || <Star />,
     };
   }, [name, icon]);
 

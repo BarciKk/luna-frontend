@@ -47,7 +47,7 @@ export const CreateCategoryModal = () => {
       name: categoryId ? category?.name : '',
       color: categoryId ? category?.color : '#1b75de',
       userId: user?.id ?? '',
-      icon: '',
+      icon: categoryId ? category?.icon : 'Highlights',
     },
   });
   const { handleSubmit, setValue, watch } = methods;
@@ -67,7 +67,7 @@ export const CreateCategoryModal = () => {
         name: values.name,
         color: values.color,
         userId: user?.id,
-        icon: selectedIcon || 'autoawesome',
+        icon: selectedIcon || 'Highlights',
       }),
     {
       onSuccess: () => {
@@ -77,6 +77,7 @@ export const CreateCategoryModal = () => {
           severity: 'success',
         });
         queryClient.invalidateQueries([QueryKeys.category, user?.id]);
+        queryClient.invalidateQueries([QueryKeys.tasks, 'task']);
       },
       onError: (error: ErrorInfo) => {
         if (error.response) {
@@ -176,7 +177,7 @@ export const CreateCategoryModal = () => {
             <IconPicker
               iconData={filteredCustomCategories}
               onIconSelect={handleIconSelect}
-              name={category ? category.icon : 'autoawesome'}
+              name={category ? category.icon : 'Highlights'}
             />
             <ColorInput
               name="color"

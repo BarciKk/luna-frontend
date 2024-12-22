@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Typography } from 'components/Typography';
 import { Star } from '@mui/icons-material';
+import { CONCATED_CATEGORIES } from 'constants/category.constants';
 
 interface IconData {
   name: string;
@@ -27,6 +28,10 @@ export const IconPicker: FC<IconPickerProps> = ({
   const [selectedIconName, setSelectedIconName] = useState<string | ReactNode>(
     name,
   );
+
+  const findIcon = CONCATED_CATEGORIES.find(
+    (icon) => icon.name === selectedIconName,
+  )?.icon;
 
   const handleBoxClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -54,13 +59,8 @@ export const IconPicker: FC<IconPickerProps> = ({
         }}
         onClick={handleBoxClick}
       >
-        {/* well that is a hack i should figure out this later but for now im leaving this like that */}
         <IconButton color="primary">
-          {selectedIconName === 'create-task-icons' ? (
-            <Star />
-          ) : (
-            iconData.find((icon) => icon.name === selectedIconName)?.icon
-          )}
+          {selectedIconName === 'Highlights' ? <Star /> : findIcon}
         </IconButton>
         <Typography text={t('category.selectCategory')} maxLength={15} />
       </Box>

@@ -50,7 +50,6 @@ export const Login = () => {
         }
       },
       onError: (error: ErrorInfo) => {
-        console.log(error);
         if (error.response) {
           showSnackbar({
             message: error.response.data.message,
