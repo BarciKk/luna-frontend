@@ -1,13 +1,14 @@
 import { Box, IconButton, Stack, Tooltip } from '@mui/material';
 import { CategoryIcon } from 'components/CategoryIcon';
 import { Typography } from 'components/Typography';
-import { useUser } from 'hooks';
-import { FC } from 'react';
+import { useQueryString, useUser } from 'hooks';
+import { FC, useEffect } from 'react';
 import { TaskProps } from 'types/Task.types';
 import ReplayIcon from '@mui/icons-material/Replay';
 import { format } from 'date-fns';
 import { priorityIcons } from 'constants/task.constants';
 import { BASE_CATEGORIES } from 'constants/category.constants';
+import { useModal } from 'providers/ModalProvider';
 
 export const Task: FC<TaskProps> = ({
   id,
@@ -19,6 +20,8 @@ export const Task: FC<TaskProps> = ({
   recurringTask,
 }) => {
   const { user } = useUser();
+  const { createQueryString, removeQueryString } = useQueryString();
+  const { handleOpenModal, open } = useModal();
 
   const formattedDate = format(date, 'dd MMM yyyy');
   const customCategoryName = user?.categories.find(
@@ -31,8 +34,20 @@ export const Task: FC<TaskProps> = ({
     (category) => category.name === iconName,
   )?.icon;
 
+  const handleOpenTaskInfo = () => {
+    handleOpenModal('createTask');
+    if (!open) createQueryString('id', `${id}`);
+  };
+
+  useEffect(() => {
+    if (!open) {
+      removeQueryString('id');
+    }
+  }, [open, removeQueryString]);
+
   return (
     <Box
+      onClick={handleOpenTaskInfo}
       id={id}
       sx={{
         bgcolor: 'background.paper',

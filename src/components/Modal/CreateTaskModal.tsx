@@ -16,7 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { createTaskSchema } from 'validation/auth/Task.validation';
 import { createTask } from 'api/task';
 import { useMutation, useQueryClient } from 'react-query';
-import { useSnackbar, useUser } from 'hooks';
+import { useQueryString, useSnackbar, useUser } from 'hooks';
 import { CreateTaskType, Task } from 'types/Task.types';
 import { CustomSnackbar } from 'components/Snackbar';
 import { ErrorInfo } from 'types/Shared.types';
@@ -26,14 +26,20 @@ import { QueryKeys } from 'enums/QueryKeys.enums';
 import { Star } from '@mui/icons-material';
 
 export const CreateTaskModal = () => {
+  const { user } = useUser();
   const { t } = useTranslation();
   const { handleCloseModal } = useModal();
-  const { user } = useUser();
   const [selectedDate, setSelectedDate] = useState<Date>(currentDate);
   const [priority, setPriority] = useState(1);
   const [recurringTask, setRecurringTask] = useState(false);
   const { showSnackbar, snackbarProps } = useSnackbar();
   const queryClient = useQueryClient();
+  const { getQueryString } = useQueryString();
+
+  const tasksData = queryClient.getQueryData<Task[]>(['tasks', 'task']);
+  const taskId = getQueryString('id');
+
+  const task = tasksData?.find((task) => task.id === taskId);
 
   const handleRecurringTask = () => {
     setRecurringTask(!recurringTask);
@@ -43,7 +49,9 @@ export const CreateTaskModal = () => {
     resolver: zodResolver(createTaskSchema),
     mode: 'onBlur',
     defaultValues: {
-      iconName: 'Highlights',
+      name: taskId ? task?.name : '',
+      priority: taskId ? task?.priority : 1,
+      description: taskId ? task?.description : '',
     },
   });
 
@@ -144,13 +152,13 @@ export const CreateTaskModal = () => {
         <DialogContent dividers sx={{ p: 3 }}>
           <Input name="name" label={t('dashboard.task')} />
           <IconPicker
-            name="Highlights"
+            name={selectedIcon ?? 'Highlights'}
             iconData={CATEGORIES_CONTENT}
             onIconSelect={handleIconSelect}
           />
           <DatePicker value={selectedDate} onDateChange={handleDateChange} />
           <Priority
-            value={priority}
+            value={taskId ? task?.priority ?? 1 : priority}
             onIncrement={handleIncrement}
             onDecrement={handleDecrement}
           />

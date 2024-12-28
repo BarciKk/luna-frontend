@@ -10,10 +10,13 @@ import {
   ReactQueryProvider,
 } from 'providers';
 
+const basename =
+  window.location.hostname !== 'localhost' ? '/luna-frontend' : '/';
+
 export const App = () => {
   return (
     <ThemeProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
         <ReactQueryProvider>
           <ReactQueryDevtools initialIsOpen={false} />
           <DateProvider>

@@ -77,7 +77,6 @@ export const CreateCategoryModal = () => {
           severity: 'success',
         });
         queryClient.invalidateQueries([QueryKeys.category, user?.id]);
-        queryClient.invalidateQueries([QueryKeys.tasks, 'task']);
       },
       onError: (error: ErrorInfo) => {
         if (error.response) {

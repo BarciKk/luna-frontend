@@ -7,7 +7,7 @@ import { ForgotPasswordForm } from './forgotPassword.types';
 import { resetPasswordEmailSchema } from 'validation/auth/Auth.validation';
 import { forgotPassword } from 'api/auth';
 import { AuthAnimation } from 'animations';
-import { AuthWrapper } from 'assets/AuthWrapper';
+import { AuthWrapper } from 'helpers/AuthWrapper';
 import { Button } from 'components/Button';
 import { UnauthorizedRoutes } from 'enums/Routes.enums';
 import { Link } from 'components/Link';

@@ -9,7 +9,7 @@ import { ResetPasswordForm } from './ResetPassword.types';
 import { updatePasswordSchema } from 'validation/auth/Auth.validation';
 import { resetPassword } from 'api/auth';
 import { AuthAnimation } from 'animations';
-import { AuthWrapper } from 'assets/AuthWrapper';
+import { AuthWrapper } from 'helpers/AuthWrapper';
 import { UnauthorizedRoutes } from 'enums/Routes.enums';
 import { Button } from 'components/Button';
 import { Link } from 'components/Link';

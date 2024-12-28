@@ -2,7 +2,11 @@ import { Container, Paper } from '@mui/material';
 import { PropsWithChildren } from 'react';
 
 export const AuthWrapper = ({ children }: PropsWithChildren) => (
-  <Container component="main" maxWidth="sm">
+  <Container
+    component="main"
+    maxWidth="sm"
+    sx={{ width: { xs: '80%', sm: '600px', md: '800px' } }}
+  >
     <Paper
       elevation={10}
       sx={{

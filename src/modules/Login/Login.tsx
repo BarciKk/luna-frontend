@@ -5,8 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Box, Typography as MuiTypography } from '@mui/material';
 import { AuthorizedRoutes, UnauthorizedRoutes } from 'enums/Routes.enums';
 import { Link } from 'components/Link/Link.component';
-import { AuthWrapper } from 'assets/AuthWrapper';
-import { Copyright } from 'assets/Copyright';
+
 import { ErrorMessage } from 'components/ErrorMessage';
 import { Button } from 'components/Button';
 import { loginSchema } from 'validation/auth';
@@ -20,6 +19,8 @@ import { useSnackbar, useUser } from 'hooks';
 import { ErrorInfo } from 'types/Shared.types';
 import { CustomSnackbar } from 'components/Snackbar';
 import { Typography } from 'components/Typography';
+import { AuthWrapper } from 'helpers/AuthWrapper';
+import { Copyright } from 'helpers/Copyright';
 
 export const Login = () => {
   const { setUser } = useUser();

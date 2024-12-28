@@ -13,6 +13,8 @@ export type Task = {
   userId?: string;
 };
 
+//task should have categoryId .. i have no clue what the author was thinking
+
 export type CreateTaskType = Pick<
   Task,
   | 'name'
