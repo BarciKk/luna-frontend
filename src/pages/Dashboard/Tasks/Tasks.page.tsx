@@ -26,6 +26,7 @@ export const Tasks = () => {
       severity: 'error',
     });
   }
+
   return (
     <Stack marginTop="2em" alignItems="center">
       <Box

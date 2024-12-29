@@ -6,7 +6,6 @@ import EventNoteIcon from '@mui/icons-material/EventNote';
 import { Input } from 'components/Input';
 import { TextArea } from 'components/TextArea';
 import { Typography } from 'components/Typography';
-import { BASE_CATEGORIES, CUSTOM_ICON_MAP } from 'constants/category.constants';
 import { currentDate } from 'constants/date.constants';
 import { Priority } from 'components/Priority/Priority.component';
 import { useModal } from 'providers/ModalProvider';
@@ -23,10 +22,12 @@ import { ErrorInfo } from 'types/Shared.types';
 import { useTranslation } from 'react-i18next';
 import { Checkbox } from 'components/Checkbox';
 import { QueryKeys } from 'enums/QueryKeys.enums';
-import { Star } from '@mui/icons-material';
+import { useCategories } from 'hooks/useCategories';
+import { BASE_ICON_NAME } from 'constants/category.constants';
 
 export const CreateTaskModal = () => {
   const { user } = useUser();
+  const { combinedCategories } = useCategories();
   const { t } = useTranslation();
   const { handleCloseModal } = useModal();
   const [selectedDate, setSelectedDate] = useState<Date>(currentDate);
@@ -58,15 +59,19 @@ export const CreateTaskModal = () => {
   const { handleSubmit, setValue, watch, reset } = methods;
 
   const handleIconSelect = (iconId: string) => {
-    setValue('iconName', iconId);
+    setValue('categoryId', iconId);
   };
-  const selectedIcon = watch('iconName');
+  const selectedIcon = watch('categoryId');
+
+  const findCategoryId = combinedCategories.find(
+    (cat) => cat.name === selectedIcon,
+  )?.id;
 
   const { mutate, isLoading } = useMutation(
     (values: CreateTaskType) =>
       createTask({
         name: values.name,
-        iconName: selectedIcon ?? 'Highlights',
+        categoryId: findCategoryId ?? BASE_ICON_NAME,
         date: selectedDate.toISOString(),
         priority: priority,
         userId: user?.id ?? '',
@@ -117,15 +122,6 @@ export const CreateTaskModal = () => {
     setPriority((prevValue) => Math.max(prevValue - 1, 1));
   };
 
-  const processedCategories =
-    user?.categories?.map((category) => ({
-      ...category,
-      icon: CUSTOM_ICON_MAP[category.icon as keyof typeof CUSTOM_ICON_MAP] || (
-        <Star />
-      ),
-    })) ?? [];
-
-  const CATEGORIES_CONTENT = [...processedCategories, ...BASE_CATEGORIES];
   return (
     <FormProvider {...methods}>
       <Box
@@ -152,8 +148,8 @@ export const CreateTaskModal = () => {
         <DialogContent dividers sx={{ p: 3 }}>
           <Input name="name" label={t('dashboard.task')} />
           <IconPicker
-            name={selectedIcon ?? 'Highlights'}
-            iconData={CATEGORIES_CONTENT}
+            name={selectedIcon ?? BASE_ICON_NAME}
+            iconData={combinedCategories}
             onIconSelect={handleIconSelect}
           />
           <DatePicker value={selectedDate} onDateChange={handleDateChange} />

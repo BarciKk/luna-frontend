@@ -1,44 +1,40 @@
 import { Box, IconButton, Stack, Tooltip } from '@mui/material';
 import { CategoryIcon } from 'components/CategoryIcon';
 import { Typography } from 'components/Typography';
-import { useQueryString, useUser } from 'hooks';
+import { useQueryString } from 'hooks';
 import { FC, useEffect } from 'react';
 import { TaskProps } from 'types/Task.types';
 import ReplayIcon from '@mui/icons-material/Replay';
 import { format } from 'date-fns';
 import { priorityIcons } from 'constants/task.constants';
-import { BASE_CATEGORIES } from 'constants/category.constants';
 import { useModal } from 'providers/ModalProvider';
+import { useCategories } from 'hooks/useCategories';
 
 export const Task: FC<TaskProps> = ({
   id,
   name,
   date,
-  iconName,
+  categoryId,
   description,
   priority,
   recurringTask,
 }) => {
-  const { user } = useUser();
+  const { combinedCategories } = useCategories();
   const { createQueryString, removeQueryString } = useQueryString();
   const { handleOpenModal, open } = useModal();
-
   const formattedDate = format(date, 'dd MMM yyyy');
-  const customCategoryName = user?.categories.find(
-    (cat) => cat.name === iconName,
-  )?.name;
-  const baseCategoryName = BASE_CATEGORIES.find(
-    (cat) => cat.name === iconName,
-  )?.name;
-  const categoryIcon = user?.categories.find(
-    (category) => category.name === iconName,
+
+  const icon = combinedCategories.find(
+    (category) => category.id === categoryId,
   )?.icon;
+  const categoryName = combinedCategories.find(
+    (category) => category.id === categoryId,
+  )?.name;
 
   const handleOpenTaskInfo = () => {
     handleOpenModal('createTask');
     if (!open) createQueryString('id', `${id}`);
   };
-
   useEffect(() => {
     if (!open) {
       removeQueryString('id');
@@ -60,10 +56,12 @@ export const Task: FC<TaskProps> = ({
     >
       <Stack direction="row" spacing={2} alignItems="center">
         <CategoryIcon
-          name={iconName}
-          icon={categoryIcon}
+          id={categoryId}
+          name={categoryName ?? ''}
+          icon={icon}
           color="primary.main"
           withoutLabel
+          isBase={false}
         />
         <Box
           alignSelf="flex-start"
@@ -72,14 +70,14 @@ export const Task: FC<TaskProps> = ({
           width="100%"
         >
           <Box marginTop="10px">
-            {(customCategoryName || baseCategoryName) && (
+            {categoryName && (
               <Typography
                 color="primary.main"
                 fontSize={12}
                 fontWeight="bold"
                 maxLength={42}
                 sx={{ cursor: 'pointer' }}
-                text={`#${customCategoryName ?? baseCategoryName}`}
+                text={`#${categoryName}`}
               />
             )}
             <Typography

@@ -1,15 +1,10 @@
 import { Box, IconButton, Tooltip } from '@mui/material';
-import { FC, useEffect, useMemo } from 'react';
+import { FC, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Category } from 'types/User.types';
 import { Typography } from 'components/Typography';
 import { useModal } from 'providers/ModalProvider';
 import { useQueryString } from 'hooks';
-import {
-  BASE_CATEGORIES,
-  CUSTOM_CATEGORIES,
-} from 'constants/category.constants';
-import { Star } from '@mui/icons-material';
+import { Category } from 'types/Category.types';
 
 type CustomCategoryIconProps = Category & {
   withoutLabel?: boolean;
@@ -21,25 +16,12 @@ export const CategoryIcon: FC<CustomCategoryIconProps> = ({
   icon,
   color,
   withoutLabel = false,
+  isBase,
 }) => {
   const { handleOpenModal, open } = useModal();
   const { createQueryString, removeQueryString } = useQueryString();
-
-  const isBase = BASE_CATEGORIES.some((category) => category.name === name);
-
-  const matchedCategory = isBase
-    ? BASE_CATEGORIES.find((category) => category.name === name)
-    : CUSTOM_CATEGORIES.find((category) => category.name === icon);
-
-  const categoryData = useMemo(() => {
-    return {
-      isBase,
-      selectedIcon: matchedCategory?.icon || <Star />,
-    };
-  }, [name, icon]);
-
   const handleSelectCategory = () => {
-    if (!categoryData.isBase && !withoutLabel) {
+    if (!withoutLabel && !isBase) {
       handleOpenModal('createCategory');
       if (!open) createQueryString('id', `${id}`);
     }
@@ -69,9 +51,7 @@ export const CategoryIcon: FC<CustomCategoryIconProps> = ({
           }}
         >
           <Tooltip title={withoutLabel ? '' : name} arrow>
-            <IconButton onClick={handleSelectCategory}>
-              {categoryData.selectedIcon}
-            </IconButton>
+            <IconButton onClick={handleSelectCategory}>{icon}</IconButton>
           </Tooltip>
         </Box>
 

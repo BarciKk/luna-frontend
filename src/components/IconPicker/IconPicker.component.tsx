@@ -4,18 +4,14 @@ import { useTranslation } from 'react-i18next';
 
 import { Typography } from 'components/Typography';
 import { Star } from '@mui/icons-material';
-import { CONCATED_CATEGORIES } from 'constants/category.constants';
-
-interface IconData {
-  name: string;
-  icon: ReactNode;
-  color?: string;
-}
+import { useCategories } from 'hooks/useCategories';
+import { Category } from 'types/Category.types';
+import { BASE_ICON_NAME } from 'constants/category.constants';
 
 interface IconPickerProps {
   name: string | ReactNode;
   onIconSelect: (iconId: string) => void;
-  iconData: IconData[];
+  iconData: Partial<Category>[];
 }
 
 export const IconPicker: FC<IconPickerProps> = ({
@@ -24,12 +20,13 @@ export const IconPicker: FC<IconPickerProps> = ({
   iconData,
 }) => {
   const { t } = useTranslation();
+  const { combinedCategories } = useCategories();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [selectedIconName, setSelectedIconName] = useState<string | ReactNode>(
     name,
   );
 
-  const findIcon = CONCATED_CATEGORIES.find(
+  const findIcon = combinedCategories.find(
     (icon) => icon.name === selectedIconName,
   )?.icon;
 
@@ -60,7 +57,7 @@ export const IconPicker: FC<IconPickerProps> = ({
         onClick={handleBoxClick}
       >
         <IconButton color="primary">
-          {selectedIconName === 'Highlights' ? <Star /> : findIcon}
+          {selectedIconName === BASE_ICON_NAME ? <Star /> : findIcon}
         </IconButton>
         <Typography text={t('category.selectCategory')} maxLength={15} />
       </Box>
@@ -77,11 +74,12 @@ export const IconPicker: FC<IconPickerProps> = ({
             {iconData.map((item) => (
               <Grid item xs={3} key={item.name}>
                 <IconButton
-                  onClick={() => handleIconSelect(item.name)}
+                  onClick={() => handleIconSelect(item.name ?? '')}
                   sx={{
                     border: '1px solid #c9c7c7',
                     borderRadius: '4px',
                     color: 'primary.main',
+                    background: item.isBase ? 'red' : 'primary.main',
                   }}
                 >
                   {item.icon}

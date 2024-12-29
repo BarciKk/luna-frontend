@@ -1,13 +1,5 @@
-import { ReactNode } from 'react';
+import { Category } from './Category.types';
 import { Task } from './Task.types';
-
-export type Category = {
-  id?: string;
-  name: string;
-  icon: ReactNode | string;
-  userId?: string;
-  color: string;
-};
 
 export type User = {
   id: string;

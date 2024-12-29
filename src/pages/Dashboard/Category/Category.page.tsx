@@ -1,45 +1,20 @@
 import { Box, Divider, Skeleton, Stack } from '@mui/material';
-import { useSnackbar, useUser } from 'hooks';
 import EventBusyOutlinedIcon from '@mui/icons-material/EventBusyOutlined';
 import { Button } from 'components/Button';
 
-import { BASE_CATEGORIES } from 'constants/category.constants';
 import { CategoryIcon } from 'components/CategoryIcon/CategoryIcon.component';
 import { MAX_CUSTOM_CATEGORIES } from 'constants/user.constants';
 import { useModal } from 'providers/ModalProvider';
-import { useQuery } from 'react-query';
-import { getAllCategories } from 'api/category';
-import { QueryKeys } from 'enums/QueryKeys.enums';
-import { CustomSnackbar } from 'components/Snackbar';
 import { Typography } from 'components/Typography';
 import { useTranslation } from 'react-i18next';
+import { useCategories } from 'hooks/useCategories';
 
 export const Category = () => {
   const { t } = useTranslation();
-  const { user } = useUser();
   const { handleOpenModal } = useModal();
-  const { showSnackbar, snackbarProps } = useSnackbar();
-  const {
-    data: categoryData,
-    isLoading,
-    error,
-  } = useQuery(
-    [QueryKeys.category, user?.id],
-    () => getAllCategories(user?.id),
-    {
-      staleTime: 30000,
-      enabled: !!user,
-    },
-  );
-
-  if (error) {
-    showSnackbar({
-      message: t('errors.categoriesNotFound'),
-      duration: 3000,
-      severity: 'error',
-    });
-  }
-  const categoriesLeft = MAX_CUSTOM_CATEGORIES - (categoryData?.length ?? 0);
+  const { customCategories, baseCategories, isLoading } = useCategories();
+  const categoriesLeft =
+    MAX_CUSTOM_CATEGORIES - (customCategories?.length ?? 0);
 
   return (
     <Stack marginTop="2em" justifyContent="center" alignItems="center">
@@ -97,7 +72,7 @@ export const Category = () => {
             </Stack>
           ) : (
             <>
-              {categoryData?.length === 0 || !categoryData ? (
+              {customCategories?.length === 0 || !customCategories ? (
                 <Stack
                   alignItems="center"
                   gap={1}
@@ -120,13 +95,14 @@ export const Category = () => {
                   overflow="hidden"
                   aria-label={t('category.customCategories')}
                 >
-                  {categoryData?.map((category, index) => (
+                  {customCategories?.map((category) => (
                     <CategoryIcon
                       id={category.id}
-                      key={index}
+                      key={category.id}
                       name={category.name}
                       icon={category.icon}
                       color={category.color}
+                      isBase={category.isBase}
                     />
                   ))}
                 </Stack>
@@ -152,13 +128,14 @@ export const Category = () => {
           overflow="hidden"
           aria-label={t('category.defaultCategories')}
         >
-          {BASE_CATEGORIES.map((category, index) => (
+          {baseCategories.map((category) => (
             <CategoryIcon
-              key={index}
+              key={category.id}
               name={category.name}
               icon={category.icon}
               color={category.color}
               id={category.id}
+              isBase={category.isBase}
             />
           ))}
         </Stack>
@@ -170,7 +147,6 @@ export const Category = () => {
           onClick={() => handleOpenModal('createCategory')}
         />
       </Box>
-      <CustomSnackbar {...snackbarProps} />
     </Stack>
   );
 };
