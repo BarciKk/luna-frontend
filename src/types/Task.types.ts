@@ -4,12 +4,12 @@ export type Task = {
   id: string;
   name: string;
   date: Date | string;
-  iconName: string;
   createdAt: Date;
   priority: TaskPriority;
   description?: string;
   status: TaskStatus;
   recurringTask: boolean;
+  categoryId: string;
   userId?: string;
 };
 
@@ -22,7 +22,7 @@ export type CreateTaskType = Pick<
   | 'priority'
   | 'description'
   | 'userId'
-  | 'iconName'
+  | 'categoryId'
   | 'recurringTask'
 >;
 export type TaskProps = Pick<
@@ -30,7 +30,7 @@ export type TaskProps = Pick<
   | 'id'
   | 'name'
   | 'date'
-  | 'iconName'
+  | 'categoryId'
   | 'priority'
   | 'description'
   | 'status'

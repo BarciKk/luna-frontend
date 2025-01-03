@@ -17,14 +17,10 @@ export const Page404 = () => {
         color="#414c50"
       >
         <Grid item textAlign="center">
-          <Typography fontSize="11em" color="primary.contrastText">
+          <Typography fontSize="11em" color="primary.text">
             404
           </Typography>
-          <Typography
-            marginBottom="2em"
-            fontSize="20px"
-            color="primary.contrastText"
-          >
+          <Typography marginBottom="2em" fontSize="20px" color="text.secondary">
             We could not find the page u are looking for.
           </Typography>
           <Button

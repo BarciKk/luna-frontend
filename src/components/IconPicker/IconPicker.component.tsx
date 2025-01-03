@@ -3,35 +3,29 @@ import { FC, ReactNode, useState, MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Typography } from 'components/Typography';
+import { BASE_ICON_NAME, CUSTOM_ICON_MAP } from 'constants/category.constants';
 import { Star } from '@mui/icons-material';
-import { CONCATED_CATEGORIES } from 'constants/category.constants';
-
-interface IconData {
-  name: string;
-  icon: ReactNode;
-  color?: string;
-}
+import { useCategories } from 'hooks';
 
 interface IconPickerProps {
   name: string | ReactNode;
   onIconSelect: (iconId: string) => void;
-  iconData: IconData[];
+  //NOTE JUST FOR NOW
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  data: any[];
 }
 
 export const IconPicker: FC<IconPickerProps> = ({
   onIconSelect,
   name,
-  iconData,
+  data,
 }) => {
   const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [selectedIconName, setSelectedIconName] = useState<string | ReactNode>(
-    name,
+  const [selectedIconName, setSelectedIconName] = useState<string>(
+    String(name),
   );
-
-  const findIcon = CONCATED_CATEGORIES.find(
-    (icon) => icon.name === selectedIconName,
-  )?.icon;
+  const { combinedCategories } = useCategories();
 
   const handleBoxClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -43,6 +37,10 @@ export const IconPicker: FC<IconPickerProps> = ({
     setAnchorEl(null);
   };
   const open = Boolean(anchorEl);
+
+  const findIcon = combinedCategories.find(
+    (e) => e.name === selectedIconName,
+  )?.icon;
 
   return (
     <Box>
@@ -60,7 +58,7 @@ export const IconPicker: FC<IconPickerProps> = ({
         onClick={handleBoxClick}
       >
         <IconButton color="primary">
-          {selectedIconName === 'Highlights' ? <Star /> : findIcon}
+          {CUSTOM_ICON_MAP[findIcon ?? selectedIconName] ?? <Star />}
         </IconButton>
         <Typography text={t('category.selectCategory')} maxLength={15} />
       </Box>
@@ -74,17 +72,18 @@ export const IconPicker: FC<IconPickerProps> = ({
       >
         <Box p={2} maxWidth="320px" bgcolor="info.contrastText">
           <Grid container spacing={2}>
-            {iconData.map((item) => (
-              <Grid item xs={3} key={item.name}>
+            {data.map((icon) => (
+              <Grid item xs={3} key={icon.name}>
                 <IconButton
-                  onClick={() => handleIconSelect(item.name)}
+                  onClick={() => handleIconSelect(icon.name ?? '')}
                   sx={{
                     border: '1px solid #c9c7c7',
                     borderRadius: '4px',
                     color: 'primary.main',
+                    background: icon.isBase ? 'red' : 'primary.main',
                   }}
                 >
-                  {item.icon}
+                  {CUSTOM_ICON_MAP[icon.icon ?? BASE_ICON_NAME]}
                 </IconButton>
               </Grid>
             ))}

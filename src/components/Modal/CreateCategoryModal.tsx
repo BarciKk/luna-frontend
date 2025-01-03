@@ -6,7 +6,7 @@ import { ColorInput } from 'components/ColorInput';
 import { createCategorySchema } from 'validation/auth/Category.validation';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Category } from 'types/User.types';
+import { Category } from 'types/Category.types';
 import { CustomSnackbar } from 'components/Snackbar';
 import { ErrorInfo } from 'types/Shared.types';
 import { useMutation, useQueryClient } from 'react-query';
@@ -17,8 +17,12 @@ import { QueryKeys } from 'enums/QueryKeys.enums';
 import { Typography } from 'components/Typography';
 import { Box, IconButton } from '@mui/material';
 import { IconPicker } from 'components/IconPicker/IconPicker.component';
-import { CUSTOM_CATEGORIES } from 'constants/category.constants';
 import { useTranslation } from 'react-i18next';
+import { useCategories } from 'hooks/useCategories';
+import {
+  BASE_ICON_NAME,
+  CONCATED_CATEGORIES,
+} from 'constants/category.constants';
 
 export const CreateCategoryModal = () => {
   const { t } = useTranslation();
@@ -27,17 +31,10 @@ export const CreateCategoryModal = () => {
   const { showSnackbar, snackbarProps } = useSnackbar();
   const categoryId = getQueryString('id');
   const { user } = useUser();
-  const categories = queryClient.getQueryData<Category[]>([
-    QueryKeys.category,
-    user?.id,
-  ]);
+  const { customCategories } = useCategories();
 
-  const category = categories?.find(
+  const category = customCategories?.find(
     (category: Category) => category.id === categoryId,
-  );
-  const filteredCustomCategories = CUSTOM_CATEGORIES.filter(
-    (customCategory) =>
-      !categories?.some((category) => category.icon === customCategory.name),
   );
 
   const methods = useForm<Category>({
@@ -47,7 +44,7 @@ export const CreateCategoryModal = () => {
       name: categoryId ? category?.name : '',
       color: categoryId ? category?.color : '#1b75de',
       userId: user?.id ?? '',
-      icon: categoryId ? category?.icon : 'Highlights',
+      icon: categoryId ? category?.icon : BASE_ICON_NAME,
     },
   });
   const { handleSubmit, setValue, watch } = methods;
@@ -67,7 +64,8 @@ export const CreateCategoryModal = () => {
         name: values.name,
         color: values.color,
         userId: user?.id,
-        icon: selectedIcon || 'Highlights',
+        isBase: false,
+        icon: selectedIcon ?? BASE_ICON_NAME,
       }),
     {
       onSuccess: () => {
@@ -97,7 +95,8 @@ export const CreateCategoryModal = () => {
         name: values.name,
         color: values.color,
         userId: user?.id,
-        icon: selectedIcon === '' ? category?.icon : selectedIcon,
+        icon: selectedIcon,
+        isBase: false,
       }),
     {
       onSuccess: () => {
@@ -119,14 +118,13 @@ export const CreateCategoryModal = () => {
       },
     },
   );
-
   const onSubmit: SubmitHandler<Category> = async (data) => {
     try {
       if (categoryId) {
         const hasChanges =
           data.name.trim() !== category?.name ||
           data.color.trim() !== category?.color ||
-          selectedIcon !== '';
+          !selectedIcon;
 
         if (!hasChanges) {
           showSnackbar({
@@ -174,9 +172,9 @@ export const CreateCategoryModal = () => {
           <Box marginTop="18px">
             <Input name="name" type="text" label={t('category.categoryName')} />
             <IconPicker
-              iconData={filteredCustomCategories}
+              data={CONCATED_CATEGORIES}
               onIconSelect={handleIconSelect}
-              name={category ? category.icon : 'Highlights'}
+              name={category ? category.icon : BASE_ICON_NAME}
             />
             <ColorInput
               name="color"
@@ -200,3 +198,5 @@ export const CreateCategoryModal = () => {
     </FormProvider>
   );
 };
+//NOTE: Edit category should take only changed values not full object on every request
+//!NOTE: Has changed should be rebuild into maybe isDirty?

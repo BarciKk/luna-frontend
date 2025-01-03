@@ -1,15 +1,11 @@
 import { Box, IconButton, Tooltip } from '@mui/material';
-import { FC, useEffect, useMemo } from 'react';
+import { FC, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Category } from 'types/User.types';
 import { Typography } from 'components/Typography';
+import { Category } from 'types/Category.types';
 import { useModal } from 'providers/ModalProvider';
 import { useQueryString } from 'hooks';
-import {
-  BASE_CATEGORIES,
-  CUSTOM_CATEGORIES,
-} from 'constants/category.constants';
-import { Star } from '@mui/icons-material';
+import { CUSTOM_ICON_MAP } from 'constants/category.constants';
 
 type CustomCategoryIconProps = Category & {
   withoutLabel?: boolean;
@@ -21,25 +17,12 @@ export const CategoryIcon: FC<CustomCategoryIconProps> = ({
   icon,
   color,
   withoutLabel = false,
+  isBase,
 }) => {
   const { handleOpenModal, open } = useModal();
   const { createQueryString, removeQueryString } = useQueryString();
-
-  const isBase = BASE_CATEGORIES.some((category) => category.name === name);
-
-  const matchedCategory = isBase
-    ? BASE_CATEGORIES.find((category) => category.name === name)
-    : CUSTOM_CATEGORIES.find((category) => category.name === icon);
-
-  const categoryData = useMemo(() => {
-    return {
-      isBase,
-      selectedIcon: matchedCategory?.icon || <Star />,
-    };
-  }, [name, icon]);
-
   const handleSelectCategory = () => {
-    if (!categoryData.isBase && !withoutLabel) {
+    if (!withoutLabel && !isBase) {
       handleOpenModal('createCategory');
       if (!open) createQueryString('id', `${id}`);
     }
@@ -50,14 +33,16 @@ export const CategoryIcon: FC<CustomCategoryIconProps> = ({
       removeQueryString('id');
     }
   }, [open, removeQueryString]);
-
   return (
     <motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.9 }}>
       <Box
+        id={id}
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        gap={0}
         sx={{
           width: 'fit-content',
-          minWidth: '5em',
-          textAlign: 'center',
           p: 2,
         }}
       >
@@ -70,13 +55,13 @@ export const CategoryIcon: FC<CustomCategoryIconProps> = ({
         >
           <Tooltip title={withoutLabel ? '' : name} arrow>
             <IconButton onClick={handleSelectCategory}>
-              {categoryData.selectedIcon}
+              {CUSTOM_ICON_MAP[icon]}
             </IconButton>
           </Tooltip>
         </Box>
 
         {!withoutLabel && (
-          <Typography color="primary.contrastText" text={name} maxLength={8} />
+          <Typography color="primary.contrastText" text={name} maxLength={10} />
         )}
       </Box>
     </motion.div>
