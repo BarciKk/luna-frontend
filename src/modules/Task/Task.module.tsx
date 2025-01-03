@@ -9,6 +9,7 @@ import { format } from 'date-fns';
 import { priorityIcons } from 'constants/task.constants';
 import { useModal } from 'providers/ModalProvider';
 import { useCategories } from 'hooks/useCategories';
+import { BASE_ICON_ID, BASE_ICON_NAME } from 'constants/category.constants';
 
 export const Task: FC<TaskProps> = ({
   id,
@@ -57,8 +58,8 @@ export const Task: FC<TaskProps> = ({
       <Stack direction="row" spacing={2} alignItems="center">
         <CategoryIcon
           id={categoryId}
-          name={categoryName ?? ''}
-          icon={icon}
+          name={categoryName ?? BASE_ICON_NAME}
+          icon={icon ?? BASE_ICON_ID}
           color="primary.main"
           withoutLabel
           isBase={false}

@@ -1,9 +1,7 @@
-import { ReactNode } from 'react';
-
 export type Category = {
   id?: string;
   name: string;
-  icon: ReactNode | string;
+  icon: string;
   userId?: string;
   isBase: boolean;
   color: string;

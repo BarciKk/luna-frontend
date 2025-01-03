@@ -2,9 +2,10 @@ import { Box, IconButton, Tooltip } from '@mui/material';
 import { FC, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Typography } from 'components/Typography';
+import { Category } from 'types/Category.types';
 import { useModal } from 'providers/ModalProvider';
 import { useQueryString } from 'hooks';
-import { Category } from 'types/Category.types';
+import { CUSTOM_ICON_MAP } from 'constants/category.constants';
 
 type CustomCategoryIconProps = Category & {
   withoutLabel?: boolean;
@@ -32,14 +33,16 @@ export const CategoryIcon: FC<CustomCategoryIconProps> = ({
       removeQueryString('id');
     }
   }, [open, removeQueryString]);
-
   return (
     <motion.div whileHover={{ scale: 1.15 }} whileTap={{ scale: 0.9 }}>
       <Box
+        id={id}
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        gap={0}
         sx={{
           width: 'fit-content',
-          minWidth: '5em',
-          textAlign: 'center',
           p: 2,
         }}
       >
@@ -51,12 +54,14 @@ export const CategoryIcon: FC<CustomCategoryIconProps> = ({
           }}
         >
           <Tooltip title={withoutLabel ? '' : name} arrow>
-            <IconButton onClick={handleSelectCategory}>{icon}</IconButton>
+            <IconButton onClick={handleSelectCategory}>
+              {CUSTOM_ICON_MAP[icon]}
+            </IconButton>
           </Tooltip>
         </Box>
 
         {!withoutLabel && (
-          <Typography color="primary.contrastText" text={name} maxLength={8} />
+          <Typography color="primary.contrastText" text={name} maxLength={10} />
         )}
       </Box>
     </motion.div>

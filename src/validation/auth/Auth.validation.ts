@@ -47,6 +47,8 @@ const loginSchema = z.object({
   password: passwordSchema,
 });
 
+// export type LoginValues = z.infer<typeof loginSchema>;
+
 const resetPasswordEmailSchema = z.object({
   email: emailSchema,
 });

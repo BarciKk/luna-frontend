@@ -23,7 +23,7 @@ import { useTranslation } from 'react-i18next';
 import { Checkbox } from 'components/Checkbox';
 import { QueryKeys } from 'enums/QueryKeys.enums';
 import { useCategories } from 'hooks/useCategories';
-import { BASE_ICON_NAME } from 'constants/category.constants';
+import { BASE_ICON_ID, BASE_ICON_NAME } from 'constants/category.constants';
 
 export const CreateTaskModal = () => {
   const { user } = useUser();
@@ -71,7 +71,7 @@ export const CreateTaskModal = () => {
     (values: CreateTaskType) =>
       createTask({
         name: values.name,
-        categoryId: findCategoryId ?? BASE_ICON_NAME,
+        categoryId: findCategoryId ?? BASE_ICON_ID,
         date: selectedDate.toISOString(),
         priority: priority,
         userId: user?.id ?? '',
@@ -149,7 +149,7 @@ export const CreateTaskModal = () => {
           <Input name="name" label={t('dashboard.task')} />
           <IconPicker
             name={selectedIcon ?? BASE_ICON_NAME}
-            iconData={combinedCategories}
+            data={combinedCategories}
             onIconSelect={handleIconSelect}
           />
           <DatePicker value={selectedDate} onDateChange={handleDateChange} />

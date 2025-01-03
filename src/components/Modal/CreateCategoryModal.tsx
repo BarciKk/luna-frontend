@@ -31,9 +31,9 @@ export const CreateCategoryModal = () => {
   const { showSnackbar, snackbarProps } = useSnackbar();
   const categoryId = getQueryString('id');
   const { user } = useUser();
-  const { combinedCategories } = useCategories();
+  const { customCategories } = useCategories();
 
-  const category = combinedCategories?.find(
+  const category = customCategories?.find(
     (category: Category) => category.id === categoryId,
   );
 
@@ -95,7 +95,7 @@ export const CreateCategoryModal = () => {
         name: values.name,
         color: values.color,
         userId: user?.id,
-        icon: selectedIcon === '' ? category?.icon : selectedIcon,
+        icon: selectedIcon,
         isBase: false,
       }),
     {
@@ -172,9 +172,9 @@ export const CreateCategoryModal = () => {
           <Box marginTop="18px">
             <Input name="name" type="text" label={t('category.categoryName')} />
             <IconPicker
-              iconData={CONCATED_CATEGORIES}
+              data={CONCATED_CATEGORIES}
               onIconSelect={handleIconSelect}
-              name={category ? category.name : BASE_ICON_NAME}
+              name={category ? category.icon : BASE_ICON_NAME}
             />
             <ColorInput
               name="color"

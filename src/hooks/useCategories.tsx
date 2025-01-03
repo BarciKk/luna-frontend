@@ -1,9 +1,8 @@
 import { getAllCategories } from 'api/category';
 import { useQuery } from 'react-query';
 
-import { Category } from 'types/Category.types';
 import { useUser } from './useUser';
-import { BASE_CATEGORIES, CUSTOM_ICON_MAP } from 'constants/category.constants';
+import { BASE_CATEGORIES } from 'constants/category.constants';
 import { QueryKeys } from 'enums/QueryKeys.enums';
 
 export const useCategories = () => {
@@ -17,23 +16,10 @@ export const useCategories = () => {
     },
   );
 
-  const replaceIconsInCategories = (categories: Category[]) => {
-    return categories.map((category) => ({
-      ...category,
-      icon:
-        CUSTOM_ICON_MAP[category.icon as keyof typeof CUSTOM_ICON_MAP] ||
-        category.icon,
-    }));
-  };
-  const combinedCategories = [
-    ...BASE_CATEGORIES,
-    ...replaceIconsInCategories(CUSTOM_CATEGORIES || []),
-  ];
-
   return {
-    customCategories: replaceIconsInCategories(CUSTOM_CATEGORIES || []),
+    customCategories: CUSTOM_CATEGORIES,
     baseCategories: BASE_CATEGORIES,
-    combinedCategories,
+    combinedCategories: [...(CUSTOM_CATEGORIES ?? []), ...BASE_CATEGORIES],
     isLoading: isLoading,
   };
 };
